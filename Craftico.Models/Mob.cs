@@ -1,0 +1,13 @@
+﻿using NuciXNA.Primitives;
+
+namespace Craftico.Models
+{
+    public sealed class Mob
+    {
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+
+        public Point2D Location { get; set; }
+    }
+}

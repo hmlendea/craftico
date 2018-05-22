@@ -66,14 +66,14 @@ namespace Craftico.Gui.Screens
         {
             base.OnKeyPressed(sender, e);
 
-            ScreenManager.Instance.ChangeScreens(typeof(SplashScreen));
+            ScreenManager.Instance.ChangeScreens(typeof(GameplayScreen));
         }
 
         protected override void OnMouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
             base.OnMouseButtonPressed(sender, e);
 
-            ScreenManager.Instance.ChangeScreens(typeof(SplashScreen));
+            ScreenManager.Instance.ChangeScreens(typeof(GameplayScreen));
         }
     }
 }
