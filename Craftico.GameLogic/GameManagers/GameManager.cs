@@ -10,13 +10,20 @@ namespace Craftico.GameLogic.GameManagers
     public class GameManager : IGameManager
     {
         Mob player;
+
+        readonly IWorldManager worldManager;
         
         /// <summary>
         /// Initializes a new instance of the <see cref="GameManager"/> class.
         /// </summary>
-        public GameManager()
+        public GameManager() : this(new WorldManager())
         {
             player = new Mob();
+        }
+
+        public GameManager(IWorldManager worldManager)
+        {
+            this.worldManager = worldManager;
         }
 
         /// <summary>

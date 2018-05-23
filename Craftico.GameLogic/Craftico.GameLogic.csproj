@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="GameManagers\GameManager.cs" />
     <Compile Include="GameManagers\IGameManager.cs" />
+    <Compile Include="GameManagers\IWorldManager.cs" />
+    <Compile Include="GameManagers\WorldManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
