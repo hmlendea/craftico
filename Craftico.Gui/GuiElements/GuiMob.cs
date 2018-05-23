@@ -5,6 +5,7 @@ using NuciXNA.Gui.GuiElements;
 using NuciXNA.Primitives;
 
 using Craftico.Gui.MobAnimationEffects;
+using Craftico.Models;
 using Craftico.Settings;
 
 namespace Craftico.Gui.GuiElements
@@ -12,13 +13,19 @@ namespace Craftico.Gui.GuiElements
     public class GuiMob : GuiElement
     {
         Sprite mob;
+        HumanSpriteSheetEffect humanEffect;
+
+        public MobAction Action { get; set; }
+
+        public MobDirection Direction { get; set; }
 
         public override void LoadContent()
         {
+            humanEffect = new HumanSpriteSheetEffect();
             mob = new Sprite
             {
                 ContentFile = "SpriteSheets/Mobs/human_male_white",
-                SpriteSheetEffect = new HumanSpriteSheetEffect(),
+                SpriteSheetEffect = humanEffect,
                 Active = true
             };
 
@@ -54,6 +61,9 @@ namespace Craftico.Gui.GuiElements
         protected override void SetChildrenProperties()
         {
             base.SetChildrenProperties();
+
+            humanEffect.Action = Action;
+            humanEffect.Direction = Direction;
 
             if (mob.SourceRectangle.Width == GameDefines.MAP_TILE_SIZE &&
                 mob.SourceRectangle.Height == GameDefines.MAP_TILE_SIZE)

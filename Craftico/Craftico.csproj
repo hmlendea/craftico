@@ -88,8 +88,12 @@
     <Compile Include="GameWindow.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Craftico.DataAccess\Craftico.DataAccess.csproj">
+      <Project>{dfa1e1e9-afeb-4565-ba38-ecdbafc9d47b}</Project>
+      <Name>Craftico.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Craftico.Data\Craftico.Data.csproj">
-      <Project>{1F0B4C1F-5C31-465E-8747-54399762C50A}</Project>
+      <Project>{1f0b4c1f-5c31-465e-8747-54399762c50a}</Project>
       <Name>Craftico.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Craftico.GameLogic\Craftico.GameLogic.csproj">
@@ -101,19 +105,14 @@
       <Name>Craftico.Gui</Name>
     </ProjectReference>
     <ProjectReference Include="..\Craftico.Models\Craftico.Models.csproj">
-      <Project>{0FB5C790-78F3-44EA-AF6C-2D5B7C8E82BE}</Project>
+      <Project>{0fb5c790-78f3-44ea-af6c-2d5b7c8e82be}</Project>
       <Name>Craftico.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Craftico.DataAccess\Craftico.DataAccess.csproj">
-      <Project>{DFA1E1E9-AFEB-4565-BA38-ECDBAFC9D47B}</Project>
-      <Name>Craftico.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\Craftico.Settings\Craftico.Settings.csproj">
       <Project>{f863eb40-1193-4067-8eef-405caf9f2fc9}</Project>
       <Name>Craftico.Settings</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

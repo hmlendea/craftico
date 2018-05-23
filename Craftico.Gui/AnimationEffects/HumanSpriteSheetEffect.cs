@@ -87,7 +87,6 @@ namespace Craftico.Gui.MobAnimationEffects
             }
 
             newFrame.Y += (int)Direction;
-
             CurrentFrame = newFrame;
         }
     }
