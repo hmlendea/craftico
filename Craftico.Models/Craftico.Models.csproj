@@ -35,10 +35,16 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EquipmentSlot.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="InventorySlot.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="ItemType.cs" />
     <Compile Include="Mob.cs" />
     <Compile Include="MobAction.cs" />
     <Compile Include="MobDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wearable.cs" />
     <Compile Include="WorldChunk.cs" />
     <Compile Include="WorldTile.cs" />
   </ItemGroup>

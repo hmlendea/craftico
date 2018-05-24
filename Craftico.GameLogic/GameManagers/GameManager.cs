@@ -11,19 +11,35 @@ namespace Craftico.GameLogic.GameManagers
     {
         Mob player;
 
+        readonly IEntityManager entityManager;
+        readonly IInventoryManager inventoryManager;
         readonly IWorldManager worldManager;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GameManager"/> class.
         /// </summary>
-        public GameManager() : this(new WorldManager())
+        public GameManager()
         {
-            player = new Mob();
-        }
+            player = new Mob
+            {
+                Inventory = new Inventory(28)
+                {
+                    HelmetSlot = new InventorySlot
+                    {
+                        ItemId = "leather_cap",
+                        Quantity = 1
+                    },
+                    CuirassSlot = new InventorySlot
+                    {
+                        ItemId = "leather_chest",
+                        Quantity = 1
+                    }
+                }
+            };
 
-        public GameManager(IWorldManager worldManager)
-        {
-            this.worldManager = worldManager;
+            entityManager = new EntityManager();
+            inventoryManager = new InventoryManager(player, entityManager);
+            worldManager = new WorldManager();
         }
 
         /// <summary>

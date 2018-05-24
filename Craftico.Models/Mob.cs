@@ -13,5 +13,12 @@ namespace Craftico.Models
         public MobAction Action { get; set; }
 
         public MobDirection Direction { get; set; }
+
+        public Inventory Inventory { get; set; }
+
+        public Mob()
+        {
+            Inventory = new Inventory(28);
+        }
     }
 }

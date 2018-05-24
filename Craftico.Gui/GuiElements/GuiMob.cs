@@ -12,186 +12,307 @@ namespace Craftico.Gui.GuiElements
 {
     public class GuiMob : GuiElement
     {
-        Sprite bodyAppearance;
-        Sprite headEquipment;
-        Sprite handsEquipment;
-        Sprite torsoEquipment;
-        Sprite armsEquipment;
-        Sprite shouldersEquipment;
-        Sprite legsEquipment;
+        Mob mob;
 
-        HumanSpriteSheetEffect bodyAppearanceEffect;
-        HumanSpriteSheetEffect headEquipmentEffect;
-        HumanSpriteSheetEffect handEquipmentEffect;
-        HumanSpriteSheetEffect torsoEquipmentEffect;
-        HumanSpriteSheetEffect armsEquipmentEffect;
-        HumanSpriteSheetEffect shouldersEquipmentEffect;
-        HumanSpriteSheetEffect legsEquipmentEffect;
+        Sprite body;
+        Sprite helmet;
+        Sprite cuirass;
+        Sprite greaves;
+        Sprite gloves;
+        Sprite boots;
+        Sprite leftHand;
+        Sprite rightHand;
 
-        public MobAction Action { get; set; }
-
-        public MobDirection Direction { get; set; }
+        HumanSpriteSheetEffect bodyEffect;
+        HumanSpriteSheetEffect helmetEffect;
+        HumanSpriteSheetEffect cuirassEffect;
+        HumanSpriteSheetEffect greavesEffect;
+        HumanSpriteSheetEffect glovesEffect;
+        HumanSpriteSheetEffect bootsEffect;
+        HumanSpriteSheetEffect leftHandEffect;
+        HumanSpriteSheetEffect rightHandEffect;
 
         public override void LoadContent()
         {
-            bodyAppearanceEffect = new HumanSpriteSheetEffect();
-            headEquipmentEffect = new HumanSpriteSheetEffect();
-            handEquipmentEffect = new HumanSpriteSheetEffect();
-            torsoEquipmentEffect = new HumanSpriteSheetEffect();
-            armsEquipmentEffect = new HumanSpriteSheetEffect();
-            shouldersEquipmentEffect = new HumanSpriteSheetEffect();
-            legsEquipmentEffect = new HumanSpriteSheetEffect();
+            bodyEffect = new HumanSpriteSheetEffect();
+            helmetEffect = new HumanSpriteSheetEffect();
+            cuirassEffect = new HumanSpriteSheetEffect();
+            greavesEffect = new HumanSpriteSheetEffect();
+            glovesEffect = new HumanSpriteSheetEffect();
+            bootsEffect = new HumanSpriteSheetEffect();
+            leftHandEffect = new HumanSpriteSheetEffect();
+            rightHandEffect = new HumanSpriteSheetEffect();
 
-            bodyAppearance = new Sprite
+            body = new Sprite
             {
                 ContentFile = "SpriteSheets/Mobs/human_male_white",
-                SpriteSheetEffect = bodyAppearanceEffect,
+                SpriteSheetEffect = bodyEffect,
                 Active = true
             };
-            headEquipment = new Sprite
+            helmet = new Sprite
             {
-                ContentFile = "SpriteSheets/Equipment/leather_cap_male",
-                SpriteSheetEffect = headEquipmentEffect,
+                ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SpriteSheetEffect = helmetEffect,
                 Active = true
             };
-            handsEquipment = new Sprite
+            cuirass = new Sprite
             {
-                ContentFile = "SpriteSheets/Equipment/metal_gloves_male",
-                SpriteSheetEffect = handEquipmentEffect,
+                ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SpriteSheetEffect = cuirassEffect,
                 Active = true
             };
-            torsoEquipment = new Sprite
+            greaves = new Sprite
             {
-                ContentFile = "SpriteSheets/Equipment/leather_chest_male",
-                SpriteSheetEffect = torsoEquipmentEffect,
+                ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SpriteSheetEffect = greavesEffect,
                 Active = true
             };
-            armsEquipment = new Sprite
+            gloves = new Sprite
             {
-                ContentFile = "SpriteSheets/Equipment/plate_arms_male",
-                SpriteSheetEffect = armsEquipmentEffect,
+                ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SpriteSheetEffect = glovesEffect,
                 Active = true
             };
-            shouldersEquipment = new Sprite
+            boots = new Sprite
             {
-                ContentFile = "SpriteSheets/Equipment/leather_shoulders_male",
-                SpriteSheetEffect = shouldersEquipmentEffect,
+                ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SpriteSheetEffect = bootsEffect,
                 Active = true
             };
-            legsEquipment = new Sprite
+            leftHand = new Sprite
             {
-                ContentFile = "SpriteSheets/Equipment/metal_greaves_male",
-                SpriteSheetEffect = legsEquipmentEffect,
+                ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SpriteSheetEffect = leftHandEffect,
+                Active = true
+            };
+            rightHand = new Sprite
+            {
+                ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SpriteSheetEffect = rightHandEffect,
                 Active = true
             };
 
-            bodyAppearance.SpriteSheetEffect.AssociateSprite(bodyAppearance);
-            headEquipment.SpriteSheetEffect.AssociateSprite(headEquipment);
-            handsEquipment.SpriteSheetEffect.AssociateSprite(handsEquipment);
-            torsoEquipment.SpriteSheetEffect.AssociateSprite(torsoEquipment);
-            armsEquipment.SpriteSheetEffect.AssociateSprite(armsEquipment);
-            shouldersEquipment.SpriteSheetEffect.AssociateSprite(shouldersEquipment);
-            legsEquipment.SpriteSheetEffect.AssociateSprite(legsEquipment);
+            body.SpriteSheetEffect.AssociateSprite(body);
+            helmet.SpriteSheetEffect.AssociateSprite(helmet);
+            cuirass.SpriteSheetEffect.AssociateSprite(cuirass);
+            greaves.SpriteSheetEffect.AssociateSprite(greaves);
+            gloves.SpriteSheetEffect.AssociateSprite(gloves);
+            boots.SpriteSheetEffect.AssociateSprite(boots);
+            leftHand.SpriteSheetEffect.AssociateSprite(leftHand);
+            rightHand.SpriteSheetEffect.AssociateSprite(rightHand);
 
-            bodyAppearance.LoadContent();
-            headEquipment.LoadContent();
-            handsEquipment.LoadContent();
-            torsoEquipment.LoadContent();
-            armsEquipment.LoadContent();
-            shouldersEquipment.LoadContent();
-            legsEquipment.LoadContent();
+            body.LoadContent();
+            helmet.LoadContent();
+            cuirass.LoadContent();
+            greaves.LoadContent();
+            gloves.LoadContent();
+            boots.LoadContent();
+            leftHand.LoadContent();
+            rightHand.LoadContent();
 
             base.LoadContent();
 
-            bodyAppearance.SpriteSheetEffect.Activate();
-            headEquipment.SpriteSheetEffect.Activate();
-            handsEquipment.SpriteSheetEffect.Activate();
-            torsoEquipment.SpriteSheetEffect.Activate();
-            armsEquipment.SpriteSheetEffect.Activate();
-            shouldersEquipment.SpriteSheetEffect.Activate();
-            legsEquipment.SpriteSheetEffect.Activate();
+            body.SpriteSheetEffect.Activate();
+            helmet.SpriteSheetEffect.Activate();
+            cuirass.SpriteSheetEffect.Activate();
+            greaves.SpriteSheetEffect.Activate();
+            gloves.SpriteSheetEffect.Activate();
+            boots.SpriteSheetEffect.Activate();
+            leftHand.SpriteSheetEffect.Activate();
+            rightHand.SpriteSheetEffect.Activate();
         }
 
         public override void UnloadContent()
         {
             base.UnloadContent();
 
-            bodyAppearance.UnloadContent();
-            headEquipment.UnloadContent();
-            handsEquipment.UnloadContent();
-            torsoEquipment.UnloadContent();
-            armsEquipment.UnloadContent();
-            shouldersEquipment.UnloadContent();
-            legsEquipment.UnloadContent();
+            body.UnloadContent();
+            helmet.UnloadContent();
+            cuirass.UnloadContent();
+            greaves.UnloadContent();
+            gloves.UnloadContent();
+            boots.UnloadContent();
+            leftHand.UnloadContent();
+            rightHand.UnloadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            bodyAppearance.Update(gameTime);
-            headEquipment.Update(gameTime);
-            handsEquipment.Update(gameTime);
-            torsoEquipment.Update(gameTime);
-            armsEquipment.Update(gameTime);
-            shouldersEquipment.Update(gameTime);
-            legsEquipment.Update(gameTime);
+            body.Update(gameTime);
+            helmet.Update(gameTime);
+            cuirass.Update(gameTime);
+            greaves.Update(gameTime);
+            boots.Update(gameTime);
+            gloves.Update(gameTime);
+            leftHand.Update(gameTime);
+            rightHand.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
 
-            bodyAppearance.Draw(spriteBatch);
-            headEquipment.Draw(spriteBatch);
-            handsEquipment.Draw(spriteBatch);
-            torsoEquipment.Draw(spriteBatch);
-            armsEquipment.Draw(spriteBatch);
-            shouldersEquipment.Draw(spriteBatch);
-            legsEquipment.Draw(spriteBatch);
+            body.Draw(spriteBatch);
+
+            if (!mob.Inventory.HelmetSlot.IsEmpty)
+            {
+                helmet.Draw(spriteBatch);
+            }
+
+            if (!mob.Inventory.CuirassSlot.IsEmpty)
+            {
+                cuirass.Draw(spriteBatch);
+            }
+
+            if (!mob.Inventory.GreavesSlot.IsEmpty)
+            {
+                greaves.Draw(spriteBatch);
+            }
+
+            if (!mob.Inventory.GlovesSlot.IsEmpty)
+            {
+                gloves.Draw(spriteBatch);
+            }
+
+            if (!mob.Inventory.BootsSlot.IsEmpty)
+            {
+                boots.Draw(spriteBatch);
+            }
+
+            if (!mob.Inventory.LeftHandSlot.IsEmpty)
+            {
+                leftHand.Draw(spriteBatch);
+            }
+
+            if (!mob.Inventory.RightHandSlot.IsEmpty)
+            {
+                rightHand.Draw(spriteBatch);
+            }
+        }
+
+        public void AssociateMob(Mob mob)
+        {
+            this.mob = mob;
         }
 
         protected override void SetChildrenProperties()
         {
             base.SetChildrenProperties();
+            
+            UpdateEquipmentContentFiles();
 
-            bodyAppearanceEffect.Action = Action;
-            headEquipmentEffect.Action = Action;
-            handEquipmentEffect.Action = Action;
-            torsoEquipmentEffect.Action = Action;
-            armsEquipmentEffect.Action = Action;
-            shouldersEquipmentEffect.Action = Action;
-            legsEquipmentEffect.Action = Action;
+            bodyEffect.Action = mob.Action;
+            helmetEffect.Action = mob.Action;
+            cuirassEffect.Action = mob.Action;
+            greavesEffect.Action = mob.Action;
+            glovesEffect.Action = mob.Action;
+            bootsEffect.Action = mob.Action;
+            leftHandEffect.Action = mob.Action;
+            rightHandEffect.Action = mob.Action;
 
-            bodyAppearanceEffect.Direction = Direction;
-            headEquipmentEffect.Direction = Direction;
-            handEquipmentEffect.Direction = Direction;
-            torsoEquipmentEffect.Direction = Direction;
-            armsEquipmentEffect.Direction = Direction;
-            shouldersEquipmentEffect.Direction = Direction;
-            legsEquipmentEffect.Direction = Direction;
+            bodyEffect.Direction = mob.Direction;
+            helmetEffect.Direction = mob.Direction;
+            cuirassEffect.Direction = mob.Direction;
+            greavesEffect.Direction = mob.Direction;
+            glovesEffect.Direction = mob.Direction;
+            bootsEffect.Direction = mob.Direction;
+            leftHandEffect.Direction = mob.Direction;
+            rightHandEffect.Direction = mob.Direction;
+            
+            Point2D location = new Point2D(
+                Location.X + (GameDefines.MAP_TILE_SIZE - body.SourceRectangle.Width) / 2,
+                Location.Y + GameDefines.MAP_TILE_SIZE - body.SourceRectangle.Height); ;
 
-            bodyAppearance.Location = new Point2D(
-                Location.X + (GameDefines.MAP_TILE_SIZE - bodyAppearance.SourceRectangle.Width) / 2,
-                Location.Y + GameDefines.MAP_TILE_SIZE - bodyAppearance.SourceRectangle.Height);
-            headEquipment.Location = new Point2D(
-                Location.X + (GameDefines.MAP_TILE_SIZE - headEquipment.SourceRectangle.Width) / 2,
-                Location.Y + GameDefines.MAP_TILE_SIZE - headEquipment.SourceRectangle.Height);
-            handsEquipment.Location = new Point2D(
-                Location.X + (GameDefines.MAP_TILE_SIZE - handsEquipment.SourceRectangle.Width) / 2,
-                Location.Y + GameDefines.MAP_TILE_SIZE - handsEquipment.SourceRectangle.Height);
-            torsoEquipment.Location = new Point2D(
-                Location.X + (GameDefines.MAP_TILE_SIZE - torsoEquipment.SourceRectangle.Width) / 2,
-                Location.Y + GameDefines.MAP_TILE_SIZE - torsoEquipment.SourceRectangle.Height);
-            armsEquipment.Location = new Point2D(
-                Location.X + (GameDefines.MAP_TILE_SIZE - armsEquipment.SourceRectangle.Width) / 2,
-                Location.Y + GameDefines.MAP_TILE_SIZE - armsEquipment.SourceRectangle.Height);
-            shouldersEquipment.Location = new Point2D(
-                Location.X + (GameDefines.MAP_TILE_SIZE - shouldersEquipment.SourceRectangle.Width) / 2,
-                Location.Y + GameDefines.MAP_TILE_SIZE - shouldersEquipment.SourceRectangle.Height);
-            legsEquipment.Location = new Point2D(
-                Location.X + (GameDefines.MAP_TILE_SIZE - legsEquipment.SourceRectangle.Width) / 2,
-                Location.Y + GameDefines.MAP_TILE_SIZE - legsEquipment.SourceRectangle.Height);
+            body.Location = location;
+            helmet.Location = location;
+            cuirass.Location = location;
+            greaves.Location = location;
+            gloves.Location = location;
+            boots.Location = location;
+            leftHand.Location = location;
+            rightHand.Location = location;
+        }
+        
+        void UpdateEquipmentContentFiles()
+        {
+            if (!mob.Inventory.HelmetSlot.IsEmpty)
+            {
+                string contentFile = $"SpriteSheets/Equipment/{mob.Inventory.HelmetSlot.ItemId}_male";
+
+                if (contentFile != helmet.ContentFile)
+                {
+                    helmet.ContentFile = contentFile;
+                    helmet.LoadContent();
+                }
+            }
+
+            if (!mob.Inventory.CuirassSlot.IsEmpty)
+            {
+                string contentFile = $"SpriteSheets/Equipment/{mob.Inventory.CuirassSlot.ItemId}_male";
+
+                if (contentFile != cuirass.ContentFile)
+                {
+                    cuirass.ContentFile = contentFile;
+                    cuirass.LoadContent();
+                }
+            }
+
+            if (!mob.Inventory.GreavesSlot.IsEmpty)
+            {
+                string contentFile = $"SpriteSheets/Equipment/{mob.Inventory.GreavesSlot.ItemId}_male";
+
+                if (contentFile != greaves.ContentFile)
+                {
+                    greaves.ContentFile = contentFile;
+                    greaves.LoadContent();
+                }
+            }
+
+            if (!mob.Inventory.GlovesSlot.IsEmpty)
+            {
+                string contentFile = $"SpriteSheets/Equipment/{mob.Inventory.GlovesSlot.ItemId}_male";
+
+                if (contentFile != gloves.ContentFile)
+                {
+                    gloves.ContentFile = contentFile;
+                    gloves.LoadContent();
+                }
+            }
+
+            if (!mob.Inventory.BootsSlot.IsEmpty)
+            {
+                string contentFile = $"SpriteSheets/Equipment/{mob.Inventory.BootsSlot.ItemId}_male";
+
+                if (contentFile != boots.ContentFile)
+                {
+                    boots.ContentFile = contentFile;
+                    boots.LoadContent();
+                }
+            }
+
+            if (!mob.Inventory.LeftHandSlot.IsEmpty)
+            {
+                string contentFile = $"SpriteSheets/Equipment/{mob.Inventory.LeftHandSlot.ItemId}_male";
+
+                if (contentFile != leftHand.ContentFile)
+                {
+                    leftHand.ContentFile = contentFile;
+                    leftHand.LoadContent();
+                }
+            }
+
+            if (!mob.Inventory.RightHandSlot.IsEmpty)
+            {
+                string contentFile = $"SpriteSheets/Equipment/{mob.Inventory.RightHandSlot.ItemId}_male";
+
+                if (contentFile != rightHand.ContentFile)
+                {
+                    rightHand.ContentFile = contentFile;
+                    rightHand.LoadContent();
+                }
+            }
         }
     }
 }

@@ -51,6 +51,11 @@ namespace Craftico.Settings
         public static string DataDirectory => Path.Combine(ApplicationDirectory, "Data");
 
         /// <summary>
+        /// The entities directory.
+        /// </summary>
+        public static string EntitiesDirectory => Path.Combine(DataDirectory, "Entities");
+
+        /// <summary>
         /// Gets the options file.
         /// </summary>
         /// <value>The options file.</value>

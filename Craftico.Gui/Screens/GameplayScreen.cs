@@ -34,6 +34,7 @@ namespace Craftico.Gui.Screens
             {
                 Location = new Point2D(100, 100)
             };
+            playerImage.AssociateMob(player);
 
             GuiManager.Instance.GuiElements.Add(playerImage);
             
@@ -46,14 +47,6 @@ namespace Craftico.Gui.Screens
             HandleInteractions();
 
             base.Update(gameTime);
-        }
-
-        protected override void SetChildrenProperties()
-        {
-            playerImage.Action = player.Action;
-            playerImage.Direction = player.Direction;
-
-            base.SetChildrenProperties();
         }
 
         void HandleMovement()
