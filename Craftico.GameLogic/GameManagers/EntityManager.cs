@@ -2,9 +2,6 @@
 using System.IO;
 using System.Linq;
 
-using NuciXNA.DataAccess.IO;
-
-using Craftico.DataAccess.DataObjects;
 using Craftico.DataAccess.Repositories;
 using Craftico.GameLogic.Mapping;
 using Craftico.Models;

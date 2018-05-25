@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using NuciXNA.DataAccess.Exceptions;
+﻿using NuciXNA.DataAccess.Exceptions;
 using NuciXNA.DataAccess.Repositories;
 
 using Craftico.DataAccess.DataObjects;
