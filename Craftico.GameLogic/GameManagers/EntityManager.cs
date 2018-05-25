@@ -13,6 +13,7 @@ namespace Craftico.GameLogic.GameManagers
     {
         List<Item> items;
         List<Mob> mobs;
+        List<Terrain> terrains;
 
         /// <summary>
         /// Loads the entities in memory.
@@ -23,12 +24,15 @@ namespace Craftico.GameLogic.GameManagers
             string mobPath = Path.Combine(ApplicationPaths.EntitiesDirectory, "mobs.xml");
             string prayerPath = Path.Combine(ApplicationPaths.EntitiesDirectory, "prayers.xml");
             string spellPath = Path.Combine(ApplicationPaths.EntitiesDirectory, "spells.xml");
+            string terrainsPath = Path.Combine(ApplicationPaths.EntitiesDirectory, "terrains.xml");
 
             ItemRepository itemRepository = new ItemRepository(itemPath);
             //MobRepository mobRepository = new MobRepository(mobPath);
+            TerrainRepository terrainRepository = new TerrainRepository(terrainsPath);
 
             items = itemRepository.GetAll().ToDomainModels().ToList();
             //mobs = mobRepository.GetAll().ToDomainModels().ToList();
+            terrains = terrainRepository.GetAll().ToDomainModels().ToList();
         }
 
         /// <summary>
@@ -40,8 +44,7 @@ namespace Craftico.GameLogic.GameManagers
         {
             return items.FirstOrDefault(x => x.Id == id);
         }
-
-
+        
         /// <summary>
         /// Gets the mob.
         /// </summary>
@@ -50,6 +53,16 @@ namespace Craftico.GameLogic.GameManagers
         public Mob GetMob(string id)
         {
             return mobs.FirstOrDefault(x => x.Id == id);
+        }
+
+        /// <summary>
+        /// Gets the terrain.
+        /// </summary>
+        /// <returns>The terrain.</returns>
+        /// <param name="id">Identifier.</param>
+        public Terrain GetTerrain(string id)
+        {
+            return terrains.FirstOrDefault(x => x.Id == id);
         }
     }
 }

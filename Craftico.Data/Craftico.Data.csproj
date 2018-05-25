@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{696f808c-8c5a-41b0-997c-b5230917fca7}</ProjectGuid>
+    <ProjectGuid>{696F808C-8C5A-41B0-997C-B5230917FCA7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Craftico.Data</RootNamespace>
     <AssemblyName>Craftico.Data</AssemblyName>
@@ -53,6 +53,7 @@
     <Content Include="Data\Entities\items.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Entities\terrains.xml" />
     <Content Include="x64\libopenal.so.1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

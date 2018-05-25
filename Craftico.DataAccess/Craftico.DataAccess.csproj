@@ -39,8 +39,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataObjects\ItemEntity.cs" />
+    <Compile Include="DataObjects\TerrainEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
+    <Compile Include="Repositories\TerrainRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

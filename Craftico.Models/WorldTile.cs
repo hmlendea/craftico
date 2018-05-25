@@ -8,6 +8,6 @@ namespace Craftico.Models
 
         public Point2D WorldLocation { get; set; }
 
-        public string Id { get; set; }
+        public string TerrainId { get; set; }
     }
 }

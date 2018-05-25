@@ -22,5 +22,12 @@ namespace Craftico.GameLogic.GameManagers
         /// <returns>The mob.</returns>
         /// <param name="id">Identifier.</param>
         Mob GetMob(string id);
+
+        /// <summary>
+        /// Gets the terrain.
+        /// </summary>
+        /// <returns>The terrain.</returns>
+        /// <param name="id">Identifier.</param>
+        Terrain GetTerrain(string id);
     }
 }

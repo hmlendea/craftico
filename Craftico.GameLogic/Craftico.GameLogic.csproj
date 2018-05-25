@@ -57,6 +57,7 @@
     <Compile Include="GameManagers\IWorldManager.cs" />
     <Compile Include="GameManagers\WorldManager.cs" />
     <Compile Include="Mapping\ItemMappingExtensions.cs" />
+    <Compile Include="Mapping\TerrainMappingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
