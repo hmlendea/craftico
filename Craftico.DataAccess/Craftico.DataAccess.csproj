@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DFA1E1E9-AFEB-4565-BA38-ECDBAFC9D47B}</ProjectGuid>
+    <ProjectGuid>{D6D3C0EC-2F56-4259-906D-84B851C31569}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Craftico.DataAccess</RootNamespace>
     <AssemblyName>Craftico.DataAccess</AssemblyName>
@@ -28,20 +28,14 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NuciXNA.DataAccess, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NuciXNA.DataAccess.1.0.3\lib\net45\NuciXNA.DataAccess.dll</HintPath>
+    <Reference Include="NuciXNA.DataAccess, Version=1.0.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuciXNA.DataAccess.1.0.4.1\lib\net45\NuciXNA.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="NuciXNA.Primitives, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NuciXNA.Primitives.1.0.4\lib\net45\NuciXNA.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="MonoGame.Framework">
-      <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="TiledSharp">
-      <HintPath>..\packages\TiledSharp.0.15\lib\TiledSharp.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataObjects\ItemEntity.cs" />
@@ -53,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IO\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Craftico.Models\Craftico.Models.csproj">
+      <Project>{220f59ed-ba60-4495-a4fe-7816a672d22e}</Project>
+      <Name>Craftico.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

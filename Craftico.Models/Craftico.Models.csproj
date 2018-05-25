@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0FB5C790-78F3-44EA-AF6C-2D5B7C8E82BE}</ProjectGuid>
+    <ProjectGuid>{220F59ED-BA60-4495-A4FE-7816A672D22E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Craftico.Models</RootNamespace>
     <AssemblyName>Craftico.Models</AssemblyName>
@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Craftico.Settings\Craftico.Settings.csproj">
-      <Project>{f863eb40-1193-4067-8eef-405caf9f2fc9}</Project>
+      <Project>{4d178371-4df9-47dd-93c5-8b84486deaa6}</Project>
       <Name>Craftico.Settings</Name>
     </ProjectReference>
   </ItemGroup>

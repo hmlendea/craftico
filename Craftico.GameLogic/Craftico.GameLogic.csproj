@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{24363CDB-0A6A-4FCC-AD2E-52CC98C7F49F}</ProjectGuid>
+    <ProjectGuid>{79831B96-98A0-4528-85AC-148594ABEE4F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Craftico.GameLogic</RootNamespace>
     <AssemblyName>Craftico.GameLogic</AssemblyName>
@@ -39,8 +39,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="NuciXNA.DataAccess, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NuciXNA.DataAccess.1.0.3\lib\net45\NuciXNA.DataAccess.dll</HintPath>
+    <Reference Include="NuciXNA.DataAccess, Version=1.0.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuciXNA.DataAccess.1.0.4.1\lib\net45\NuciXNA.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="NuciXNA.Primitives, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NuciXNA.Primitives.1.0.4\lib\net45\NuciXNA.Primitives.dll</HintPath>
@@ -60,23 +60,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Craftico.DataAccess\Craftico.DataAccess.csproj">
-      <Project>{dfa1e1e9-afeb-4565-ba38-ecdbafc9d47b}</Project>
+      <Project>{d6d3c0ec-2f56-4259-906d-84b851c31569}</Project>
       <Name>Craftico.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\Craftico.Models\Craftico.Models.csproj">
-      <Project>{0fb5c790-78f3-44ea-af6c-2d5b7c8e82be}</Project>
+      <Project>{220f59ed-ba60-4495-a4fe-7816a672d22e}</Project>
       <Name>Craftico.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Craftico.Settings\Craftico.Settings.csproj">
-      <Project>{f863eb40-1193-4067-8eef-405caf9f2fc9}</Project>
+      <Project>{4d178371-4df9-47dd-93c5-8b84486deaa6}</Project>
       <Name>Craftico.Settings</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

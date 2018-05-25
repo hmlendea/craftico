@@ -29,18 +29,19 @@ namespace Craftico.DataAccess.Repositories
         {
             LoadEntitiesIfNeeded();
 
-            ItemEntity itemEntityToUpdate = Entities.FirstOrDefault(x => x.Id == itemEntity.Id);
+            ItemEntity itemEntityToUpdate = Get(itemEntity.Id);
 
             if (itemEntityToUpdate == null)
             {
                 throw new EntityNotFoundException(itemEntity.Id, nameof(ItemEntity));
             }
 
+            itemEntityToUpdate.Name = itemEntity.Name;
             itemEntityToUpdate.Description = itemEntity.Description;
             itemEntityToUpdate.Type = itemEntity.Type;
             itemEntityToUpdate.SpriteSheet = itemEntity.SpriteSheet;
 
-            XmlFile.SaveEntities(Entities);
+            XmlFile.SaveEntities(Entities.Values);
         }
     }
 }
