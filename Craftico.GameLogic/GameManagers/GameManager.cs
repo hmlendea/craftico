@@ -26,12 +26,27 @@ namespace Craftico.GameLogic.GameManagers
                 {
                     HelmetSlot = new InventorySlot
                     {
-                        ItemId = "leather_cap",
+                        ItemId = "metal_helm",
                         Quantity = 1
                     },
                     CuirassSlot = new InventorySlot
                     {
-                        ItemId = "leather_chest",
+                        ItemId = "metal_cuirass",
+                        Quantity = 1
+                    },
+                    GreavesSlot = new InventorySlot
+                    {
+                        ItemId = "metal_greaves",
+                        Quantity = 1
+                    },
+                    GlovesSlot = new InventorySlot
+                    {
+                        ItemId = "metal_gloves",
+                        Quantity = 1
+                    },
+                    BootsSlot = new InventorySlot
+                    {
+                        ItemId = "metal_boots",
                         Quantity = 1
                     }
                 }

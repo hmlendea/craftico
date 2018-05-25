@@ -14,4 +14,32 @@
     <ItemType>Wearable</ItemType>
     <SpriteSheet>leather_chest</SpriteSheet>
   </ItemEntity>
+  <ItemEntity>
+    <Id>metal_helm</Id>
+    <Name>Metal Helm</Name>
+    <Description>Metal Helm</Description>
+    <ItemType>Wearable</ItemType>
+    <SpriteSheet>metal_helm</SpriteSheet>
+  </ItemEntity>
+  <ItemEntity>
+    <Id>metal_cuirass</Id>
+    <Name>Metal Cuirass</Name>
+    <Description>Metal Cuirass</Description>
+    <ItemType>Wearable</ItemType>
+    <SpriteSheet>metal_cuirass</SpriteSheet>
+  </ItemEntity>
+  <ItemEntity>
+    <Id>metal_greaves</Id>
+    <Name>Metal Greaves</Name>
+    <Description>Metal Greaves</Description>
+    <ItemType>Wearable</ItemType>
+    <SpriteSheet>metal_greaves</SpriteSheet>
+  </ItemEntity>
+  <ItemEntity>
+    <Id>metal_boots</Id>
+    <Name>Metal Boots</Name>
+    <Description>Metal Boots</Description>
+    <ItemType>Wearable</ItemType>
+    <SpriteSheet>metal_boots</SpriteSheet>
+  </ItemEntity>
 </ArrayOfItemEntity>
