@@ -155,27 +155,7 @@ namespace Craftico.Gui.GuiElements
             base.Draw(spriteBatch);
 
             body.Draw(spriteBatch);
-
-            if (!mob.Inventory.HelmetSlot.IsEmpty)
-            {
-                helmet.Draw(spriteBatch);
-            }
-
-            if (!mob.Inventory.CuirassSlot.IsEmpty)
-            {
-                cuirass.Draw(spriteBatch);
-            }
-
-            if (!mob.Inventory.GreavesSlot.IsEmpty)
-            {
-                greaves.Draw(spriteBatch);
-            }
-
-            if (!mob.Inventory.GlovesSlot.IsEmpty)
-            {
-                gloves.Draw(spriteBatch);
-            }
-
+            
             if (!mob.Inventory.BootsSlot.IsEmpty)
             {
                 boots.Draw(spriteBatch);
@@ -189,6 +169,26 @@ namespace Craftico.Gui.GuiElements
             if (!mob.Inventory.RightHandSlot.IsEmpty)
             {
                 rightHand.Draw(spriteBatch);
+            }
+
+            if (!mob.Inventory.GreavesSlot.IsEmpty)
+            {
+                greaves.Draw(spriteBatch);
+            }
+
+            if (!mob.Inventory.CuirassSlot.IsEmpty)
+            {
+                cuirass.Draw(spriteBatch);
+            }
+
+            if (!mob.Inventory.GlovesSlot.IsEmpty)
+            {
+                gloves.Draw(spriteBatch);
+            }
+
+            if (!mob.Inventory.HelmetSlot.IsEmpty)
+            {
+                helmet.Draw(spriteBatch);
             }
         }
 
