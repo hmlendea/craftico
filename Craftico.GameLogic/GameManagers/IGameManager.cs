@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using NuciXNA.Primitives;
 
 using Craftico.Models;
 
@@ -32,6 +33,6 @@ namespace Craftico.GameLogic.GameManagers
 
         Terrain GetTerrain(string id);
 
-        void MovePlayer(MobDirection direction);
+        void MovePlayer(Point2D destination);
     }
 }

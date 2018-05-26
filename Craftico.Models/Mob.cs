@@ -14,7 +14,7 @@ namespace Craftico.Models
 
         public MobDirection Direction { get; set; }
 
-        public float MovementSpeed { get; set; }
+        public int MovementSpeed { get; set; }
 
         public Inventory Inventory { get; set; }
 
@@ -24,7 +24,7 @@ namespace Craftico.Models
 
         public Mob()
         {
-            MovementSpeed = 0.05f;
+            MovementSpeed = 16;
             Inventory = new Inventory(28);
 
             Vigour = new Skill();

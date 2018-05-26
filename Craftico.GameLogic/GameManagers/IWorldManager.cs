@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 
 using Craftico.Models;
 
@@ -23,5 +25,7 @@ namespace Craftico.GameLogic.GameManagers
         void Update(GameTime gameTime);
 
         WorldTile GetTile(int x, int y);
+
+        IEnumerable<WorldTile> GetChunkTilesAroundLocation(int x, int y);
     }
 }

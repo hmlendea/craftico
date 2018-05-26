@@ -2,6 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using NuciXNA.Graphics;
 using NuciXNA.Gui.GuiElements;
+using NuciXNA.Input;
+using NuciXNA.Input.Enumerations;
+using NuciXNA.Input.Events;
 using NuciXNA.Primitives;
 
 using Craftico.GameLogic.GameManagers;
@@ -117,6 +120,36 @@ namespace Craftico.Gui.GuiElements
         public void AssociateCamera(Camera camera)
         {
             this.camera = camera;
+        }
+
+        protected override void RegisterEvents()
+        {
+            base.RegisterEvents();
+
+            InputManager.Instance.MouseButtonPressed += this_MouseButtonPressed;
+        }
+
+        protected override void UnregisterEvents()
+        {
+            base.UnregisterEvents();
+
+            InputManager.Instance.MouseButtonPressed -= this_MouseButtonPressed;
+        }
+
+        void this_MouseButtonPressed(object sender, MouseButtonEventArgs e)
+        {
+            game.MovePlayer(ScreenToMapCoordinates(e.Location));
+        }
+
+        /// <summary>
+        /// Gets the map cpprdomates based on the specified screen coordinates.
+        /// </summary>
+        /// <returns>The map coordinates.</returns>
+        /// <param name="screenCoords">Screen coordinates.</param>
+        Point2D ScreenToMapCoordinates(Point2D screenCoords)
+        {
+            return new Point2D((camera.Location.X + screenCoords.X) / GameDefines.MAP_TILE_SIZE,
+                               (camera.Location.Y + screenCoords.Y) / GameDefines.MAP_TILE_SIZE);
         }
     }
 }

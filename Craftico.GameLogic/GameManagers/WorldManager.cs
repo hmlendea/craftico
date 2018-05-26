@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using NuciXNA.Primitives;
@@ -58,6 +58,40 @@ namespace Craftico.GameLogic.GameManagers
             }
 
             return chunk[ctx, cty];
+        }
+
+        public IEnumerable<WorldTile> GetChunkTilesAroundLocation(int x, int y)
+        {
+            Point2D chunkLocation = GetChunkLocationFromTileLocation(x, y);
+
+            List<WorldTile> tiles = new List<WorldTile>();
+
+            for (int j = -1; j <= 1; j++)
+            {
+                for (int i = -1; i <= 1; i++)
+                {
+                    tiles.AddRange(GetChunkTiles(chunkLocation.X + i, chunkLocation.Y + j));
+                }
+            }
+
+            return tiles;
+        }
+
+        IEnumerable<WorldTile> GetChunkTiles(int x, int y)
+        {
+            WorldChunk chunk = GetChunk(x, y);
+
+            List<WorldTile> tiles = new List<WorldTile>();
+
+            for (int j = 0; j < GameDefines.WorldChunkSize; j++)
+            {
+                for (int i = 0; i < GameDefines.WorldChunkSize; i++)
+                {
+                    tiles.Add(chunk[i, j]);
+                }
+            }
+
+            return tiles;
         }
 
         WorldChunk GetChunk(int x, int y)
