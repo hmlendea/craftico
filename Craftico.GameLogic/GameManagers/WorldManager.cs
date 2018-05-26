@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+
+using Microsoft.Xna.Framework;
+using NuciXNA.Primitives;
 
 using Craftico.GameLogic.Generators;
 using Craftico.Models;
@@ -37,18 +40,24 @@ namespace Craftico.GameLogic.GameManagers
 
         public WorldTile GetTile(int x, int y)
         {
-            WorldChunk chunk = GetChunk(x / GameDefines.WorldChunkSize, y / GameDefines.WorldChunkSize);
+            Point2D chunkLocation = GetChunkLocationFromTileLocation(x, y);
+            WorldChunk chunk = GetChunk(chunkLocation.X, chunkLocation.Y);
 
             // Gets the tile inside the chunk using its index (0, cts)
             int ctx = x % GameDefines.WorldChunkSize;
             int cty = y % GameDefines.WorldChunkSize;
 
-            if (x < 0)
+            if (x == -48)
+            {
+                System.Console.WriteLine("sa");
+            }
+
+            if (x < 0 && ctx != 0)
             {
                 ctx = GameDefines.WorldChunkSize + ctx;
             }
 
-            if (y < 0)
+            if (y < 0 && cty != 0)
             {
                 cty = GameDefines.WorldChunkSize + cty;
             }
@@ -76,6 +85,24 @@ namespace Craftico.GameLogic.GameManagers
             }
 
             return chunk;
+        }
+
+        Point2D GetChunkLocationFromTileLocation(int tileX, int tileY)
+        {
+            int chunkX = tileX / GameDefines.WorldChunkSize;
+            int chunkY = tileY / GameDefines.WorldChunkSize;
+
+            if (tileX < 0 && tileX % GameDefines.WorldChunkSize > 0)
+            {
+                chunkX -= 1;
+            }
+
+            if (tileY < 0 && tileY % GameDefines.WorldChunkSize > 0)
+            {
+                chunkY -= 1;
+            }
+
+            return new Point2D(chunkX, chunkY);
         }
     }
 }

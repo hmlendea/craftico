@@ -97,6 +97,8 @@ namespace Craftico.GameLogic.GameManagers
 
         public WorldTile GetTile(int x, int y) => worldManager.GetTile(x, y);
 
+        public Terrain GetTerrain(string id) => entityManager.GetTerrain(id);
+
         public void MovePlayer(MobDirection direction)
         {
             player.Action = MobAction.Movement;

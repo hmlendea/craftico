@@ -1,4 +1,6 @@
-﻿namespace Craftico.Models
+﻿using NuciXNA.Primitives;
+
+namespace Craftico.Models
 {
     public class Terrain
     {
@@ -11,5 +13,7 @@
         public string SpriteSheet { get; set; }
 
         public int Order { get; set; }
+
+        public Colour Colour { get; set; }
     }
 }

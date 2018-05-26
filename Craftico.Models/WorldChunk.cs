@@ -1,4 +1,6 @@
-﻿using Craftico.Settings;
+﻿using NuciXNA.Primitives;
+
+using Craftico.Settings;
 
 namespace Craftico.Models
 {
@@ -7,6 +9,8 @@ namespace Craftico.Models
         public const int ChunkSize = 32;
 
         WorldTile[,] tiles;
+
+        public Point2D Location { get; set; }
 
         public WorldChunk()
         {

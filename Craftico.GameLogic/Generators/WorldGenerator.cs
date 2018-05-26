@@ -22,8 +22,11 @@ namespace Craftico.GameLogic.Generators
 
         public WorldChunk GenerateChunk(int x, int y)
         {
-            WorldChunk chunk = new WorldChunk();
             List<string> terrainIds = new List<string> { "grass", "dirt", "sand" };
+            WorldChunk chunk = new WorldChunk
+            {
+                Location = new Point2D(x, y)
+            };
 
             for (int j = 0; j < GameDefines.WorldChunkSize; j++)
             {

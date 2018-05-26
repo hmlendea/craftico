@@ -30,6 +30,8 @@ namespace Craftico.GameLogic.GameManagers
 
         WorldTile GetTile(int x, int y);
 
+        Terrain GetTerrain(string id);
+
         void MovePlayer(MobDirection direction);
     }
 }

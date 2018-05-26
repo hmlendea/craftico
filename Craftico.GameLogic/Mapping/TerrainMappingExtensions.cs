@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using NuciXNA.Primitives.Mapping;
+
 using Craftico.DataAccess.DataObjects;
 using Craftico.Models;
 
@@ -24,7 +26,8 @@ namespace Craftico.GameLogic.Mapping
                 Name = terrainEntity.Name,
                 Description = terrainEntity.Description,
                 SpriteSheet = terrainEntity.SpriteSheet,
-                Order = terrainEntity.Order
+                Order = terrainEntity.Order,
+                Colour = ColourTranslator.FromHexadecimal(terrainEntity.Colour)
             };
 
             return terrain;
@@ -43,7 +46,8 @@ namespace Craftico.GameLogic.Mapping
                 Name = terrain.Name,
                 Description = terrain.Description,
                 SpriteSheet = terrain.SpriteSheet,
-                Order = terrain.Order
+                Order = terrain.Order,
+                Colour = terrain.Colour.ToHexadecimal()
             };
 
             return terrainEntity;

@@ -11,5 +11,7 @@ namespace Craftico.DataAccess.DataObjects
         public string SpriteSheet { get; set; }
 
         public int Order { get; set; }
+
+        public string Colour { get; set; }
     }
 }
