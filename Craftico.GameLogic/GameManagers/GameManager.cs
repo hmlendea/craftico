@@ -32,13 +32,9 @@ namespace Craftico.GameLogic.GameManagers
         {
             player = new Mob
             {
+                Vigour = new Skill(10, 1154),
                 Inventory = new Inventory(28)
                 {
-                    HelmetSlot = new InventorySlot
-                    {
-                        ItemId = "metal_helm",
-                        Quantity = 1
-                    },
                     CuirassSlot = new InventorySlot
                     {
                         ItemId = "metal_cuirass",

@@ -47,11 +47,6 @@ namespace Craftico.GameLogic.GameManagers
             int ctx = x % GameDefines.WorldChunkSize;
             int cty = y % GameDefines.WorldChunkSize;
 
-            if (x == -48)
-            {
-                System.Console.WriteLine("sa");
-            }
-
             if (x < 0 && ctx != 0)
             {
                 ctx = GameDefines.WorldChunkSize + ctx;

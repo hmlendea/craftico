@@ -18,10 +18,17 @@ namespace Craftico.Models
 
         public Inventory Inventory { get; set; }
 
+        public Skill Vigour { get; set; }
+
+        public Skill Faith { get; set; }
+
         public Mob()
         {
             MovementSpeed = 0.05f;
             Inventory = new Inventory(28);
+
+            Vigour = new Skill();
+            Faith = new Skill();
         }
     }
 }

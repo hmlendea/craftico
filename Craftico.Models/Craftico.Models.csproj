@@ -49,6 +49,7 @@
     <Compile Include="WorldChunk.cs" />
     <Compile Include="WorldTile.cs" />
     <Compile Include="TerrainVariation.cs" />
+    <Compile Include="Skill.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

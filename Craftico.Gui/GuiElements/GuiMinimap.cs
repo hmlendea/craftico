@@ -131,15 +131,15 @@ namespace Craftico.Gui.GuiElements
 
             frame.Location = Location;
 
-            healthIndicator.CurrentValue = 40;
-            healthIndicator.BaseValue = 100;
+            healthIndicator.CurrentValue = player.Vigour.CurrentLevel;
+            healthIndicator.BaseValue = player.Vigour.BaseLevel;
             healthIndicator.Location = new Point2D(Location.X + 17, Location.Y + 36);
 
             staminaIndiator.CurrentValue = 80;
             staminaIndiator.Location = new Point2D(Location.X + 162, Location.Y + 146);
 
-            manaIndicator.CurrentValue = 20;
-            manaIndicator.BaseValue = 100;
+            manaIndicator.CurrentValue = player.Faith.CurrentLevel;
+            manaIndicator.BaseValue = player.Faith.BaseLevel;
             manaIndicator.Location = new Point2D(Location.X + 10, Location.Y + 72);
         }
 
