@@ -91,6 +91,15 @@ namespace Craftico.GameLogic.GameManagers
             worldManager.Update(gameTime);
         }
 
+        public WorldTile GetTile(int x, int y)
+        {
+            WorldTile tile = new WorldTile();
+            tile.TerrainId = "grass";
+            tile.WorldLocation = new Point2D(x, y);
+
+            return tile;
+        }
+
         public void MovePlayer(MobDirection direction)
         {
             player.Action = MobAction.Movement;

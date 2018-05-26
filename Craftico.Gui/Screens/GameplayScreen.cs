@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using NuciXNA.Gui;
 using NuciXNA.Gui.Screens;
 using NuciXNA.Primitives;
@@ -17,8 +17,10 @@ namespace Craftico.Gui.Screens
     {
         IGameManager game;
 
+        Camera camera;
         Mob player;
 
+        GuiWorld world;
         GuiMob playerImage;
 
         /// <summary>
@@ -27,14 +29,20 @@ namespace Craftico.Gui.Screens
         public override void LoadContent()
         {
             game = new GameManager();
+            camera = new Camera();
 
             game.LoadContent();
 
             player = game.GetPlayer();
 
+            world = new GuiWorld();
+            world.AssociateGameManager(game);
+            world.AssociateCamera(camera);
+
             playerImage = new GuiMob();
             playerImage.AssociateMob(player);
 
+            GuiManager.Instance.GuiElements.Add(world);
             GuiManager.Instance.GuiElements.Add(playerImage);
 
             base.LoadContent();
@@ -46,6 +54,7 @@ namespace Craftico.Gui.Screens
         public override void UnloadContent()
         {
             game.UnloadContent();
+            camera.UnloadContent();
 
             base.UnloadContent();
         }
@@ -57,12 +66,15 @@ namespace Craftico.Gui.Screens
         public override void Update(GameTime gameTime)
         {
             game.Update(gameTime);
+            camera.Update(gameTime);
 
             base.Update(gameTime);
         }
 
         protected override void SetChildrenProperties()
         {
+            world.Size = ScreenManager.Instance.Size;
+
             playerImage.Location = new Point2D(
                 (int)(player.Location.X * GameDefines.MAP_TILE_SIZE),
                 (int)(player.Location.Y * GameDefines.MAP_TILE_SIZE));

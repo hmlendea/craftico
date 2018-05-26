@@ -28,6 +28,8 @@ namespace Craftico.GameLogic.GameManagers
         /// <returns>The player.</returns>
         Mob GetPlayer();
 
+        WorldTile GetTile(int x, int y);
+
         void MovePlayer(MobDirection direction);
     }
 }

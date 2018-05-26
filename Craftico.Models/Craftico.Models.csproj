@@ -48,6 +48,7 @@
     <Compile Include="Wearable.cs" />
     <Compile Include="WorldChunk.cs" />
     <Compile Include="WorldTile.cs" />
+    <Compile Include="TerrainVariation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
