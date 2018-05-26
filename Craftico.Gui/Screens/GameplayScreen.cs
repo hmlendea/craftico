@@ -21,13 +21,16 @@ namespace Craftico.Gui.Screens
         Mob player;
 
         GuiMob playerImage;
-        
+
         /// <summary>
         /// Loads the content.
         /// </summary>
         public override void LoadContent()
         {
             game = new GameManager();
+
+            game.LoadContent();
+
             player = game.GetPlayer();
 
             playerImage = new GuiMob
@@ -37,69 +40,29 @@ namespace Craftico.Gui.Screens
             playerImage.AssociateMob(player);
 
             GuiManager.Instance.GuiElements.Add(playerImage);
-            
+
             base.LoadContent();
         }
 
+        /// <summary>
+        /// Unloads the content.
+        /// </summary>
+        public override void UnloadContent()
+        {
+            game.UnloadContent();
+
+            base.UnloadContent();
+        }
+
+        /// <summary>
+        /// Update the content.
+        /// </summary>
+        /// <param name="gameTime">Game time.</param>
         public override void Update(GameTime gameTime)
         {
-            HandleMovement();
-            HandleInteractions();
+            game.Update(gameTime);
 
             base.Update(gameTime);
-        }
-
-        void HandleMovement()
-        {
-            if (InputManager.Instance.IsKeyDown(Keys.W))
-            {
-                player.Action = MobAction.Movement;
-                player.Direction = MobDirection.North;
-            }
-            else if (InputManager.Instance.IsKeyDown(Keys.A))
-            {
-                player.Action = MobAction.Movement;
-                player.Direction = MobDirection.West;
-            }
-            else if (InputManager.Instance.IsKeyDown(Keys.S))
-            {
-                player.Action = MobAction.Movement;
-                player.Direction = MobDirection.South;
-            }
-            else if (InputManager.Instance.IsKeyDown(Keys.D))
-            {
-                player.Action = MobAction.Movement;
-                player.Direction = MobDirection.East;
-            }
-            else
-            {
-                player.Action = MobAction.Idle;
-            }
-        }
-
-        void HandleInteractions()
-        {
-            if (player.Action == MobAction.Movement)
-            {
-                return;
-            }
-
-            if (InputManager.Instance.IsKeyDown(Keys.X))
-            {
-                player.Action = MobAction.MeleeFighting;
-            }
-            else if (InputManager.Instance.IsKeyDown(Keys.Z))
-            {
-                player.Action = MobAction.RangedFighting;
-            }
-            else if (InputManager.Instance.IsKeyDown(Keys.C))
-            {
-                player.Action = MobAction.SpellCasting;
-            }
-            else
-            {
-                player.Action = MobAction.Idle;
-            }
         }
     }
 }

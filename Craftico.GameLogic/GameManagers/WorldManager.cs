@@ -1,4 +1,6 @@
-﻿using Craftico.Models;
+﻿using Microsoft.Xna.Framework;
+
+using Craftico.Models;
 using Craftico.Settings;
 
 namespace Craftico.GameLogic.GameManagers
@@ -7,9 +9,29 @@ namespace Craftico.GameLogic.GameManagers
     {
         WorldChunk[,] chunks;
 
-        public WorldManager()
+        /// <summary>
+        /// Loads the content.
+        /// </summary>
+        public void LoadContent()
         {
             chunks = new WorldChunk[GameDefines.WorldSize, GameDefines.WorldSize];
+        }
+
+        /// <summary>
+        /// Unloads the content.
+        /// </summary>
+        public void UnloadContent()
+        {
+            chunks = null;
+        }
+
+        /// <summary>
+        /// Update the content.
+        /// </summary>
+        /// <param name="gameTime">Game time.</param>
+        public void Update(GameTime gameTime)
+        {
+
         }
 
         public WorldTile GetTile(int x, int y)

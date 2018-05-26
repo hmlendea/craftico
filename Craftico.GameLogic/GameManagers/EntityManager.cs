@@ -2,6 +2,8 @@
 using System.IO;
 using System.Linq;
 
+using Microsoft.Xna.Framework;
+
 using Craftico.DataAccess.Repositories;
 using Craftico.GameLogic.Mapping;
 using Craftico.Models;
@@ -36,6 +38,25 @@ namespace Craftico.GameLogic.GameManagers
         }
 
         /// <summary>
+        /// Unloads the content.
+        /// </summary>
+        public void UnloadContent()
+        {
+            items.Clear();
+            mobs.Clear();
+            terrains.Clear();
+        }
+
+        /// <summary>
+        /// Update the content.
+        /// </summary>
+        /// <param name="gameTime">Game time.</param>
+        public void Update(GameTime gameTime)
+        {
+
+        }
+
+        /// <summary>
         /// Gets the item.
         /// </summary>
         /// <returns>The item.</returns>
@@ -44,7 +65,7 @@ namespace Craftico.GameLogic.GameManagers
         {
             return items.FirstOrDefault(x => x.Id == id);
         }
-        
+
         /// <summary>
         /// Gets the mob.
         /// </summary>

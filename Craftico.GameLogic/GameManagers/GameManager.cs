@@ -1,4 +1,6 @@
-﻿using NuciXNA.Primitives;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using NuciXNA.Input;
 
 using Craftico.Models;
 
@@ -11,14 +13,21 @@ namespace Craftico.GameLogic.GameManagers
     {
         Mob player;
 
-        readonly IEntityManager entityManager;
-        readonly IInventoryManager inventoryManager;
-        readonly IWorldManager worldManager;
+        IEntityManager entityManager;
+        IInventoryManager inventoryManager;
+        IWorldManager worldManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GameManager"/> class.
+        /// Gets the player.
         /// </summary>
-        public GameManager()
+        /// <returns>The player.</returns>
+        public Mob GetPlayer()
+        => player;
+
+        /// <summary>
+        /// Loads the content.
+        /// </summary>
+        public void LoadContent()
         {
             player = new Mob
             {
@@ -58,20 +67,82 @@ namespace Craftico.GameLogic.GameManagers
         }
 
         /// <summary>
-        /// Gets the player.
+        /// Unloads the content.
         /// </summary>
-        /// <returns>The player.</returns>
-        public Mob GetPlayer()
-        => player;
+        public void UnloadContent()
+        {
+            entityManager.UnloadContent();
+            inventoryManager.UnloadContent();
+            worldManager.UnloadContent();
+        }
 
         /// <summary>
-        /// Moves the player to the specified location.
+        /// Update the content.
         /// </summary>
-        /// <param name="location">Location.</param>
-        public void MovePlayer(Point2D location)
+        /// <param name="gameTime">Game time.</param>
+        public void Update(GameTime gameTime)
         {
-            // TODO: Actual movement logic
-            player.Location = location;
+            HandleMovement();
+            HandleInteractions();
+
+            entityManager.Update(gameTime);
+            inventoryManager.Update(gameTime);
+            worldManager.Update(gameTime);
+        }
+
+        public void MovePlayer(MobDirection direction)
+        {
+            player.Action = MobAction.Movement;
+            player.Direction = direction;
+        }
+
+        void HandleMovement()
+        {
+            if (InputManager.Instance.IsKeyDown(Keys.W))
+            {
+                MovePlayer(MobDirection.North);
+            }
+            else if (InputManager.Instance.IsKeyDown(Keys.A))
+            {
+                MovePlayer(MobDirection.West);
+            }
+            else if (InputManager.Instance.IsKeyDown(Keys.S))
+            {
+                MovePlayer(MobDirection.South);
+            }
+            else if (InputManager.Instance.IsKeyDown(Keys.D))
+            {
+                MovePlayer(MobDirection.East);
+            }
+            else
+            {
+                player.Action = MobAction.Idle;
+            }
+        }
+
+        void HandleInteractions()
+        {
+            if (player.Action == MobAction.Movement)
+            {
+                return;
+            }
+
+            if (InputManager.Instance.IsKeyDown(Keys.X))
+            {
+                player.Action = MobAction.MeleeFighting;
+            }
+            else if (InputManager.Instance.IsKeyDown(Keys.Z))
+            {
+                player.Action = MobAction.RangedFighting;
+            }
+            else if (InputManager.Instance.IsKeyDown(Keys.C))
+            {
+                player.Action = MobAction.SpellCasting;
+            }
+            else
+            {
+                player.Action = MobAction.Idle;
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Craftico.Models;
+﻿using Microsoft.Xna.Framework;
+
+using Craftico.Models;
 
 namespace Craftico.GameLogic.GameManagers
 {
@@ -8,6 +10,17 @@ namespace Craftico.GameLogic.GameManagers
         /// Loads the content.
         /// </summary>
         void LoadContent();
+
+        /// <summary>
+        /// Unloads the content.
+        /// </summary>
+        void UnloadContent();
+
+        /// <summary>
+        /// Update the content.
+        /// </summary>
+        /// <param name="gameTime">Game time.</param>
+        void Update(GameTime gameTime);
 
         /// <summary>
         /// Gets the item.

@@ -155,7 +155,7 @@ namespace Craftico.Gui.GuiElements
             base.Draw(spriteBatch);
 
             body.Draw(spriteBatch);
-            
+
             if (!mob.Inventory.BootsSlot.IsEmpty)
             {
                 boots.Draw(spriteBatch);
@@ -200,7 +200,7 @@ namespace Craftico.Gui.GuiElements
         protected override void SetChildrenProperties()
         {
             base.SetChildrenProperties();
-            
+
             UpdateEquipmentContentFiles();
 
             bodyEffect.Action = mob.Action;
@@ -220,7 +220,9 @@ namespace Craftico.Gui.GuiElements
             bootsEffect.Direction = mob.Direction;
             leftHandEffect.Direction = mob.Direction;
             rightHandEffect.Direction = mob.Direction;
-            
+
+            System.Console.WriteLine($"dir:{cuirassEffect.Direction}; act:{cuirassEffect.Action}; sta:{cuirassEffect.Active}");
+
             Point2D location = new Point2D(
                 Location.X + (GameDefines.MAP_TILE_SIZE - body.SourceRectangle.Width) / 2,
                 Location.Y + GameDefines.MAP_TILE_SIZE - body.SourceRectangle.Height); ;
@@ -234,7 +236,7 @@ namespace Craftico.Gui.GuiElements
             leftHand.Location = location;
             rightHand.Location = location;
         }
-        
+
         void UpdateEquipmentContentFiles()
         {
             if (!mob.Inventory.HelmetSlot.IsEmpty)

@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Microsoft.Xna.Framework;
+
 using Craftico.Models;
 
 namespace Craftico.GameLogic.GameManagers
@@ -18,11 +20,36 @@ namespace Craftico.GameLogic.GameManagers
             this.entityManager = entityManager;
         }
 
+        /// <summary>
+        /// Loads the content.
+        /// </summary>
+        public void LoadContent()
+        {
+
+        }
+
+        /// <summary>
+        /// Unloads the content.
+        /// </summary>
+        public void UnloadContent()
+        {
+
+        }
+
+        /// <summary>
+        /// Update the content.
+        /// </summary>
+        /// <param name="gameTime">Game time.</param>
+        public void Update(GameTime gameTime)
+        {
+
+        }
+
         public bool IsItemEquipped(string itemId)
         {
             throw new NotImplementedException();
         }
-        
+
         public InventorySlot GetInventorySlot(int slot)
         {
             if (player.Inventory.Size < slot)
@@ -32,12 +59,12 @@ namespace Craftico.GameLogic.GameManagers
 
             return player.Inventory[slot];
         }
-        
+
         public void SetInventorySlotQuantity(int slot, int quantity)
         {
             player.Inventory[slot].Quantity = quantity;
         }
-        
+
         public void RemoveItem(int slotIndex)
         {
             InventorySlot slot = player.Inventory[slotIndex];

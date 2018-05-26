@@ -1,4 +1,4 @@
-﻿using NuciXNA.Primitives;
+﻿using Microsoft.Xna.Framework;
 
 using Craftico.Models;
 
@@ -7,15 +7,27 @@ namespace Craftico.GameLogic.GameManagers
     public interface IGameManager
     {
         /// <summary>
+        /// Loads the content.
+        /// </summary>
+        void LoadContent();
+
+        /// <summary>
+        /// Unloads the content.
+        /// </summary>
+        void UnloadContent();
+
+        /// <summary>
+        /// Update the content.
+        /// </summary>
+        /// <param name="gameTime">Game time.</param>
+        void Update(GameTime gameTime);
+
+        /// <summary>
         /// Gets the player.
         /// </summary>
         /// <returns>The player.</returns>
         Mob GetPlayer();
-        
-        /// <summary>
-        /// Moves the player to the specified location.
-        /// </summary>
-        /// <param name="location">Location.</param>
-        void MovePlayer(Point2D location);
+
+        void MovePlayer(MobDirection direction);
     }
 }
