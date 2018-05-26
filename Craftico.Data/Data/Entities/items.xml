@@ -1,45 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfItemEntity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ItemEntity>
-    <Id>leather_cap</Id>
-    <Name>Leather Cap</Name>
-    <Description>Looks like it belongs to Robin Hood</Description>
-    <ItemType>Wearable</ItemType>
-    <SpriteSheet>leather_cap</SpriteSheet>
-  </ItemEntity>
-  <ItemEntity>
-    <Id>leather_chest</Id>
-    <Name>Leather Chest</Name>
-    <Description>Leather chest</Description>
-    <ItemType>Wearable</ItemType>
-    <SpriteSheet>leather_chest</SpriteSheet>
-  </ItemEntity>
-  <ItemEntity>
-    <Id>metal_helm</Id>
-    <Name>Metal Helm</Name>
-    <Description>Metal Helm</Description>
-    <ItemType>Wearable</ItemType>
-    <SpriteSheet>metal_helm</SpriteSheet>
-  </ItemEntity>
-  <ItemEntity>
-    <Id>metal_cuirass</Id>
-    <Name>Metal Cuirass</Name>
-    <Description>Metal Cuirass</Description>
-    <ItemType>Wearable</ItemType>
-    <SpriteSheet>metal_cuirass</SpriteSheet>
-  </ItemEntity>
-  <ItemEntity>
-    <Id>metal_greaves</Id>
-    <Name>Metal Greaves</Name>
-    <Description>Metal Greaves</Description>
-    <ItemType>Wearable</ItemType>
-    <SpriteSheet>metal_greaves</SpriteSheet>
-  </ItemEntity>
-  <ItemEntity>
-    <Id>metal_boots</Id>
-    <Name>Metal Boots</Name>
-    <Description>Metal Boots</Description>
-    <ItemType>Wearable</ItemType>
-    <SpriteSheet>metal_boots</SpriteSheet>
-  </ItemEntity>
+	<ItemEntity>
+		<Id>leather_cap</Id>
+		<Name>Leather Cap</Name>
+		<Description>Looks like it belongs to Robin Hood</Description>
+		<Type>Wearable</Type>
+		<SpriteSheet>leather_cap</SpriteSheet>
+	</ItemEntity>
+	<ItemEntity>
+		<Id>leather_chest</Id>
+		<Name>Leather Chest</Name>
+		<Description>Leather chest</Description>
+		<Type>Wearable</Type>
+		<SpriteSheet>leather_chest</SpriteSheet>
+	</ItemEntity>
+	<ItemEntity>
+		<Id>metal_helm</Id>
+		<Name>Metal Helm</Name>
+		<Description>Metal Helm</Description>
+		<Type>Wearable</Type>
+		<SpriteSheet>metal_helm</SpriteSheet>
+	</ItemEntity>
+	<ItemEntity>
+		<Id>metal_cuirass</Id>
+		<Name>Metal Cuirass</Name>
+		<Description>Metal Cuirass</Description>
+		<Type>Wearable</Type>
+		<SpriteSheet>metal_cuirass</SpriteSheet>
+	</ItemEntity>
+	<ItemEntity>
+		<Id>metal_greaves</Id>
+		<Name>Metal Greaves</Name>
+		<Description>Metal Greaves</Description>
+		<Type>Wearable</Type>
+		<SpriteSheet>metal_greaves</SpriteSheet>
+	</ItemEntity>
+	<ItemEntity>
+		<Id>metal_boots</Id>
+		<Name>Metal Boots</Name>
+		<Description>Metal Boots</Description>
+		<Type>Wearable</Type>
+		<SpriteSheet>metal_boots</SpriteSheet>
+	</ItemEntity>
 </ArrayOfItemEntity>

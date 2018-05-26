@@ -15,61 +15,94 @@ namespace Craftico.Gui.GuiElements
     {
         IGameManager game;
         Camera camera;
-        Sprite sprite;
-        TerrainSpriteSheetEffect terrainEffect;
+
+        Sprite[,] sprites;
+
+        public int Rows { get; private set; }
+
+        public int Columns { get; private set; }
 
         public override void LoadContent()
         {
-            terrainEffect = new TerrainSpriteSheetEffect();
-            sprite = new Sprite
-            {
-                ContentFile = $"SpriteSheets/Terrains/grass",
-                SpriteSheetEffect = terrainEffect,
-                Active = true
-            };
-            sprite.LoadContent();
+            Rows = Size.Height / GameDefines.MAP_TILE_SIZE + 2;
+            Columns = Size.Width / GameDefines.MAP_TILE_SIZE + 2;
 
-            sprite.SpriteSheetEffect.AssociateSprite(sprite);
-            sprite.SpriteSheetEffect.Activate();
+            sprites = new Sprite[Columns, Rows];
+
+            for (int y = 0; y < Rows; y++)
+            {
+                for (int x = 0; x < Columns; x++)
+                {
+                    Sprite sprite = new Sprite
+                    {
+                        ContentFile = $"SpriteSheets/Terrains/grass",
+                        SpriteSheetEffect = new TerrainSpriteSheetEffect
+                        {
+                            Variation = TerrainVariation.RegularDetailedMedium
+                        },
+                        Active = true
+                    };
+                    sprite.LoadContent();
+
+                    sprite.Location = new Point2D(x * GameDefines.MAP_TILE_SIZE, y * GameDefines.MAP_TILE_SIZE);
+
+                    sprite.SpriteSheetEffect.AssociateSprite(sprite);
+                    sprite.SpriteSheetEffect.Activate();
+
+                    sprites[x, y] = sprite;
+                }
+            }
 
             base.LoadContent();
         }
 
         public override void UnloadContent()
         {
-            sprite.UnloadContent();
+            for (int y = 0; y < Rows; y++)
+            {
+                for (int x = 0; x < Columns; x++)
+                {
+                    sprites[x, y].UnloadContent();
+                }
+            }
 
             base.UnloadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
-            sprite.Update(gameTime);
+            Point camCoordsBegin = new Point(camera.Location.X / GameDefines.MAP_TILE_SIZE,
+                                             camera.Location.Y / GameDefines.MAP_TILE_SIZE);
+
+            for (int y = 0; y < Rows; y++)
+            {
+                for (int x = 0; x < Columns; x++)
+                {
+                    WorldTile tile = game.GetTile(camCoordsBegin.X + x, camCoordsBegin.Y + y);
+                    Sprite sprite = sprites[x, y];
+
+                    string contentFile = $"SpriteSheets/Terrains/{tile.TerrainId}";
+
+                    if (sprite.ContentFile != contentFile)
+                    {
+                        sprite.ContentFile = contentFile;
+                        sprite.LoadContent();
+                    }
+
+                    sprite.Update(gameTime);
+                }
+            }
 
             base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Point camCoordsBegin = new Point(camera.Location.X / GameDefines.MAP_TILE_SIZE,
-                                             camera.Location.Y / GameDefines.MAP_TILE_SIZE);
-            Point camCoordsEnd = new Point(camCoordsBegin.X + camera.Size.Width / GameDefines.MAP_TILE_SIZE,
-                                           camCoordsBegin.Y + camera.Size.Height / GameDefines.MAP_TILE_SIZE);
-
-            for (int y = camCoordsBegin.Y - 1; y <= camCoordsEnd.Y + 1; y++)
+            for (int y = 0; y < Rows; y++)
             {
-                for (int x = camCoordsBegin.X - 1; x <= camCoordsEnd.X + 1; x++)
+                for (int x = 0; x < Columns; x++)
                 {
-                    WorldTile tile = game.GetTile(x, y);
-
-                    // TODO: Update content file
-
-                    terrainEffect.Variation = TerrainVariation.RegularDetailedHigh;
-                    sprite.Location = new Point2D(
-                        tile.WorldLocation.X * GameDefines.MAP_TILE_SIZE - camera.Location.X,
-                        tile.WorldLocation.Y * GameDefines.MAP_TILE_SIZE - camera.Location.Y);
-
-                    sprite.Draw(spriteBatch);
+                    sprites[x, y].Draw(spriteBatch);
                 }
             }
 

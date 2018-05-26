@@ -65,6 +65,10 @@ namespace Craftico.GameLogic.GameManagers
             entityManager = new EntityManager();
             inventoryManager = new InventoryManager(player, entityManager);
             worldManager = new WorldManager();
+
+            entityManager.LoadContent();
+            inventoryManager.LoadContent();
+            worldManager.LoadContent();
         }
 
         /// <summary>
@@ -91,14 +95,7 @@ namespace Craftico.GameLogic.GameManagers
             worldManager.Update(gameTime);
         }
 
-        public WorldTile GetTile(int x, int y)
-        {
-            WorldTile tile = new WorldTile();
-            tile.TerrainId = "grass";
-            tile.WorldLocation = new Point2D(x, y);
-
-            return tile;
-        }
+        public WorldTile GetTile(int x, int y) => worldManager.GetTile(x, y);
 
         public void MovePlayer(MobDirection direction)
         {

@@ -1,24 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTerrainEntity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <TerrainEntity>
-    <Id>grass</Id>
-    <Name>Grass</Name>
-    <Description>It's grassy</Description>
-    <SpriteSheet>grass</SpriteSheet>
-    <Order>50</Order>
-  </TerrainEntity>
-  <TerrainEntity>
-    <Id>dirt</Id>
-    <Name>Dirt</Name>
-    <Description>Dirt, dirt dirt. Everywhere dirt</Description>
-    <SpriteSheet>dirt</SpriteSheet>
-    <Order>40</Order>
-  </TerrainEntity>
-  <TerrainEntity>
-    <Id>water</Id>
-    <Name>Water</Name>
-    <Description>Fuel for life</Description>
-    <SpriteSheet>water</SpriteSheet>
-    <Order>90</Order>
-  </TerrainEntity>
+	<TerrainEntity>
+		<Id>grass</Id>
+		<Name>Grass</Name>
+		<Description>It's grassy</Description>
+		<SpriteSheet>grass</SpriteSheet>
+		<Order>50</Order>
+	</TerrainEntity>
+	<TerrainEntity>
+		<Id>dirt</Id>
+		<Name>Dirt</Name>
+		<Description>Dirt, dirt dirt. Everywhere dirt</Description>
+		<SpriteSheet>dirt</SpriteSheet>
+		<Order>40</Order>
+	</TerrainEntity>
+	<TerrainEntity>
+		<Id>sand</Id>
+		<Name>Sand</Name>
+		<Description>Ugh, sand. It gets into everything!</Description>
+		<SpriteSheet>sand</SpriteSheet>
+		<Order>45</Order>
+	</TerrainEntity>
+	<TerrainEntity>
+		<Id>water</Id>
+		<Name>Water</Name>
+		<Description>Fuel for life</Description>
+		<SpriteSheet>water</SpriteSheet>
+		<Order>90</Order>
+	</TerrainEntity>
 </ArrayOfTerrainEntity>

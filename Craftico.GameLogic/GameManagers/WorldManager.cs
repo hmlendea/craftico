@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using Craftico.GameLogic.Generators;
 using Craftico.Models;
 using Craftico.Settings;
 
@@ -36,14 +37,45 @@ namespace Craftico.GameLogic.GameManagers
 
         public WorldTile GetTile(int x, int y)
         {
-            // Transforms world coordinates (-wts/2, +wts/2) to chunk index (0, wcs)
-            int chunkX = GameDefines.WorldSize / 2 + x / GameDefines.WorldChunkSize;
-            int chunkY = GameDefines.WorldSize / 2 + y / GameDefines.WorldChunkSize;
+            WorldChunk chunk = GetChunk(x / GameDefines.WorldChunkSize, y / GameDefines.WorldChunkSize);
 
-            WorldChunk chunk = chunks[chunkX, chunkY];
+            // Gets the tile inside the chunk using its index (0, cts)
+            int ctx = x % GameDefines.WorldChunkSize;
+            int cty = y % GameDefines.WorldChunkSize;
 
-            // Gets the tile inside the chunk using its index (0, cts) 
-            return chunk[x % GameDefines.WorldChunkSize, y % GameDefines.WorldChunkSize];
+            if (x < 0)
+            {
+                ctx = GameDefines.WorldChunkSize + ctx;
+            }
+
+            if (y < 0)
+            {
+                cty = GameDefines.WorldChunkSize + cty;
+            }
+
+            return chunk[ctx, cty];
+        }
+
+        WorldChunk GetChunk(int x, int y)
+        {
+            int chunkX = GameDefines.WorldSize / 2 + x;
+            int chunkY = GameDefines.WorldSize / 2 + y;
+
+            WorldChunk chunk;
+
+            if (chunks[chunkX, chunkY] == null)
+            {
+                WorldGenerator worldGenerator = new WorldGenerator(873);
+
+                chunk = worldGenerator.GenerateChunk(x, y);
+                chunks[chunkX, chunkY] = chunk;
+            }
+            else
+            {
+                chunk = chunks[chunkX, chunkY];
+            }
+
+            return chunk;
         }
     }
 }

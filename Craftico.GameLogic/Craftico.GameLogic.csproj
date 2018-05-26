@@ -66,6 +66,7 @@
     <Compile Include="Mapping\ItemMappingExtensions.cs" />
     <Compile Include="Mapping\TerrainMappingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Generators\WorldGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -83,6 +84,9 @@
       <Project>{4d178371-4df9-47dd-93c5-8b84486deaa6}</Project>
       <Name>Craftico.Settings</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Generators\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
