@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using NuciXNA.Input;
+using NuciXNA.Primitives;
 
 using Craftico.Models;
 
@@ -94,6 +95,32 @@ namespace Craftico.GameLogic.GameManagers
         {
             player.Action = MobAction.Movement;
             player.Direction = direction;
+
+            float deltaX = 0.0f;
+            float deltaY = 0.0f;
+
+            switch (direction)
+            {
+                case MobDirection.North:
+                    deltaY = -player.MovementSpeed;
+                    break;
+
+                case MobDirection.West:
+                    deltaX = -player.MovementSpeed;
+                    break;
+
+                case MobDirection.South:
+                    deltaY = player.MovementSpeed;
+                    break;
+
+                case MobDirection.East:
+                    deltaX = player.MovementSpeed;
+                    break;
+            }
+
+            player.Location = new PointF2D(
+                player.Location.X + deltaX,
+                player.Location.Y + deltaY);
         }
 
         void HandleMovement()

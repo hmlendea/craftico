@@ -221,8 +221,6 @@ namespace Craftico.Gui.GuiElements
             leftHandEffect.Direction = mob.Direction;
             rightHandEffect.Direction = mob.Direction;
 
-            System.Console.WriteLine($"dir:{cuirassEffect.Direction}; act:{cuirassEffect.Action}; sta:{cuirassEffect.Active}");
-
             Point2D location = new Point2D(
                 Location.X + (GameDefines.MAP_TILE_SIZE - body.SourceRectangle.Width) / 2,
                 Location.Y + GameDefines.MAP_TILE_SIZE - body.SourceRectangle.Height); ;

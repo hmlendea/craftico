@@ -1,13 +1,12 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
 using NuciXNA.Gui;
 using NuciXNA.Gui.Screens;
-using NuciXNA.Input;
 using NuciXNA.Primitives;
 
 using Craftico.GameLogic.GameManagers;
 using Craftico.Gui.GuiElements;
 using Craftico.Models;
-using Microsoft.Xna.Framework;
+using Craftico.Settings;
 
 namespace Craftico.Gui.Screens
 {
@@ -33,10 +32,7 @@ namespace Craftico.Gui.Screens
 
             player = game.GetPlayer();
 
-            playerImage = new GuiMob
-            {
-                Location = new Point2D(100, 100)
-            };
+            playerImage = new GuiMob();
             playerImage.AssociateMob(player);
 
             GuiManager.Instance.GuiElements.Add(playerImage);
@@ -63,6 +59,15 @@ namespace Craftico.Gui.Screens
             game.Update(gameTime);
 
             base.Update(gameTime);
+        }
+
+        protected override void SetChildrenProperties()
+        {
+            playerImage.Location = new Point2D(
+                (int)(player.Location.X * GameDefines.MAP_TILE_SIZE),
+                (int)(player.Location.Y * GameDefines.MAP_TILE_SIZE));
+
+            base.SetChildrenProperties();
         }
     }
 }
