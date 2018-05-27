@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,7 +23,7 @@ namespace Craftico.Gui.GuiElements
         Camera camera;
         Mob player;
 
-        Sprite[,] sprites;
+        Dictionary<string, Sprite> sprs;
 
         public int Rows { get; private set; }
 
@@ -36,29 +36,27 @@ namespace Craftico.Gui.GuiElements
             Rows = Size.Height / GameDefines.MAP_TILE_SIZE + 2;
             Columns = Size.Width / GameDefines.MAP_TILE_SIZE + 2;
 
-            sprites = new Sprite[Columns, Rows];
+            sprs = new Dictionary<string, Sprite>();
 
-            for (int y = 0; y < Rows; y++)
+            foreach (Terrain terrain in game.GetTerrains())
             {
-                for (int x = 0; x < Columns; x++)
+                Sprite sprite = new Sprite
                 {
-                    Sprite sprite = new Sprite
+                    ContentFile = $"SpriteSheets/Terrains/{terrain.SpriteSheet}",
+                    SpriteSheetEffect = new TerrainSpriteSheetEffect
                     {
-                        ContentFile = $"SpriteSheets/Terrains/grass",
-                        SpriteSheetEffect = new TerrainSpriteSheetEffect
-                        {
-                            Variation = TerrainVariation.RegularDetailedMedium
-                        },
-                        Active = true
-                    };
-                    sprite.LoadContent();
+                        Variation = TerrainVariation.RegularEmpty
+                    },
+                    Active = true
+                };
+                sprite.LoadContent();
 
-                    sprite.Location = new Point2D(x * GameDefines.MAP_TILE_SIZE, y * GameDefines.MAP_TILE_SIZE);
+                sprite.SpriteSheetEffect.AssociateSprite(sprite);
+                sprite.SpriteSheetEffect.Activate();
 
-                    sprite.SpriteSheetEffect.AssociateSprite(sprite);
-                    sprite.SpriteSheetEffect.Activate();
-
-                    sprites[x, y] = sprite;
+                if (!sprs.ContainsKey(terrain.SpriteSheet))
+                {
+                    sprs.Add(terrain.SpriteSheet, sprite);
                 }
             }
 
@@ -67,18 +65,28 @@ namespace Craftico.Gui.GuiElements
 
         public override void UnloadContent()
         {
-            for (int y = 0; y < Rows; y++)
+            foreach (Sprite sprite in sprs.Values)
             {
-                for (int x = 0; x < Columns; x++)
-                {
-                    sprites[x, y].UnloadContent();
-                }
+                sprite.UnloadContent();
             }
+
+            sprs.Clear();
+            sprs = null;
 
             base.UnloadContent();
         }
 
         public override void Update(GameTime gameTime)
+        {
+            foreach (Sprite sprite in sprs.Values)
+            {
+                sprite.Update(gameTime);
+            }
+
+            base.Update(gameTime);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
         {
             Size2D off = new Size2D(
                 (int)((camera.Location.X - (int)camera.Location.X) * GameDefines.MAP_TILE_SIZE),
@@ -88,36 +96,15 @@ namespace Craftico.Gui.GuiElements
             {
                 for (int x = 0; x < Columns; x++)
                 {
-                    Sprite sprite = sprites[x, y];
                     WorldTile tile = game.GetTile(
                         (int)camera.Location.X + x,
                         (int)camera.Location.Y + y);
-
-                    string contentFile = $"SpriteSheets/Terrains/{tile.TerrainId}";
-
-                    if (sprite.ContentFile != contentFile)
-                    {
-                        sprite.ContentFile = contentFile;
-                        sprite.LoadContent();
-                    }
+                    Sprite sprite = sprs[tile.TerrainId];
 
                     sprite.Location = new Point2D(
                         (x - 1) * GameDefines.MAP_TILE_SIZE - off.Width,
                         (y - 1) * GameDefines.MAP_TILE_SIZE - off.Height);
-                    sprite.Update(gameTime);
-                }
-            }
-
-            base.Update(gameTime);
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            for (int y = 0; y < Rows; y++)
-            {
-                for (int x = 0; x < Columns; x++)
-                {
-                    sprites[x, y].Draw(spriteBatch);
+                    sprite.Draw(spriteBatch);
                 }
             }
 

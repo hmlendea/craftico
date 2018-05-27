@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using NuciXNA.Primitives;
 
 using Craftico.Models;
@@ -32,6 +34,8 @@ namespace Craftico.GameLogic.GameManagers
         WorldTile GetTile(int x, int y);
 
         Terrain GetTerrain(string id);
+
+        IEnumerable<Terrain> GetTerrains();
 
         void MovePlayer(Point2D destination);
     }

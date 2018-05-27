@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 
 using Craftico.Models;
 
@@ -42,5 +44,7 @@ namespace Craftico.GameLogic.GameManagers
         /// <returns>The terrain.</returns>
         /// <param name="id">Identifier.</param>
         Terrain GetTerrain(string id);
+
+        IEnumerable<Terrain> GetTerrains();
     }
 }

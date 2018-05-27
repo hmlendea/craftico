@@ -85,5 +85,8 @@ namespace Craftico.GameLogic.GameManagers
         {
             return terrains.FirstOrDefault(x => x.Id == id);
         }
+
+        public IEnumerable<Terrain> GetTerrains()
+        => terrains;
     }
 }
