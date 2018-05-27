@@ -32,5 +32,10 @@ namespace Craftico.GameLogic.PathFinding
         public int Length => nodes.Count();
 
         public int Cost => nodes.Sum(x => x.MoveCost);
+
+        public static bool IsNullOrEmpty(Path path)
+        {
+            return path == null || path.Length == 0;
+        }
     }
 }

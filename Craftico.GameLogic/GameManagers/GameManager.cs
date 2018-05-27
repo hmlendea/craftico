@@ -1,6 +1,4 @@
-﻿using System;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using NuciXNA.Input;
 using NuciXNA.Primitives;
@@ -21,6 +19,8 @@ namespace Craftico.GameLogic.GameManagers
         IEntityManager entityManager;
         IInventoryManager inventoryManager;
         IWorldManager worldManager;
+
+        float baseMovementSpeed;
 
         /// <summary>
         /// Gets the player.
@@ -62,6 +62,8 @@ namespace Craftico.GameLogic.GameManagers
                 }
             };
 
+            baseMovementSpeed = (float)GameDefines.MAP_TILE_SIZE / 5120;
+
             entityManager = new EntityManager();
             inventoryManager = new InventoryManager(player, entityManager);
             worldManager = new WorldManager();
@@ -93,14 +95,11 @@ namespace Craftico.GameLogic.GameManagers
             entityManager.Update(gameTime);
             inventoryManager.Update(gameTime);
             worldManager.Update(gameTime);
-
-            MovePlayer();
         }
 
         public WorldTile GetTile(int x, int y) => worldManager.GetTile(x, y);
 
         public Terrain GetTerrain(string id) => entityManager.GetTerrain(id);
-
 
         Path path;
         public void MovePlayer(Point2D destination)
@@ -110,9 +109,9 @@ namespace Craftico.GameLogic.GameManagers
             path = PathFinder.GetShortestPath(start, destination, worldManager);
         }
 
-        void MovePlayer()
+        void HandleMovement()
         {
-            if (path == null || path.Length == 0)
+            if (Path.IsNullOrEmpty(path))
             {
                 player.Action = MobAction.Idle;
                 return;
@@ -122,25 +121,14 @@ namespace Craftico.GameLogic.GameManagers
 
             float newX = player.Location.X;
             float newY = player.Location.Y;
-            float walkDistance = (float)GameDefines.MAP_TILE_SIZE / 5120 * player.MovementSpeed;
-
-            if (path.FirstNode.Location.X == (int)player.Location.X &&
-                path.FirstNode.Location.Y == (int)player.Location.Y)
-            {
-                path.RemoveAt(0);
-
-                if (path.Length == 0)
-                {
-                    return;
-                }
-            }
+            float walkDistance = baseMovementSpeed * player.MovementSpeed;
 
             if (path.FirstNode.Location.Y < player.Location.Y)
             {
                 player.Direction = MobDirection.North;
                 newY -= walkDistance;
 
-                if ((int)newY < path.FirstNode.Location.Y)
+                if (newY <= path.FirstNode.Location.Y)
                 {
                     newY = path.FirstNode.Location.Y;
                     path.RemoveAt(0);
@@ -151,7 +139,7 @@ namespace Craftico.GameLogic.GameManagers
                 player.Direction = MobDirection.West;
                 newX -= walkDistance;
 
-                if ((int)newX < path.FirstNode.Location.X)
+                if (newX <= path.FirstNode.Location.X)
                 {
                     newX = path.FirstNode.Location.X;
                     path.RemoveAt(0);
@@ -162,7 +150,7 @@ namespace Craftico.GameLogic.GameManagers
                 player.Direction = MobDirection.South;
                 newY += walkDistance;
 
-                if ((int)newY > path.FirstNode.Location.Y)
+                if (newY >= path.FirstNode.Location.Y)
                 {
                     newY = path.FirstNode.Location.Y;
                     path.RemoveAt(0);
@@ -173,7 +161,7 @@ namespace Craftico.GameLogic.GameManagers
                 player.Direction = MobDirection.East;
                 newX += walkDistance;
 
-                if ((int)newX > path.FirstNode.Location.X)
+                if (newX >= path.FirstNode.Location.X)
                 {
                     newX = path.FirstNode.Location.X;
                     path.RemoveAt(0);
@@ -181,30 +169,6 @@ namespace Craftico.GameLogic.GameManagers
             }
 
             player.Location = new PointF2D(newX, newY);
-        }
-
-        void HandleMovement()
-        {
-            if (InputManager.Instance.IsKeyDown(Keys.W))
-            {
-                MovePlayer(new Point2D((int)player.Location.X + 4, (int)player.Location.Y + 5));
-            }
-            else if (InputManager.Instance.IsKeyDown(Keys.A))
-            {
-                MovePlayer(new Point2D((int)player.Location.X - 1, (int)player.Location.Y));
-            }
-            else if (InputManager.Instance.IsKeyDown(Keys.S))
-            {
-                MovePlayer(new Point2D((int)player.Location.X, (int)player.Location.Y + 1));
-            }
-            else if (InputManager.Instance.IsKeyDown(Keys.D))
-            {
-                MovePlayer(new Point2D((int)player.Location.X + 1, (int)player.Location.Y));
-            }
-            else
-            {
-                player.Action = MobAction.Idle;
-            }
         }
 
         void HandleInteractions()

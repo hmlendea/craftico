@@ -87,10 +87,11 @@ namespace Craftico.Gui.Screens
             world.Size = ScreenManager.Instance.Size;
 
             playerImage.Location = new Point2D(
-                (int)(player.Location.X * GameDefines.MAP_TILE_SIZE),
-                (int)(player.Location.Y * GameDefines.MAP_TILE_SIZE));
+                world.Size.Width / 2 - 1,
+                world.Size.Height / 2 - 1);
 
             Minimap.Location = new Point2D(ScreenManager.Instance.Size.Width - Minimap.Size.Width, 0);
+            camera.CentreOnLocation(player.Location);
 
             base.SetChildrenProperties();
         }

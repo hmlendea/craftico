@@ -1,5 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using NuciXNA.Graphics;
 using NuciXNA.Gui.GuiElements;
 using NuciXNA.Input;
@@ -18,6 +21,7 @@ namespace Craftico.Gui.GuiElements
     {
         IGameManager game;
         Camera camera;
+        Mob player;
 
         Sprite[,] sprites;
 
@@ -27,6 +31,8 @@ namespace Craftico.Gui.GuiElements
 
         public override void LoadContent()
         {
+            player = game.GetPlayer();
+
             Rows = Size.Height / GameDefines.MAP_TILE_SIZE + 2;
             Columns = Size.Width / GameDefines.MAP_TILE_SIZE + 2;
 
@@ -74,15 +80,18 @@ namespace Craftico.Gui.GuiElements
 
         public override void Update(GameTime gameTime)
         {
-            Point camCoordsBegin = new Point(camera.Location.X / GameDefines.MAP_TILE_SIZE,
-                                             camera.Location.Y / GameDefines.MAP_TILE_SIZE);
+            Size2D off = new Size2D(
+                (int)((camera.Location.X - (int)camera.Location.X) * GameDefines.MAP_TILE_SIZE),
+                (int)((camera.Location.Y - (int)camera.Location.Y) * GameDefines.MAP_TILE_SIZE));
 
             for (int y = 0; y < Rows; y++)
             {
                 for (int x = 0; x < Columns; x++)
                 {
-                    WorldTile tile = game.GetTile(camCoordsBegin.X + x, camCoordsBegin.Y + y);
                     Sprite sprite = sprites[x, y];
+                    WorldTile tile = game.GetTile(
+                        (int)camera.Location.X + x,
+                        (int)camera.Location.Y + y);
 
                     string contentFile = $"SpriteSheets/Terrains/{tile.TerrainId}";
 
@@ -92,6 +101,9 @@ namespace Craftico.Gui.GuiElements
                         sprite.LoadContent();
                     }
 
+                    sprite.Location = new Point2D(
+                        (x - 1) * GameDefines.MAP_TILE_SIZE - off.Width,
+                        (y - 1) * GameDefines.MAP_TILE_SIZE - off.Height);
                     sprite.Update(gameTime);
                 }
             }
@@ -138,7 +150,10 @@ namespace Craftico.Gui.GuiElements
 
         void this_MouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            game.MovePlayer(ScreenToMapCoordinates(e.Location));
+            if (e.Button == MouseButton.LeftButton)
+            {
+                game.MovePlayer(ScreenToMapCoordinates(e.Location));
+            }
         }
 
         /// <summary>
@@ -148,8 +163,9 @@ namespace Craftico.Gui.GuiElements
         /// <param name="screenCoords">Screen coordinates.</param>
         Point2D ScreenToMapCoordinates(Point2D screenCoords)
         {
-            return new Point2D((camera.Location.X + screenCoords.X) / GameDefines.MAP_TILE_SIZE,
-                               (camera.Location.Y + screenCoords.Y) / GameDefines.MAP_TILE_SIZE);
+            return new Point2D(
+                (int)camera.Location.X + screenCoords.X / GameDefines.MAP_TILE_SIZE,
+                (int)camera.Location.Y + screenCoords.Y / GameDefines.MAP_TILE_SIZE);
         }
     }
 }

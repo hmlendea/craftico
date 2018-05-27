@@ -24,7 +24,7 @@ namespace Craftico.Models
 
         public Mob()
         {
-            MovementSpeed = 16;
+            MovementSpeed = 8;
             Inventory = new Inventory(28);
 
             Vigour = new Skill();
