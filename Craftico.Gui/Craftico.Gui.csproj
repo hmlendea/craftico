@@ -66,6 +66,7 @@
     <Compile Include="AnimationEffects\TerrainSpriteSheetEffect.cs" />
     <Compile Include="GuiElements\GuiMinimap.cs" />
     <Compile Include="GuiElements\GuiMinimapIndicator.cs" />
+    <Compile Include="GuiElements\GuiWorldObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

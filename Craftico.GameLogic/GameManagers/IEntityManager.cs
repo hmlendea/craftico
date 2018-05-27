@@ -46,5 +46,9 @@ namespace Craftico.GameLogic.GameManagers
         Terrain GetTerrain(string id);
 
         IEnumerable<Terrain> GetTerrains();
+
+        WorldObject GetWorldObject(string id);
+
+        IEnumerable<WorldObject> GetWorldObjects();
     }
 }

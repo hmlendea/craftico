@@ -41,6 +41,11 @@ namespace Craftico.GameLogic.Generators
                             y * GameDefines.WorldChunkSize + j)
                     };
 
+                    if (i == 3 && j == 3)
+                    {
+                        tile.WorldObjectId = "evergreen";
+                    }
+
                     chunk[i, j] = tile;
                 }
             }

@@ -50,6 +50,8 @@
     <Compile Include="WorldTile.cs" />
     <Compile Include="TerrainVariation.cs" />
     <Compile Include="Skill.cs" />
+    <Compile Include="WorldObject.cs" />
+    <Compile Include="WorldObjectLayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

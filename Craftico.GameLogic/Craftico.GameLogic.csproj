@@ -70,6 +70,8 @@
     <Compile Include="PathFinding\PathFinder.cs" />
     <Compile Include="PathFinding\PathNode.cs" />
     <Compile Include="PathFinding\Path.cs" />
+    <Compile Include="Mapping\WorldObjectLayerMappingExtensions.cs" />
+    <Compile Include="Mapping\WorldObjectMappingExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

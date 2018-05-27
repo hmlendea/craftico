@@ -37,6 +37,10 @@ namespace Craftico.GameLogic.GameManagers
 
         IEnumerable<Terrain> GetTerrains();
 
+        WorldObject GetWorldObject(string id);
+
+        IEnumerable<WorldObject> GetWorldObjects();
+
         void MovePlayer(Point2D destination);
     }
 }

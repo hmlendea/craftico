@@ -41,6 +41,9 @@
   <ItemGroup>
     <None Include="app.manifest" />
     <None Include="Icon.png" />
+    <None Include="Data\Entities\worldObjects.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />

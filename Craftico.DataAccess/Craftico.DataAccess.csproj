@@ -43,6 +43,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
     <Compile Include="Repositories\TerrainRepository.cs" />
+    <Compile Include="DataObjects\WorldObjectLayerEntity.cs" />
+    <Compile Include="DataObjects\WorldObjectEntity.cs" />
+    <Compile Include="Repositories\WorldObjectRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

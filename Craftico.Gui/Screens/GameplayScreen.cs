@@ -6,7 +6,6 @@ using NuciXNA.Primitives;
 using Craftico.GameLogic.GameManagers;
 using Craftico.Gui.GuiElements;
 using Craftico.Models;
-using Craftico.Settings;
 
 namespace Craftico.Gui.Screens
 {
@@ -34,7 +33,6 @@ namespace Craftico.Gui.Screens
         /// </summary>
         public override void LoadContent()
         {
-
             game = new GameManager();
             camera = new Camera();
 

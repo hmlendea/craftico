@@ -16,6 +16,7 @@ namespace Craftico.GameLogic.GameManagers
         List<Item> items;
         List<Mob> mobs;
         List<Terrain> terrains;
+        List<WorldObject> worldObjects;
 
         /// <summary>
         /// Loads the entities in memory.
@@ -27,14 +28,17 @@ namespace Craftico.GameLogic.GameManagers
             string prayerPath = Path.Combine(ApplicationPaths.EntitiesDirectory, "prayers.xml");
             string spellPath = Path.Combine(ApplicationPaths.EntitiesDirectory, "spells.xml");
             string terrainsPath = Path.Combine(ApplicationPaths.EntitiesDirectory, "terrains.xml");
+            string worldObjectsPath = Path.Combine(ApplicationPaths.EntitiesDirectory, "worldObjects.xml");
 
             ItemRepository itemRepository = new ItemRepository(itemPath);
             //MobRepository mobRepository = new MobRepository(mobPath);
             TerrainRepository terrainRepository = new TerrainRepository(terrainsPath);
+            WorldObjectRepository worldObjectRepository = new WorldObjectRepository(worldObjectsPath);
 
             items = itemRepository.GetAll().ToDomainModels().ToList();
             //mobs = mobRepository.GetAll().ToDomainModels().ToList();
             terrains = terrainRepository.GetAll().ToDomainModels().ToList();
+            worldObjects = worldObjectRepository.GetAll().ToDomainModels().ToList();
         }
 
         /// <summary>
@@ -45,6 +49,7 @@ namespace Craftico.GameLogic.GameManagers
             items.Clear();
             mobs.Clear();
             terrains.Clear();
+            worldObjects.Clear();
         }
 
         /// <summary>
@@ -62,9 +67,7 @@ namespace Craftico.GameLogic.GameManagers
         /// <returns>The item.</returns>
         /// <param name="id">Identifier.</param>
         public Item GetItem(string id)
-        {
-            return items.FirstOrDefault(x => x.Id == id);
-        }
+        => items.FirstOrDefault(x => x.Id == id);
 
         /// <summary>
         /// Gets the mob.
@@ -72,9 +75,7 @@ namespace Craftico.GameLogic.GameManagers
         /// <returns>The mob.</returns>
         /// <param name="id">Identifier.</param>
         public Mob GetMob(string id)
-        {
-            return mobs.FirstOrDefault(x => x.Id == id);
-        }
+        => mobs.FirstOrDefault(x => x.Id == id);
 
         /// <summary>
         /// Gets the terrain.
@@ -82,11 +83,20 @@ namespace Craftico.GameLogic.GameManagers
         /// <returns>The terrain.</returns>
         /// <param name="id">Identifier.</param>
         public Terrain GetTerrain(string id)
-        {
-            return terrains.FirstOrDefault(x => x.Id == id);
-        }
+        => terrains.FirstOrDefault(x => x.Id == id);
+
+        /// <summary>
+        /// Gets the world object.
+        /// </summary>
+        /// <returns>The world object.</returns>
+        /// <param name="id">Identifier.</param>
+        public WorldObject GetWorldObject(string id)
+        => worldObjects.FirstOrDefault(x => x.Id == id);
 
         public IEnumerable<Terrain> GetTerrains()
         => terrains;
+
+        public IEnumerable<WorldObject> GetWorldObjects()
+        => worldObjects;
     }
 }

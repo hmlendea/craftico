@@ -106,6 +106,12 @@ namespace Craftico.GameLogic.GameManagers
         public IEnumerable<Terrain> GetTerrains()
         => entityManager.GetTerrains();
 
+        public WorldObject GetWorldObject(string id)
+        => entityManager.GetWorldObject(id);
+
+        public IEnumerable<WorldObject> GetWorldObjects()
+        => entityManager.GetWorldObjects();
+
         Path path;
         public void MovePlayer(Point2D destination)
         {

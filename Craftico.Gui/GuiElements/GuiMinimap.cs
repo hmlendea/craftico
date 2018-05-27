@@ -22,7 +22,6 @@ namespace Craftico.Gui.GuiElements
 
         byte[,] alphaMask;
 
-        Sprite mapMarkerSprite;
         Sprite mobDot;
         Sprite pixel;
         Sprite frame;
@@ -39,7 +38,6 @@ namespace Craftico.Gui.GuiElements
 
         public override void LoadContent()
         {
-            mapMarkerSprite = new Sprite { ContentFile = "Interface/Minimap/markers" };
             mobDot = new Sprite { ContentFile = "Interface/Minimap/entity_dot" };
             pixel = new Sprite
             {
@@ -81,7 +79,6 @@ namespace Craftico.Gui.GuiElements
                 }
             }
 
-            mapMarkerSprite.LoadContent();
             mobDot.LoadContent();
             pixel.LoadContent();
             frame.LoadContent();
@@ -95,7 +92,6 @@ namespace Craftico.Gui.GuiElements
 
         public override void Update(GameTime gameTime)
         {
-            mapMarkerSprite.Update(gameTime);
             mobDot.Update(gameTime);
             pixel.Update(gameTime);
             frame.Update(gameTime);
@@ -156,7 +152,17 @@ namespace Craftico.Gui.GuiElements
                     WorldTile tile = game.GetTile(startLocation.X + x, startLocation.Y + y);
                     Terrain terrain = game.GetTerrain(tile.TerrainId);
 
-                    Colour terrainColour = terrain != null ? terrain.Colour : Colour.Black;
+                    Colour terrainColour = Colour.Black;
+
+                    if (tile.WorldObjectId != null)
+                    {
+                        WorldObject worldObject = game.GetWorldObject(tile.WorldObjectId);
+                        terrainColour = worldObject.Colour;
+                    }
+                    else if (terrain != null)
+                    {
+                        terrainColour = terrain.Colour;
+                    }
 
                     DrawMinimapPixel(spriteBatch, terrainColour, screenLocation);
                 }
