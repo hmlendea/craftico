@@ -29,6 +29,12 @@ namespace Craftico.Gui.Screens
         public GuiMinimap Minimap { get; set; }
 
         /// <summary>
+        /// Gets or sets the minimap.
+        /// </summary>
+        /// <value>The minimap.</value>
+        public GuiSideBar SideBar { get; set; }
+
+        /// <summary>
         /// Loads the content.
         /// </summary>
         public override void LoadContent()
@@ -45,6 +51,8 @@ namespace Craftico.Gui.Screens
             world.AssociateCamera(camera);
 
             Minimap = new GuiMinimap { Size = new Size2D(224, 176) };
+            SideBar = new GuiSideBar { Size = new Size2D(240, 334) };
+
             Minimap.AssociateGameManager(game);
 
             playerImage = new GuiMob();
@@ -53,8 +61,11 @@ namespace Craftico.Gui.Screens
             GuiManager.Instance.GuiElements.Add(world);
             GuiManager.Instance.GuiElements.Add(playerImage);
             GuiManager.Instance.GuiElements.Add(Minimap);
+            GuiManager.Instance.GuiElements.Add(SideBar);
 
             base.LoadContent();
+
+            SideBar.AssociateGameManager(game);
         }
 
         /// <summary>
@@ -83,6 +94,10 @@ namespace Craftico.Gui.Screens
         protected override void SetChildrenProperties()
         {
             world.Size = ScreenManager.Instance.Size;
+
+            SideBar.Location = new Point2D(
+                ScreenManager.Instance.Size.Width - SideBar.Size.Width,
+                ScreenManager.Instance.Size.Height - SideBar.Size.Height);
 
             playerImage.Location = new Point2D(
                 world.Size.Width / 2 - 1,

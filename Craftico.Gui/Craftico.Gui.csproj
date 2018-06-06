@@ -56,7 +56,13 @@
   <ItemGroup>
     <Compile Include="AnimationEffects\HumanSpriteSheetEffect.cs" />
     <Compile Include="FpsIndicator.cs" />
+    <Compile Include="GuiElements\GuiButton.cs" />
     <Compile Include="GuiElements\GuiMob.cs" />
+    <Compile Include="GuiElements\GuiSideBar.cs" />
+    <Compile Include="GuiElements\GuiSideBarPanel.cs" />
+    <Compile Include="GuiElements\GuiSkillCard.cs" />
+    <Compile Include="GuiElements\GuiSkillsPanel.cs" />
+    <Compile Include="GuiElements\GuIToggleButton.cs" />
     <Compile Include="Helpers\FpsCounter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
