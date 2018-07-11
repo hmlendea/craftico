@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 using NuciXNA.Gui.GuiElements;
-using NuciXNA.Input.Enumerations;
-using NuciXNA.Input.Events;
+using NuciXNA.Input;
 using NuciXNA.Primitives;
 
 using Craftico.Settings;
@@ -64,12 +63,12 @@ namespace Craftico.Gui.GuiElements
                 images.Add(image);
             }
 
-            Children.AddRange(images);
-            Children.Add(text);
+            images.ForEach(AddChild);
+            AddChild(text);
 
             if (!string.IsNullOrWhiteSpace(Icon))
             {
-                Children.Add(icon);
+                AddChild(icon);
             }
 
             base.LoadContent();

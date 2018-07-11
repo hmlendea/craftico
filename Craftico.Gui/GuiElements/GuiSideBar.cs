@@ -1,5 +1,5 @@
-﻿using NuciXNA.Gui.GuiElements;
-using NuciXNA.Input.Events;
+using NuciXNA.Gui.GuiElements;
+using NuciXNA.Input;
 using NuciXNA.Primitives;
 
 using Craftico.GameLogic.GameManagers;
@@ -13,7 +13,7 @@ namespace Craftico.Gui.GuiElements
 
         GuiSideBarPanel panel;
         GuiSkillsPanel skillsPanel;
-        
+
         GuiToggleButton skillsButton;
         GuiToggleButton exitButton;
 
@@ -21,7 +21,7 @@ namespace Craftico.Gui.GuiElements
         {
             panel = new GuiSideBarPanel { Size = new Size2D(240, 262) };
             skillsPanel = new GuiSkillsPanel { Size = new Size2D(190, 262) };
-            
+
             skillsButton = new GuiToggleButton
             {
                 Texture = "Interface/SideBar/button",
@@ -37,11 +37,11 @@ namespace Craftico.Gui.GuiElements
                 Size = new Size2D(240, 36)
             };
 
-            Children.Add(panel);
-            Children.Add(skillsPanel);
-            
-            Children.Add(skillsButton);
-            Children.Add(exitButton);
+            AddChild(panel);
+            AddChild(skillsPanel);
+
+            AddChild(skillsButton);
+            AddChild(exitButton);
 
             SkillsButton_Clicked(this, null);
 
@@ -51,7 +51,7 @@ namespace Craftico.Gui.GuiElements
         public void AssociateGameManager(IGameManager game)
         {
             this.game = game;
-            
+
             skillsPanel.AssociateGameManager(game);
         }
 
@@ -69,7 +69,7 @@ namespace Craftico.Gui.GuiElements
             skillsPanel.Location = new Point2D(
                 panel.Location.X + 25,
                 panel.Location.Y);
-            
+
             skillsButton.Location = new Point2D(
                 panel.Location.X,
                 panel.Location.Y - skillsButton.Size.Height);
@@ -114,7 +114,7 @@ namespace Craftico.Gui.GuiElements
         {
             skillsButton.Toggled = false;
             exitButton.Toggled = false;
-            
+
             skillsPanel.Hide();
         }
     }

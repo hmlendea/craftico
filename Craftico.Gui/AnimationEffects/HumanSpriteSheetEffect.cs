@@ -27,19 +27,12 @@ namespace Craftico.Gui.MobAnimationEffects
         {
             Point2D newFrame = CurrentFrame;
 
-            if (Sprite.Active)
-            {
-                FrameCounter += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
+            FrameCounter += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-                if (FrameCounter >= SwitchFrame)
-                {
-                    FrameCounter = 0;
-                    newFrame.X += 1;
-                }
-            }
-            else
+            if (FrameCounter >= SwitchFrame)
             {
-                newFrame.X = 0;
+                FrameCounter = 0;
+                newFrame.X += 1;
             }
 
             switch (Action)
@@ -85,6 +78,8 @@ namespace Craftico.Gui.MobAnimationEffects
                     newFrame.Y = 16;
                     break;
             }
+
+            var a = Sprite.SourceRectangle;
 
             newFrame.Y += (int)Direction;
             CurrentFrame = newFrame;

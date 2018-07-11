@@ -3,11 +3,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using NuciXNA.Graphics;
+using NuciXNA.Graphics.Drawing;
 using NuciXNA.Gui.GuiElements;
 using NuciXNA.Input;
-using NuciXNA.Input.Enumerations;
-using NuciXNA.Input.Events;
 using NuciXNA.Primitives;
 
 using Craftico.GameLogic.GameManagers;
@@ -134,18 +132,18 @@ namespace Craftico.Gui.GuiElements
 
             foreach (Terrain terrain in game.GetTerrains())
             {
-                Sprite sprite = new Sprite
+                TextureSprite sprite = new TextureSprite
                 {
                     ContentFile = $"SpriteSheets/Terrains/{terrain.SpriteSheet}",
+                    SourceRectangle = new Rectangle2D(Point2D.Empty, GameDefines.MAP_TILE_SIZE, GameDefines.MAP_TILE_SIZE),
                     SpriteSheetEffect = new TerrainSpriteSheetEffect
                     {
                         Variation = TerrainVariation.RegularEmpty
                     },
                     Active = true
                 };
-                sprite.LoadContent();
 
-                sprite.SpriteSheetEffect.AssociateSprite(sprite);
+                sprite.LoadContent();
                 sprite.SpriteSheetEffect.Activate();
 
                 if (!tileSprites.ContainsKey(terrain.SpriteSheet))

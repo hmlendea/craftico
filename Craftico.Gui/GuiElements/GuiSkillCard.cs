@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 
 using NuciXNA.Primitives;
-using NuciXNA.Graphics.Enumerations;
+using NuciXNA.Graphics.Drawing;
 using NuciXNA.Gui.GuiElements;
-using NuciXNA.Input.Events;
+using NuciXNA.Input;
 
 namespace Craftico.Gui.GuiElements
 {
@@ -59,13 +59,13 @@ namespace Craftico.Gui.GuiElements
                 ForegroundColour = Colour.Yellow
             };
 
-            Children.Add(regularBackground);
-            Children.Add(detailsBackground);
-            Children.Add(skillIcon);
+            AddChild(regularBackground);
+            AddChild(detailsBackground);
+            AddChild(skillIcon);
 
-            Children.Add(currentLevelText);
-            Children.Add(baseLevelText);
-            Children.Add(detailsText);
+            AddChild(currentLevelText);
+            AddChild(baseLevelText);
+            AddChild(detailsText);
 
             detailsBackground.Visible = false;
             detailsText.Visible = false;

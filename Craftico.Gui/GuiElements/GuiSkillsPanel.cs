@@ -1,4 +1,4 @@
-﻿using NuciXNA.Gui.GuiElements;
+using NuciXNA.Gui.GuiElements;
 using NuciXNA.Primitives;
 
 using Craftico.GameLogic.GameManagers;
@@ -18,8 +18,8 @@ namespace Craftico.Gui.GuiElements
             hitpointsCard = new GuiSkillCard { SkillIcon = "Icons/Skills/vigour" };
             faithCard = new GuiSkillCard { SkillIcon = "Icons/Skills/faith" };
             
-            Children.Add(hitpointsCard);
-            Children.Add(faithCard);
+            AddChild(hitpointsCard);
+            AddChild(faithCard);
 
             base.LoadContent();
         }

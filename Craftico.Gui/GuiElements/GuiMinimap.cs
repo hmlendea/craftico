@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using NuciXNA.DataAccess.Resources;
-using NuciXNA.Graphics;
+using NuciXNA.Graphics.Drawing;
 using NuciXNA.Gui.GuiElements;
 using NuciXNA.Primitives;
 using NuciXNA.Primitives.Mapping;
@@ -22,9 +22,9 @@ namespace Craftico.Gui.GuiElements
 
         byte[,] alphaMask;
 
-        Sprite mobDot;
-        Sprite pixel;
-        Sprite frame;
+        TextureSprite mobDot;
+        TextureSprite pixel;
+        TextureSprite frame;
 
         public bool IsClickable { get; set; }
 
@@ -38,13 +38,19 @@ namespace Craftico.Gui.GuiElements
 
         public override void LoadContent()
         {
-            mobDot = new Sprite { ContentFile = "Interface/Minimap/entity_dot" };
-            pixel = new Sprite
+            mobDot = new TextureSprite
+            {
+                ContentFile = "Interface/Minimap/entity_dot"
+            };
+            pixel = new TextureSprite
             {
                 ContentFile = "ScreenManager/FillImage",
-                Scale = new Scale2D(ZoomLevel, ZoomLevel)
+                Scale = new Scale2D(ZoomLevel)
             };
-            frame = new Sprite { ContentFile = "Interface/Minimap/frame" };
+            frame = new TextureSprite
+            {
+                ContentFile = "Interface/Minimap/frame"
+            };
 
             healthIndicator = new GuiMinimapIndicator
             {
@@ -83,9 +89,9 @@ namespace Craftico.Gui.GuiElements
             pixel.LoadContent();
             frame.LoadContent();
 
-            Children.Add(healthIndicator);
-            Children.Add(staminaIndiator);
-            Children.Add(manaIndicator);
+            AddChild(healthIndicator);
+            AddChild(staminaIndiator);
+            AddChild(manaIndicator);
 
             base.LoadContent();
         }

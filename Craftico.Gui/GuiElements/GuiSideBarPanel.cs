@@ -1,4 +1,4 @@
-﻿using NuciXNA.Gui.GuiElements;
+using NuciXNA.Gui.GuiElements;
 
 namespace Craftico.Gui.GuiElements
 {
@@ -13,7 +13,7 @@ namespace Craftico.Gui.GuiElements
                 ContentFile = "Interface/SideBar/panel"
             };
 
-            Children.Add(background);
+            AddChild(background);
 
             base.LoadContent();
         }

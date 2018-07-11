@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using NuciXNA.Graphics;
+using NuciXNA.Graphics.Drawing;
 using NuciXNA.Gui.GuiElements;
 using NuciXNA.Primitives;
 
@@ -14,14 +14,14 @@ namespace Craftico.Gui.GuiElements
     {
         Mob mob;
 
-        Sprite body;
-        Sprite helmet;
-        Sprite cuirass;
-        Sprite greaves;
-        Sprite gloves;
-        Sprite boots;
-        Sprite leftHand;
-        Sprite rightHand;
+        TextureSprite body;
+        TextureSprite helmet;
+        TextureSprite cuirass;
+        TextureSprite greaves;
+        TextureSprite gloves;
+        TextureSprite boots;
+        TextureSprite leftHand;
+        TextureSprite rightHand;
 
         HumanSpriteSheetEffect bodyEffect;
         HumanSpriteSheetEffect helmetEffect;
@@ -31,6 +31,11 @@ namespace Craftico.Gui.GuiElements
         HumanSpriteSheetEffect bootsEffect;
         HumanSpriteSheetEffect leftHandEffect;
         HumanSpriteSheetEffect rightHandEffect;
+
+        public GuiMob()
+        {
+            Size = new Size2D(64, 64);
+        }
 
         public override void LoadContent()
         {
@@ -43,63 +48,62 @@ namespace Craftico.Gui.GuiElements
             leftHandEffect = new HumanSpriteSheetEffect();
             rightHandEffect = new HumanSpriteSheetEffect();
 
-            body = new Sprite
+            body = new TextureSprite
             {
                 ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SourceRectangle = new Rectangle2D(Point2D.Empty, Size),
                 SpriteSheetEffect = bodyEffect,
                 Active = true
             };
-            helmet = new Sprite
+            helmet = new TextureSprite
             {
                 ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SourceRectangle = new Rectangle2D(Point2D.Empty, Size),
                 SpriteSheetEffect = helmetEffect,
                 Active = true
             };
-            cuirass = new Sprite
+            cuirass = new TextureSprite
             {
                 ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SourceRectangle = new Rectangle2D(Point2D.Empty, Size),
                 SpriteSheetEffect = cuirassEffect,
                 Active = true
             };
-            greaves = new Sprite
+            greaves = new TextureSprite
             {
                 ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SourceRectangle = new Rectangle2D(Point2D.Empty, Size),
                 SpriteSheetEffect = greavesEffect,
                 Active = true
             };
-            gloves = new Sprite
+            gloves = new TextureSprite
             {
                 ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SourceRectangle = new Rectangle2D(Point2D.Empty, Size),
                 SpriteSheetEffect = glovesEffect,
                 Active = true
             };
-            boots = new Sprite
+            boots = new TextureSprite
             {
                 ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SourceRectangle = new Rectangle2D(Point2D.Empty, Size),
                 SpriteSheetEffect = bootsEffect,
                 Active = true
             };
-            leftHand = new Sprite
+            leftHand = new TextureSprite
             {
                 ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SourceRectangle = new Rectangle2D(Point2D.Empty, Size),
                 SpriteSheetEffect = leftHandEffect,
                 Active = true
             };
-            rightHand = new Sprite
+            rightHand = new TextureSprite
             {
                 ContentFile = "SpriteSheets/Mobs/human_male_white",
+                SourceRectangle = new Rectangle2D(Point2D.Empty, Size),
                 SpriteSheetEffect = rightHandEffect,
                 Active = true
             };
-
-            body.SpriteSheetEffect.AssociateSprite(body);
-            helmet.SpriteSheetEffect.AssociateSprite(helmet);
-            cuirass.SpriteSheetEffect.AssociateSprite(cuirass);
-            greaves.SpriteSheetEffect.AssociateSprite(greaves);
-            gloves.SpriteSheetEffect.AssociateSprite(gloves);
-            boots.SpriteSheetEffect.AssociateSprite(boots);
-            leftHand.SpriteSheetEffect.AssociateSprite(leftHand);
-            rightHand.SpriteSheetEffect.AssociateSprite(rightHand);
 
             body.LoadContent();
             helmet.LoadContent();
@@ -222,8 +226,8 @@ namespace Craftico.Gui.GuiElements
             rightHandEffect.Direction = mob.Direction;
 
             Point2D location = new Point2D(
-                Location.X + (GameDefines.MAP_TILE_SIZE - body.SourceRectangle.Width) / 2,
-                Location.Y + GameDefines.MAP_TILE_SIZE - body.SourceRectangle.Height); ;
+                (GameDefines.MAP_TILE_SIZE - body.SourceRectangle.Width) / 2,
+                GameDefines.MAP_TILE_SIZE - body.SourceRectangle.Height);
 
             body.Location = location;
             helmet.Location = location;
