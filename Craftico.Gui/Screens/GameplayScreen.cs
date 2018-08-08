@@ -20,7 +20,6 @@ namespace Craftico.Gui.Screens
         Mob player;
 
         GuiWorld world;
-        GuiMob playerImage;
 
         /// <summary>
         /// Gets or sets the minimap.
@@ -55,11 +54,7 @@ namespace Craftico.Gui.Screens
 
             Minimap.AssociateGameManager(game);
 
-            playerImage = new GuiMob();
-            playerImage.AssociateMob(player);
-
             GuiManager.Instance.GuiElements.Add(world);
-            GuiManager.Instance.GuiElements.Add(playerImage);
             GuiManager.Instance.GuiElements.Add(Minimap);
             GuiManager.Instance.GuiElements.Add(SideBar);
 
@@ -98,10 +93,6 @@ namespace Craftico.Gui.Screens
             SideBar.Location = new Point2D(
                 ScreenManager.Instance.Size.Width - SideBar.Size.Width,
                 ScreenManager.Instance.Size.Height - SideBar.Size.Height);
-
-            playerImage.Location = new Point2D(
-                world.Size.Width / 2 - 1,
-                world.Size.Height / 2 - 1);
 
             Minimap.Location = new Point2D(ScreenManager.Instance.Size.Width - Minimap.Size.Width, 0);
             camera.CentreOnLocation(player.Location);

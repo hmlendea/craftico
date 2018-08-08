@@ -24,6 +24,8 @@ namespace Craftico.Gui.GuiElements
         Dictionary<string, Sprite> tileSprites;
         Dictionary<string, GuiWorldObject> worldObjects;
 
+        GuiMob playerImage;
+
         public int Rows { get; private set; }
 
         public int Columns { get; private set; }
@@ -31,12 +33,16 @@ namespace Craftico.Gui.GuiElements
         public override void LoadContent()
         {
             player = game.GetPlayer();
+            playerImage = new GuiMob();
+            playerImage.AssociateMob(player);
 
             Rows = Size.Height / GameDefines.MAP_TILE_SIZE + 2;
             Columns = Size.Width / GameDefines.MAP_TILE_SIZE + 2;
 
             LoadTileSprites();
             LoadWorldObjects();
+
+            AddChild(playerImage);
 
             base.LoadContent();
         }
@@ -90,6 +96,13 @@ namespace Craftico.Gui.GuiElements
         public void AssociateCamera(Camera camera)
         {
             this.camera = camera;
+        }
+
+        protected override void SetChildrenProperties()
+        {
+            base.SetChildrenProperties();
+
+            playerImage.Location = new Point2D(Size / 2);
         }
 
         protected override void RegisterEvents()

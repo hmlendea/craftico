@@ -226,8 +226,8 @@ namespace Craftico.Gui.GuiElements
             rightHandEffect.Direction = mob.Direction;
 
             Point2D location = new Point2D(
-                (GameDefines.MAP_TILE_SIZE - body.SourceRectangle.Width) / 2,
-                GameDefines.MAP_TILE_SIZE - body.SourceRectangle.Height);
+                Location.X + (body.SourceRectangle.Width - GameDefines.MAP_TILE_SIZE) / 2,
+                Location.Y);
 
             body.Location = location;
             helmet.Location = location;
