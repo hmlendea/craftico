@@ -17,13 +17,5 @@ namespace Craftico.Gui.GuiElements
 
             base.LoadContent();
         }
-
-        protected override void SetChildrenProperties()
-        {
-            base.SetChildrenProperties();
-
-            background.Location = Location;
-            background.Size = Size;
-        }
     }
 }

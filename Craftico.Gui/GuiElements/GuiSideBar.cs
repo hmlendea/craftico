@@ -24,17 +24,15 @@ namespace Craftico.Gui.GuiElements
 
             skillsButton = new GuiToggleButton
             {
-                Texture = "Interface/SideBar/button",
-                ButtonTileSize = new Size2D(30, 36),
+                ContentFile = "Interface/SideBar/button",
                 Icon = "Interface/SideBar/skills_button_icon",
-                Size = new Size2D(30, 36)
+                Size = new Size2D(30, 32)
             };
             exitButton = new GuiToggleButton
             {
-                Texture = "Interface/SideBar/button",
-                ButtonTileSize = new Size2D(30, 36),
+                ContentFile = "Interface/SideBar/button-full",
                 Icon = "Interface/SideBar/exit_button_icon",
-                Size = new Size2D(240, 36)
+                Size = new Size2D(240, 32)
             };
 
             AddChild(panel);
@@ -59,13 +57,9 @@ namespace Craftico.Gui.GuiElements
         {
             base.SetChildrenProperties();
 
-            exitButton.Location = new Point2D(
-                Location.X + (Size.Width - exitButton.Size.Width) / 2,
-                ClientRectangle.Bottom - GameDefines.GUI_TILE_SIZE);
+            exitButton.Location = new Point2D(0, Size.Height - GameDefines.GUI_TILE_SIZE);
+            panel.Location = new Point2D(0, GameDefines.GUI_TILE_SIZE);
 
-            panel.Location = new Point2D(
-                Location.X + (Size.Width - panel.Size.Width) / 2,
-                exitButton.Location.Y - panel.Size.Height);
             skillsPanel.Location = new Point2D(
                 panel.Location.X + 25,
                 panel.Location.Y);

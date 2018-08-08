@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-
+using NuciXNA.Graphics.Drawing;
 using NuciXNA.Gui.GuiElements;
 using NuciXNA.Input;
 using NuciXNA.Primitives;
 
+//using Craftico.Audio;
 using Craftico.Settings;
 
 namespace Craftico.Gui.GuiElements
@@ -13,16 +13,6 @@ namespace Craftico.Gui.GuiElements
     /// </summary>
     public class GuiButton : GuiElement
     {
-        public Size2D ButtonTileSize { get; set; }
-
-        /// <summary>
-        /// Gets or sets the size of the button.
-        /// </summary>
-        /// <value>The size of the button.</value>
-        public Size2D ButtonSize => new Size2D(
-            Size.Width / ButtonTileSize.Width,
-            Size.Height / ButtonTileSize.Height);
-
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
@@ -31,20 +21,18 @@ namespace Craftico.Gui.GuiElements
 
         public string Icon { get; set; }
 
-        public string Texture { get; set; }
+        public string ContentFile { get; set; }
 
-        protected List<GuiImage> images;
-        GuiImage icon;
-        GuiText text;
+        protected GuiImage background;
+        protected GuiImage icon;
+        protected GuiText text;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiButton"/> class.
         /// </summary>
         public GuiButton()
         {
-            Texture = "Interface/button";
             FontName = "ButtonFont";
-            ButtonTileSize = new Size2D(GameDefines.GUI_TILE_SIZE, GameDefines.GUI_TILE_SIZE);
         }
 
         /// <summary>
@@ -52,49 +40,45 @@ namespace Craftico.Gui.GuiElements
         /// </summary>
         public override void LoadContent()
         {
-            icon = new GuiImage();
-            images = new List<GuiImage>();
+            background = new GuiImage
+            {
+                ContentFile = ContentFile
+            };
+            icon = new GuiImage
+            {
+                ContentFile = Icon,
+                Size = new Size2D(GameDefines.GUI_TILE_SIZE, GameDefines.GUI_TILE_SIZE)
+            };
             text = new GuiText();
 
-            for (int x = 0; x < ButtonSize.Width; x++)
-            {
-                GuiImage image = new GuiImage { SourceRectangle = CalculateSourceRectangle(x) };
-
-                images.Add(image);
-            }
-
-            images.ForEach(AddChild);
-            AddChild(text);
-
-            if (!string.IsNullOrWhiteSpace(Icon))
-            {
-                AddChild(icon);
-            }
-
             base.LoadContent();
+        }
+
+        protected override void RegisterChildren()
+        {
+            base.RegisterChildren();
+
+            AddChild(background);
+            AddChild(icon);
+            AddChild(text);
         }
 
         protected override void SetChildrenProperties()
         {
             base.SetChildrenProperties();
 
-            for (int i = 0; i < images.Count; i++)
+            if (!Hovered)
             {
-                images[i].ContentFile = Texture;
-                images[i].Location = new Point2D(Location.X + i * ButtonTileSize.Width, Location.Y);
-                images[i].SourceRectangle = CalculateSourceRectangle(i);
+                background.SourceRectangle = new Rectangle2D(0, 0, Size.Width, Size.Height);
+            }
+            else
+            {
+                background.SourceRectangle = new Rectangle2D(Size.Width, 0, Size.Width, Size.Height);
             }
 
-            text.Text = Text;
-            text.ForegroundColour = ForegroundColour;
-            text.FontName = FontName;
-            text.Location = Location;
-            text.Size = Size;
+            icon.Location = new Point2D((Size - icon.Size) / 2);
 
-            icon.ContentFile = Icon;
-            icon.Location = new Point2D(
-                Location.X + (Size.Width - icon.Size.Width) / 2,
-                Location.Y + (Size.Height - icon.Size.Height) / 2);
+            text.Text = Text;
         }
 
         /// <summary>
@@ -124,32 +108,6 @@ namespace Craftico.Gui.GuiElements
             base.OnMouseMoved(sender, e);
 
             //AudioManager.Instance.PlaySound("Interface/select");
-        }
-
-        protected virtual Rectangle2D CalculateSourceRectangle(int x)
-        {
-            int sx = 1;
-
-            if (ButtonSize.Width == 1)
-            {
-                sx = 3;
-            }
-            else if (x == 0)
-            {
-                sx = 0;
-            }
-            else if (x == ButtonSize.Width - 1)
-            {
-                sx = 2;
-            }
-
-            if (Hovered)
-            {
-                sx += 4;
-            }
-
-            return new Rectangle2D(sx * ButtonTileSize.Width, 0,
-                                   ButtonTileSize.Width, ButtonTileSize.Height);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Craftico.Gui.Screens
             world.AssociateCamera(camera);
 
             Minimap = new GuiMinimap { Size = new Size2D(224, 176) };
-            SideBar = new GuiSideBar { Size = new Size2D(240, 334) };
+            SideBar = new GuiSideBar { Size = new Size2D(240, 326) };
 
             Minimap.AssociateGameManager(game);
 

@@ -17,30 +17,13 @@ namespace Craftico.Gui.GuiElements
         {
             base.SetChildrenProperties();
 
-            for (int i = 0; i < images.Count; i++)
+            if (Toggled)
             {
-                if (Toggled)
-                {
-                    images[i].TintColour = ToggleColour;
-                }
-                else
-                {
-                    images[i].TintColour = Colour.White;
-                }
-            }
-        }
-
-        protected override Rectangle2D CalculateSourceRectangle(int x)
-        {
-            Rectangle2D rect = base.CalculateSourceRectangle(x);
-
-            if (Toggled && !Hovered)
-            {
-                return new Rectangle2D(rect.X + 4 * ButtonTileSize.Width, rect.Y, rect.Width, rect.Height);
+                background.TintColour = ToggleColour;
             }
             else
             {
-                return rect;
+                background.TintColour = Colour.White;
             }
         }
     }
