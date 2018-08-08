@@ -42,4 +42,18 @@
 		<Type>Wearable</Type>
 		<SpriteSheet>metal_boots</SpriteSheet>
 	</ItemEntity>
+	<ItemEntity>
+		<Id>bones</Id>
+		<Name>Bones</Name>
+		<Description>Dusty old bones</Description>
+		<Type>Other</Type>
+		<SpriteSheet>bones</SpriteSheet>
+	</ItemEntity>
+	<ItemEntity>
+		<Id>nails</Id>
+		<Name>Nails</Name>
+		<Description>Brings things together, by force</Description>
+		<Type>Other</Type>
+		<SpriteSheet>nails</SpriteSheet>
+	</ItemEntity>
 </ArrayOfItemEntity>

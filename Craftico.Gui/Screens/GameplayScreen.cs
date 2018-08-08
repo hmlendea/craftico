@@ -14,12 +14,14 @@ namespace Craftico.Gui.Screens
     /// </summary>
     public class GameplayScreen : Screen
     {
+        IEntityManager entities;
         IGameManager game;
+        IWorldManager world;
 
         Camera camera;
         Mob player;
 
-        GuiWorld world;
+        GuiWorld worldView;
 
         /// <summary>
         /// Gets or sets the minimap.
@@ -38,29 +40,38 @@ namespace Craftico.Gui.Screens
         /// </summary>
         public override void LoadContent()
         {
-            game = new GameManager();
-            camera = new Camera();
+            entities = new EntityManager();
+            world = new WorldManager();
+            game = new GameManager(entities, world);
 
+            entities.LoadContent();
+            world.LoadContent();
             game.LoadContent();
+
+            camera = new Camera();
 
             player = game.GetPlayer();
 
-            world = new GuiWorld();
-            world.AssociateGameManager(game);
-            world.AssociateCamera(camera);
+            worldView = new GuiWorld();
+            worldView.AssociateGameManager(game);
+            worldView.AssociateCamera(camera);
 
-            Minimap = new GuiMinimap { Size = new Size2D(224, 176) };
-            SideBar = new GuiSideBar { Size = new Size2D(240, 326) };
+            Minimap = new GuiMinimap
+            {
+                Size = new Size2D(224, 176)
+            };
+            SideBar = new GuiSideBar(entities, game)
+            {
+                Size = new Size2D(240, 326)
+            };
 
             Minimap.AssociateGameManager(game);
 
-            GuiManager.Instance.GuiElements.Add(world);
+            GuiManager.Instance.GuiElements.Add(worldView);
             GuiManager.Instance.GuiElements.Add(Minimap);
             GuiManager.Instance.GuiElements.Add(SideBar);
 
             base.LoadContent();
-
-            SideBar.AssociateGameManager(game);
         }
 
         /// <summary>
@@ -68,6 +79,8 @@ namespace Craftico.Gui.Screens
         /// </summary>
         public override void UnloadContent()
         {
+            entities.UnloadContent();
+            world.UnloadContent();
             game.UnloadContent();
             camera.UnloadContent();
 
@@ -80,6 +93,8 @@ namespace Craftico.Gui.Screens
         /// <param name="gameTime">Game time.</param>
         public override void Update(GameTime gameTime)
         {
+            entities.Update(gameTime);
+            world.Update(gameTime);
             game.Update(gameTime);
             camera.Update(gameTime);
 
@@ -88,7 +103,7 @@ namespace Craftico.Gui.Screens
 
         protected override void SetChildrenProperties()
         {
-            world.Size = ScreenManager.Instance.Size;
+            worldView.Size = ScreenManager.Instance.Size;
 
             SideBar.Location = new Point2D(
                 ScreenManager.Instance.Size.Width - SideBar.Size.Width,

@@ -14,5 +14,7 @@
         public const int GUI_TILE_SIZE = 32;
 
         public const int MAP_TILE_SIZE = 32;
+
+        public const int InventorySize = 28;
     }
 }

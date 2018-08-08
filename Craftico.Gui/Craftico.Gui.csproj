@@ -73,6 +73,8 @@
     <Compile Include="GuiElements\GuiMinimap.cs" />
     <Compile Include="GuiElements\GuiMinimapIndicator.cs" />
     <Compile Include="GuiElements\GuiWorldObject.cs" />
+    <Compile Include="GuiElements\GuiSideBarInventoryPanel.cs" />
+    <Compile Include="GuiElements\GuiItemCard.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Craftico.GameLogic\Craftico.GameLogic.csproj">

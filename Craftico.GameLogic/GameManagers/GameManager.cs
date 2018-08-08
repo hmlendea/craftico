@@ -19,7 +19,6 @@ namespace Craftico.GameLogic.GameManagers
         Mob player;
 
         IEntityManager entityManager;
-        IInventoryManager inventoryManager;
         IWorldManager worldManager;
 
         float baseMovementSpeed;
@@ -30,6 +29,14 @@ namespace Craftico.GameLogic.GameManagers
         /// <returns>The player.</returns>
         public Mob GetPlayer()
         => player;
+
+        public GameManager(
+            IEntityManager entityManager,
+            IWorldManager worldManager)
+        {
+            this.entityManager = entityManager;
+            this.worldManager = worldManager;
+        }
 
         /// <summary>
         /// Loads the content.
@@ -64,15 +71,18 @@ namespace Craftico.GameLogic.GameManagers
                 }
             };
 
+            player.Inventory.InventorySlots[0] = new InventorySlot()
+            {
+                ItemId = "bones",
+                Quantity = 13
+            };
+            player.Inventory.InventorySlots[1] = new InventorySlot()
+            {
+                ItemId = "nails",
+                Quantity = 50
+            };
+
             baseMovementSpeed = (float)GameDefines.MAP_TILE_SIZE / 5120;
-
-            entityManager = new EntityManager();
-            inventoryManager = new InventoryManager(player, entityManager);
-            worldManager = new WorldManager();
-
-            entityManager.LoadContent();
-            inventoryManager.LoadContent();
-            worldManager.LoadContent();
         }
 
         /// <summary>
@@ -80,9 +90,6 @@ namespace Craftico.GameLogic.GameManagers
         /// </summary>
         public void UnloadContent()
         {
-            entityManager.UnloadContent();
-            inventoryManager.UnloadContent();
-            worldManager.UnloadContent();
         }
 
         /// <summary>
@@ -93,10 +100,6 @@ namespace Craftico.GameLogic.GameManagers
         {
             HandleMovement();
             HandleInteractions();
-
-            entityManager.Update(gameTime);
-            inventoryManager.Update(gameTime);
-            worldManager.Update(gameTime);
         }
 
         public WorldTile GetTile(int x, int y) => worldManager.GetTile(x, y);

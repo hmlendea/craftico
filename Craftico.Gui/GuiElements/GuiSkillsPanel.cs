@@ -9,24 +9,24 @@ namespace Craftico.Gui.GuiElements
     public class GuiSkillsPanel : GuiElement
     {
         IGameManager game;
-        
+
         GuiSkillCard hitpointsCard;
         GuiSkillCard faithCard;
+
+        public GuiSkillsPanel(IGameManager game)
+        {
+            this.game = game;
+        }
 
         public override void LoadContent()
         {
             hitpointsCard = new GuiSkillCard { SkillIcon = "Icons/Skills/vigour" };
             faithCard = new GuiSkillCard { SkillIcon = "Icons/Skills/faith" };
-            
+
             AddChild(hitpointsCard);
             AddChild(faithCard);
 
             base.LoadContent();
-        }
-
-        public void AssociateGameManager(IGameManager game)
-        {
-            this.game = game;
         }
 
         protected override void SetChildrenProperties()

@@ -9,23 +9,47 @@ namespace Craftico.Gui.GuiElements
 {
     public class GuiSideBar : GuiElement
     {
+        IEntityManager entities;
         IGameManager game;
 
         GuiSideBarPanel panel;
         GuiSkillsPanel skillsPanel;
+        GuiSideBarInventoryPanel inventoryPanel;
 
         GuiToggleButton skillsButton;
+        GuiToggleButton inventoryButton;
         GuiToggleButton exitButton;
+
+        public GuiSideBar(
+            IEntityManager entities,
+            IGameManager game)
+        {
+            this.entities = entities;
+            this.game = game;
+        }
 
         public override void LoadContent()
         {
             panel = new GuiSideBarPanel { Size = new Size2D(240, 262) };
-            skillsPanel = new GuiSkillsPanel { Size = new Size2D(190, 262) };
+            skillsPanel = new GuiSkillsPanel(game)
+            {
+                Size = new Size2D(190, 262)
+            };
+            inventoryPanel = new GuiSideBarInventoryPanel(entities, game)
+            {
+                Size = new Size2D(190, 262)
+            };
 
             skillsButton = new GuiToggleButton
             {
                 ContentFile = "Interface/SideBar/button",
                 Icon = "Interface/SideBar/skills_button_icon",
+                Size = new Size2D(30, 32)
+            };
+            inventoryButton = new GuiToggleButton
+            {
+                ContentFile = "Interface/SideBar/button",
+                Icon = "Interface/SideBar/inventory_button_icon",
                 Size = new Size2D(30, 32)
             };
             exitButton = new GuiToggleButton
@@ -37,20 +61,15 @@ namespace Craftico.Gui.GuiElements
 
             AddChild(panel);
             AddChild(skillsPanel);
+            AddChild(inventoryPanel);
 
             AddChild(skillsButton);
+            AddChild(inventoryButton);
             AddChild(exitButton);
 
             SkillsButton_Clicked(this, null);
 
             base.LoadContent();
-        }
-
-        public void AssociateGameManager(IGameManager game)
-        {
-            this.game = game;
-
-            skillsPanel.AssociateGameManager(game);
         }
 
         protected override void SetChildrenProperties()
@@ -60,24 +79,24 @@ namespace Craftico.Gui.GuiElements
             exitButton.Location = new Point2D(0, Size.Height - GameDefines.GUI_TILE_SIZE);
             panel.Location = new Point2D(0, GameDefines.GUI_TILE_SIZE);
 
-            skillsPanel.Location = new Point2D(
-                panel.Location.X + 25,
-                panel.Location.Y);
+            skillsPanel.Location = new Point2D(panel.Location.X + 25, panel.Location.Y);
+            inventoryPanel.Location = skillsPanel.Location;
 
-            skillsButton.Location = new Point2D(
-                panel.Location.X,
-                panel.Location.Y - skillsButton.Size.Height);
+            skillsButton.Location = Point2D.Empty;
+            inventoryButton.Location = new Point2D(skillsButton.ClientRectangle.Right, 0);
         }
 
         protected override void RegisterEvents()
         {
             skillsButton.Clicked += SkillsButton_Clicked;
+            inventoryButton.Clicked += InventoryButton_Clicked;
             exitButton.Clicked += ExitButton_Clicked;
         }
 
         protected override void UnregisterEvents()
         {
             skillsButton.Clicked -= SkillsButton_Clicked;
+            inventoryButton.Clicked -= InventoryButton_Clicked;
             exitButton.Clicked -= ExitButton_Clicked;
         }
 
@@ -97,6 +116,14 @@ namespace Craftico.Gui.GuiElements
             skillsPanel.Show();
         }
 
+        void InventoryButton_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            UnselectEverything();
+
+            inventoryButton.Toggled = true;
+            inventoryPanel.Show();
+        }
+
         void ExitButton_Clicked(object sender, MouseButtonEventArgs e)
         {
             UnselectEverything();
@@ -107,9 +134,11 @@ namespace Craftico.Gui.GuiElements
         void UnselectEverything()
         {
             skillsButton.Toggled = false;
+            inventoryButton.Toggled = false;
             exitButton.Toggled = false;
 
             skillsPanel.Hide();
+            inventoryPanel.Hide();
         }
     }
 }
