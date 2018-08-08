@@ -43,6 +43,13 @@
 		<SpriteSheet>metal_boots</SpriteSheet>
 	</ItemEntity>
 	<ItemEntity>
+		<Id>metal_gloves</Id>
+		<Name>Metal Gloves</Name>
+		<Description>Metal Gloves</Description>
+		<Type>Wearable</Type>
+		<SpriteSheet>metal_gloves</SpriteSheet>
+	</ItemEntity>
+	<ItemEntity>
 		<Id>bones</Id>
 		<Name>Bones</Name>
 		<Description>Dusty old bones</Description>

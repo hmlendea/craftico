@@ -14,9 +14,9 @@ namespace Craftico.Gui.GuiElements
         readonly IGameManager game;
         readonly Mob player;
 
-        GuiItemCard[] itemCards;
+        GuiInventorySlot[] itemCards;
 
-        const int Rows = 8;
+        const int Rows = 7;
         const int Columns = 4;
 
         public GuiSideBarInventoryPanel(
@@ -31,11 +31,11 @@ namespace Craftico.Gui.GuiElements
 
         public override void LoadContent()
         {
-            itemCards = new GuiItemCard[Rows * Columns];
+            itemCards = new GuiInventorySlot[Rows * Columns];
 
             for (int i = 0; i < Rows * Columns; i++)
             {
-                itemCards[i] = new GuiItemCard();
+                itemCards[i] = new GuiInventorySlot();
 
                 AddChild(itemCards[i]);
             }
