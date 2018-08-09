@@ -91,6 +91,7 @@ namespace Craftico.Gui.GuiElements
             SetItem(cuirassSlot, player.Inventory.CuirassSlot);
             SetItem(greavesSlot, player.Inventory.GreavesSlot);
             SetItem(glovesSlot, player.Inventory.GlovesSlot);
+            SetItem(bootsSlot, player.Inventory.BootsSlot);
             SetItem(leftHandSlot, player.Inventory.LeftHandSlot);
             SetItem(rightHandSlot, player.Inventory.RightHandSlot);
             SetItem(ammoSlot, player.Inventory.AmmoSlot);
