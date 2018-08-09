@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using NuciXNA.Primitives;
 
 using Craftico.Models;
@@ -30,16 +28,6 @@ namespace Craftico.GameLogic.GameManagers
         /// </summary>
         /// <returns>The player.</returns>
         Mob GetPlayer();
-
-        WorldTile GetTile(int x, int y);
-
-        Terrain GetTerrain(string id);
-
-        IEnumerable<Terrain> GetTerrains();
-
-        WorldObject GetWorldObject(string id);
-
-        IEnumerable<WorldObject> GetWorldObjects();
 
         void MovePlayer(Point2D destination);
     }

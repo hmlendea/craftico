@@ -52,11 +52,11 @@ namespace Craftico.Gui.Screens
 
             player = game.GetPlayer();
 
-            worldView = new GuiWorld();
+            worldView = new GuiWorld(entities, world, game);
             worldView.AssociateGameManager(game);
             worldView.AssociateCamera(camera);
 
-            Minimap = new GuiMinimap
+            Minimap = new GuiMinimap(entities, world, game)
             {
                 Size = new Size2D(224, 176)
             };
@@ -64,8 +64,6 @@ namespace Craftico.Gui.Screens
             {
                 Size = new Size2D(240, 326)
             };
-
-            Minimap.AssociateGameManager(game);
 
             GuiManager.Instance.GuiElements.Add(worldView);
             GuiManager.Instance.GuiElements.Add(Minimap);

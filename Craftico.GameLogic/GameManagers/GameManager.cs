@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using NuciXNA.Input;
 using NuciXNA.Primitives;
@@ -101,19 +99,6 @@ namespace Craftico.GameLogic.GameManagers
             HandleMovement();
             HandleInteractions();
         }
-
-        public WorldTile GetTile(int x, int y) => worldManager.GetTile(x, y);
-
-        public Terrain GetTerrain(string id) => entityManager.GetTerrain(id);
-
-        public IEnumerable<Terrain> GetTerrains()
-        => entityManager.GetTerrains();
-
-        public WorldObject GetWorldObject(string id)
-        => entityManager.GetWorldObject(id);
-
-        public IEnumerable<WorldObject> GetWorldObjects()
-        => entityManager.GetWorldObjects();
 
         Path path;
         public void MovePlayer(Point2D destination)

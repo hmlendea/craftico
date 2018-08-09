@@ -17,6 +17,8 @@ namespace Craftico.Gui.GuiElements
 {
     public class GuiWorld : GuiElement
     {
+        IEntityManager entities;
+        IWorldManager world;
         IGameManager game;
         Camera camera;
         Mob player;
@@ -29,6 +31,16 @@ namespace Craftico.Gui.GuiElements
         public int Rows { get; private set; }
 
         public int Columns { get; private set; }
+
+        public GuiWorld(
+            IEntityManager entities,
+            IWorldManager world,
+            IGameManager game)
+        {
+            this.entities = entities;
+            this.world = world;
+            this.game = game;
+        }
 
         public override void LoadContent()
         {
@@ -143,7 +155,7 @@ namespace Craftico.Gui.GuiElements
         {
             tileSprites = new Dictionary<string, Sprite>();
 
-            foreach (Terrain terrain in game.GetTerrains())
+            foreach (Terrain terrain in entities.GetTerrains())
             {
                 TextureSprite sprite = new TextureSprite
                 {
@@ -170,10 +182,9 @@ namespace Craftico.Gui.GuiElements
         {
             worldObjects = new Dictionary<string, GuiWorldObject>();
 
-            foreach (WorldObject worldObject in game.GetWorldObjects())
+            foreach (WorldObject worldObject in entities.GetWorldObjects())
             {
-                GuiWorldObject worldObjectImage = new GuiWorldObject(worldObject.Id);
-                worldObjectImage.AssociateGameManager(game);
+                GuiWorldObject worldObjectImage = new GuiWorldObject(entities, worldObject.Id);
                 worldObjectImage.LoadContent();
 
                 worldObjects.Add(worldObject.Id, worldObjectImage);
@@ -190,7 +201,7 @@ namespace Craftico.Gui.GuiElements
             {
                 for (int x = 0; x < Columns; x++)
                 {
-                    WorldTile tile = game.GetTile(
+                    WorldTile tile = world.GetTile(
                         (int)camera.Location.X + x,
                         (int)camera.Location.Y + y);
                     Sprite sprite = tileSprites[tile.TerrainId];
@@ -213,7 +224,7 @@ namespace Craftico.Gui.GuiElements
             {
                 for (int x = 0; x < Columns; x++)
                 {
-                    WorldTile tile = game.GetTile(
+                    WorldTile tile = world.GetTile(
                         (int)camera.Location.X + x,
                         (int)camera.Location.Y + y);
 

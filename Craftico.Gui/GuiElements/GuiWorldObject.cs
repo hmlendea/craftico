@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using System.Collections.Generic;
 
-using NuciXNA.Gui;
 using NuciXNA.Gui.GuiElements;
 using NuciXNA.Primitives;
 
@@ -15,15 +14,17 @@ namespace Craftico.Gui.GuiElements
 {
     public class GuiWorldObject : GuiElement
     {
-        IGameManager gameManager;
+        IEntityManager entities;
 
         List<GuiImage> layerImages;
         List<Point2D> offsets;
 
         public string WorldObjectId { get; }
 
-        public GuiWorldObject(string worldObjectId)
+        public GuiWorldObject(IEntityManager entities, string worldObjectId)
         {
+            this.entities = entities;
+
             WorldObjectId = worldObjectId;
         }
 
@@ -32,7 +33,7 @@ namespace Craftico.Gui.GuiElements
             layerImages = new List<GuiImage>();
             offsets = new List<Point2D>();
 
-            WorldObject worldObject = gameManager.GetWorldObject(WorldObjectId);
+            WorldObject worldObject = entities.GetWorldObject(WorldObjectId);
 
             foreach (WorldObjectLayer layer in worldObject.Layers)
             {
@@ -81,11 +82,6 @@ namespace Craftico.Gui.GuiElements
             layerImages.ForEach(x => x.Draw(spriteBatch));
 
             base.Draw(spriteBatch);
-        }
-
-        public void AssociateGameManager(IGameManager gameManager)
-        {
-            this.gameManager = gameManager;
         }
 
         protected override void SetChildrenProperties()

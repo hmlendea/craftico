@@ -14,6 +14,8 @@ namespace Craftico.Gui.GuiElements
 {
     public class GuiMinimap : GuiElement
     {
+        IEntityManager entities;
+        IWorldManager world;
         IGameManager game;
 
         GuiMinimapIndicator healthIndicator;
@@ -30,8 +32,15 @@ namespace Craftico.Gui.GuiElements
 
         public int ZoomLevel { get; set; }
 
-        public GuiMinimap()
+        public GuiMinimap(
+            IEntityManager entities,
+            IWorldManager world,
+            IGameManager game)
         {
+            this.entities = entities;
+            this.world = world;
+            this.game = game;
+
             IsClickable = true;
             ZoomLevel = 2;
         }
@@ -120,11 +129,6 @@ namespace Craftico.Gui.GuiElements
             base.Draw(spriteBatch);
         }
 
-        public void AssociateGameManager(IGameManager game)
-        {
-            this.game = game;
-        }
-
         protected override void SetChildrenProperties()
         {
             base.SetChildrenProperties();
@@ -155,14 +159,14 @@ namespace Craftico.Gui.GuiElements
                         Location.X + x * ZoomLevel,
                         Location.Y + y * ZoomLevel);
 
-                    WorldTile tile = game.GetTile(startLocation.X + x, startLocation.Y + y);
-                    Terrain terrain = game.GetTerrain(tile.TerrainId);
+                    WorldTile tile = world.GetTile(startLocation.X + x, startLocation.Y + y);
+                    Terrain terrain = entities.GetTerrain(tile.TerrainId);
 
                     Colour terrainColour = Colour.Black;
 
                     if (tile.WorldObjectId != null)
                     {
-                        WorldObject worldObject = game.GetWorldObject(tile.WorldObjectId);
+                        WorldObject worldObject = entities.GetWorldObject(tile.WorldObjectId);
                         terrainColour = worldObject.Colour;
                     }
                     else if (terrain != null)
