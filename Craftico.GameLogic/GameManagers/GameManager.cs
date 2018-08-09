@@ -16,23 +16,19 @@ namespace Craftico.GameLogic.GameManagers
     {
         Mob player;
 
-        IEntityManager entityManager;
-        IWorldManager worldManager;
+        readonly IEntityManager entityManager;
+        readonly IInventoryManager inventoryManager;
+        readonly IWorldManager worldManager;
 
         float baseMovementSpeed;
 
-        /// <summary>
-        /// Gets the player.
-        /// </summary>
-        /// <returns>The player.</returns>
-        public Mob GetPlayer()
-        => player;
-
         public GameManager(
             IEntityManager entityManager,
+            IInventoryManager inventoryManager,
             IWorldManager worldManager)
         {
             this.entityManager = entityManager;
+            this.inventoryManager = inventoryManager;
             this.worldManager = worldManager;
         }
 
@@ -41,44 +37,37 @@ namespace Craftico.GameLogic.GameManagers
         /// </summary>
         public void LoadContent()
         {
-            player = new Mob
+            player = entityManager.GetPlayer();
+            player.Vigour = new Skill(10, 1154);
+            player.Inventory = new Inventory(28)
             {
-                Vigour = new Skill(10, 1154),
-                Inventory = new Inventory(28)
+                CuirassSlot = new InventorySlot
                 {
-                    CuirassSlot = new InventorySlot
-                    {
-                        ItemId = "metal_cuirass",
-                        Quantity = 1
-                    },
-                    GreavesSlot = new InventorySlot
-                    {
-                        ItemId = "metal_greaves",
-                        Quantity = 1
-                    },
-                    GlovesSlot = new InventorySlot
-                    {
-                        ItemId = "metal_gloves",
-                        Quantity = 1
-                    },
-                    BootsSlot = new InventorySlot
-                    {
-                        ItemId = "metal_boots",
-                        Quantity = 1
-                    }
+                    ItemId = "metal_cuirass",
+                    Quantity = 1
+                },
+                GreavesSlot = new InventorySlot
+                {
+                    ItemId = "metal_greaves",
+                    Quantity = 1
+                },
+                GlovesSlot = new InventorySlot
+                {
+                    ItemId = "metal_gloves",
+                    Quantity = 1
+                },
+                BootsSlot = new InventorySlot
+                {
+                    ItemId = "metal_boots",
+                    Quantity = 1
                 }
             };
 
-            player.Inventory.InventorySlots[0] = new InventorySlot()
-            {
-                ItemId = "bones",
-                Quantity = 13
-            };
-            player.Inventory.InventorySlots[1] = new InventorySlot()
-            {
-                ItemId = "nails",
-                Quantity = 50
-            };
+            inventoryManager.AddItem("bones", 13);
+            inventoryManager.AddItem("nails", 50);
+            inventoryManager.AddItem("leather_cap");
+            inventoryManager.AddItem("leather_chest");
+            inventoryManager.AddItem("metal_helm");
 
             baseMovementSpeed = (float)GameDefines.MAP_TILE_SIZE / 5120;
         }

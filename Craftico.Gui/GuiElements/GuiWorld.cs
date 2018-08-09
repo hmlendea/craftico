@@ -44,7 +44,7 @@ namespace Craftico.Gui.GuiElements
 
         public override void LoadContent()
         {
-            player = game.GetPlayer();
+            player = entities.GetPlayer();
             playerImage = new GuiMob();
             playerImage.AssociateMob(player);
 

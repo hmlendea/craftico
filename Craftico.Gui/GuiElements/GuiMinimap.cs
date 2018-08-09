@@ -116,7 +116,7 @@ namespace Craftico.Gui.GuiElements
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Mob player = game.GetPlayer();
+            Mob player = entities.GetPlayer();
 
             Point2D startLocation = new Point2D(
                 (int)player.Location.X - Size.Width / (2 * ZoomLevel),
@@ -133,7 +133,7 @@ namespace Craftico.Gui.GuiElements
         {
             base.SetChildrenProperties();
 
-            Mob player = game.GetPlayer();
+            Mob player = entities.GetPlayer();
 
             frame.Location = Location;
 

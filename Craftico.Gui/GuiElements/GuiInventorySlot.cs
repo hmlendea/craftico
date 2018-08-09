@@ -11,13 +11,16 @@ namespace Craftico.Gui.GuiElements
         const int SpriteRows = 32;
         const int SpriteColumns = 32;
 
-        const string BlankIcon = "none";
+        // TODO: Find a way around these
+        public const string BlankIcon = "none";
         const string BlankPlaceholder = "placeholder-blank";
 
         GuiImage background;
         GuiImage icon;
         GuiImage placeholderIcon;
         GuiText quantity;
+
+        public int SlotIndex { get; set; }
 
         public string PlaceholderIcon { get; set; }
 

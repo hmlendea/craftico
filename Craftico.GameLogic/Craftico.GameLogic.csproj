@@ -70,6 +70,8 @@
     <Compile Include="PathFinding\Path.cs" />
     <Compile Include="Mapping\WorldObjectLayerMappingExtensions.cs" />
     <Compile Include="Mapping\WorldObjectMappingExtensions.cs" />
+    <Compile Include="GameManagers\InventoryManager.cs" />
+    <Compile Include="GameManagers\IInventoryManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Craftico.DataAccess\Craftico.DataAccess.csproj">

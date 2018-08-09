@@ -1,17 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using NuciXNA.Gui.GuiElements;
+using NuciXNA.Input;
 using NuciXNA.Primitives;
 
 using Craftico.GameLogic.GameManagers;
 using Craftico.Models;
-using Craftico.Settings;
 
 namespace Craftico.Gui.GuiElements
 {
     public class GuiEquipmentPanel : GuiElement
     {
         readonly IEntityManager entities;
+        readonly IInventoryManager inventory;
         readonly IGameManager game;
+
         readonly Mob player;
 
         GuiInventorySlot helmetSlot;
@@ -28,12 +30,14 @@ namespace Craftico.Gui.GuiElements
 
         public GuiEquipmentPanel(
             IEntityManager entities,
+            IInventoryManager inventory,
             IGameManager game)
         {
             this.entities = entities;
+            this.inventory = inventory;
             this.game = game;
 
-            player = game.GetPlayer();
+            player = entities.GetPlayer();
         }
 
         public override void LoadContent()
@@ -85,6 +89,34 @@ namespace Craftico.Gui.GuiElements
             ammoSlot.Location = new Point2D(helmetSlot.ClientRectangle.Right + spacingX, helmetSlot.ClientRectangle.Top);
         }
 
+        protected override void RegisterEvents()
+        {
+            base.RegisterEvents();
+
+            helmetSlot.Clicked += HelmetSlot_Clicked;
+            cuirassSlot.Clicked += CuirassSlot_Clicked;
+            greavesSlot.Clicked += GreavesSlot_Clicked;
+            bootsSlot.Clicked += BootsSlot_Clicked;
+            glovesSlot.Clicked += GlovesSlot_Clicked;
+            leftHandSlot.Clicked += LeftHandSlot_Clicked;
+            rightHandSlot.Clicked += RightHandSlot_Clicked;
+            ammoSlot.Clicked += AmmoSlot_Clicked;
+        }
+
+        protected override void UnregisterEvents()
+        {
+            base.UnregisterEvents();
+
+            helmetSlot.Clicked -= HelmetSlot_Clicked;
+            cuirassSlot.Clicked -= CuirassSlot_Clicked;
+            greavesSlot.Clicked -= GreavesSlot_Clicked;
+            bootsSlot.Clicked -= BootsSlot_Clicked;
+            glovesSlot.Clicked -= GlovesSlot_Clicked;
+            leftHandSlot.Clicked -= LeftHandSlot_Clicked;
+            rightHandSlot.Clicked -= RightHandSlot_Clicked;
+            ammoSlot.Clicked -= AmmoSlot_Clicked;
+        }
+
         void SetItems()
         {
             SetItem(helmetSlot, player.Inventory.HelmetSlot);
@@ -101,6 +133,7 @@ namespace Craftico.Gui.GuiElements
         {
             if (slot == null || slot.IsEmpty)
             {
+                guiSlot.ItemIcon = GuiInventorySlot.BlankIcon;
                 return;
             }
 
@@ -108,6 +141,46 @@ namespace Craftico.Gui.GuiElements
 
             guiSlot.ItemIcon = item.SpriteSheet;
             guiSlot.Quantity = slot.Quantity;
+        }
+
+        void HelmetSlot_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            inventory.Unequip(player.Inventory.HelmetSlot);
+        }
+
+        void CuirassSlot_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            inventory.Unequip(player.Inventory.CuirassSlot);
+        }
+
+        void GreavesSlot_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            inventory.Unequip(player.Inventory.GreavesSlot);
+        }
+
+        void BootsSlot_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            inventory.Unequip(player.Inventory.BootsSlot);
+        }
+
+        void GlovesSlot_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            inventory.Unequip(player.Inventory.GlovesSlot);
+        }
+
+        void LeftHandSlot_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            inventory.Unequip(player.Inventory.LeftHandSlot);
+        }
+
+        void RightHandSlot_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            inventory.Unequip(player.Inventory.RightHandSlot);
+        }
+
+        void AmmoSlot_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            inventory.Unequip(player.Inventory.AmmoSlot);
         }
     }
 }

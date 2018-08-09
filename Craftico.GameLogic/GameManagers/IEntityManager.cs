@@ -50,5 +50,7 @@ namespace Craftico.GameLogic.GameManagers
         WorldObject GetWorldObject(string id);
 
         IEnumerable<WorldObject> GetWorldObjects();
+
+        Mob GetPlayer();
     }
 }

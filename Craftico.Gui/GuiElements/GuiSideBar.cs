@@ -10,6 +10,7 @@ namespace Craftico.Gui.GuiElements
     public class GuiSideBar : GuiElement
     {
         IEntityManager entities;
+        IInventoryManager inventory;
         IGameManager game;
 
         GuiSideBarPanel panel;
@@ -24,24 +25,26 @@ namespace Craftico.Gui.GuiElements
 
         public GuiSideBar(
             IEntityManager entities,
+            IInventoryManager inventory,
             IGameManager game)
         {
             this.entities = entities;
+            this.inventory = inventory;
             this.game = game;
         }
 
         public override void LoadContent()
         {
             panel = new GuiSideBarPanel { Size = new Size2D(240, 262) };
-            skillsPanel = new GuiSkillsPanel(game)
+            skillsPanel = new GuiSkillsPanel(entities, game)
             {
                 Size = new Size2D(190, 262)
             };
-            inventoryPanel = new GuiSideBarInventoryPanel(entities, game)
+            inventoryPanel = new GuiSideBarInventoryPanel(entities, inventory, game)
             {
                 Size = new Size2D(190, 262)
             };
-            equipmentPanel = new GuiEquipmentPanel(entities, game)
+            equipmentPanel = new GuiEquipmentPanel(entities, inventory, game)
             {
                 Size = new Size2D(190, 262)
             };

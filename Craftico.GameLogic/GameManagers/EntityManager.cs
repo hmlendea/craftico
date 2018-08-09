@@ -13,6 +13,8 @@ namespace Craftico.GameLogic.GameManagers
 {
     public class EntityManager : IEntityManager
     {
+        Mob player;
+
         List<Item> items;
         List<Mob> mobs;
         List<Terrain> terrains;
@@ -39,6 +41,8 @@ namespace Craftico.GameLogic.GameManagers
             //mobs = mobRepository.GetAll().ToDomainModels().ToList();
             terrains = terrainRepository.GetAll().ToDomainModels().ToList();
             worldObjects = worldObjectRepository.GetAll().ToDomainModels().ToList();
+
+            player = new Mob();
         }
 
         /// <summary>
@@ -98,5 +102,12 @@ namespace Craftico.GameLogic.GameManagers
 
         public IEnumerable<WorldObject> GetWorldObjects()
         => worldObjects;
+
+        /// <summary>
+        /// Gets the player.
+        /// </summary>
+        /// <returns>The player.</returns>
+        public Mob GetPlayer()
+        => player;
     }
 }

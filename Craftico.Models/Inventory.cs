@@ -1,4 +1,6 @@
-﻿namespace Craftico.Models
+﻿using System.Linq;
+
+namespace Craftico.Models
 {
     public sealed class Inventory
     {
@@ -9,7 +11,7 @@
         public InventorySlot CuirassSlot { get; set; }
 
         public InventorySlot GreavesSlot { get; set; }
-        
+
         public InventorySlot GlovesSlot { get; set; }
 
         public InventorySlot BootsSlot { get; set; }
@@ -21,6 +23,14 @@
         public InventorySlot AmmoSlot { get; set; }
 
         public InventorySlot[] InventorySlots { get; set; }
+
+        public int FreeSlotsCount
+        {
+            get
+            {
+                return InventorySlots.Count(x => x == null || x.IsEmpty);
+            }
+        }
 
         public Inventory(int size)
         {

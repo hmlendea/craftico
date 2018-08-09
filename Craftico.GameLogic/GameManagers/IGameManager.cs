@@ -23,12 +23,6 @@ namespace Craftico.GameLogic.GameManagers
         /// <param name="gameTime">Game time.</param>
         void Update(GameTime gameTime);
 
-        /// <summary>
-        /// Gets the player.
-        /// </summary>
-        /// <returns>The player.</returns>
-        Mob GetPlayer();
-
         void MovePlayer(Point2D destination);
     }
 }

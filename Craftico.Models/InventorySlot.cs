@@ -7,5 +7,11 @@
         public string ItemId { get; set; }
 
         public int Quantity { get; set; }
+
+        public void Empty()
+        {
+            ItemId = null;
+            Quantity = 0;
+        }
     }
 }

@@ -8,13 +8,17 @@ namespace Craftico.Gui.GuiElements
 {
     public class GuiSkillsPanel : GuiElement
     {
-        IGameManager game;
+        readonly IEntityManager entities;
+        readonly IGameManager game;
 
         GuiSkillCard hitpointsCard;
         GuiSkillCard faithCard;
 
-        public GuiSkillsPanel(IGameManager game)
+        public GuiSkillsPanel(
+            IEntityManager entities,
+            IGameManager game)
         {
+            this.entities = entities;
             this.game = game;
         }
 
@@ -42,7 +46,7 @@ namespace Craftico.Gui.GuiElements
                 return;
             }
 
-            Mob player = game.GetPlayer();
+            Mob player = entities.GetPlayer();
 
             hitpointsCard.CurrentLevel = player.Vigour.CurrentLevel;
             hitpointsCard.BaseLevel = player.Vigour.BaseLevel;

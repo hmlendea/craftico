@@ -3,6 +3,13 @@
     public enum ItemType
     {
         Other,
-        Wearable
+        Helmet,
+        Cuirass,
+        Greaves,
+        Boots,
+        Gloves,
+        Weapon,
+        Shield,
+        Ammo
     }
 }

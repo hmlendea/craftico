@@ -1,5 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+
+using Microsoft.Xna.Framework;
 using NuciXNA.Gui.GuiElements;
+using NuciXNA.Input;
 using NuciXNA.Primitives;
 
 using Craftico.GameLogic.GameManagers;
@@ -11,33 +14,40 @@ namespace Craftico.Gui.GuiElements
     public class GuiSideBarInventoryPanel : GuiElement
     {
         readonly IEntityManager entities;
+        readonly IInventoryManager inventory;
         readonly IGameManager game;
+
         readonly Mob player;
 
-        GuiInventorySlot[] itemCards;
+        GuiInventorySlot[] slots;
 
         const int Rows = 7;
         const int Columns = 4;
 
         public GuiSideBarInventoryPanel(
             IEntityManager entities,
+            IInventoryManager inventory,
             IGameManager game)
         {
             this.entities = entities;
+            this.inventory = inventory;
             this.game = game;
 
-            player = game.GetPlayer();
+            player = entities.GetPlayer();
         }
 
         public override void LoadContent()
         {
-            itemCards = new GuiInventorySlot[Rows * Columns];
+            slots = new GuiInventorySlot[Rows * Columns];
 
             for (int i = 0; i < Rows * Columns; i++)
             {
-                itemCards[i] = new GuiInventorySlot();
+                slots[i] = new GuiInventorySlot
+                {
+                    SlotIndex = i
+                };
 
-                AddChild(itemCards[i]);
+                AddChild(slots[i]);
             }
 
             base.LoadContent();
@@ -54,17 +64,37 @@ namespace Craftico.Gui.GuiElements
         {
             base.SetChildrenProperties();
 
-            int spacingX = (Size.Width - Columns * itemCards[0].Size.Width) / (Columns + 1);
-            int spacingY = (Size.Height - Rows * itemCards[0].Size.Height) / (Rows + 1);
+            int spacingX = (Size.Width - Columns * slots[0].Size.Width) / (Columns + 1);
+            int spacingY = (Size.Height - Rows * slots[0].Size.Height) / (Rows + 1);
 
             for (int i = 0; i < Rows * Columns; i++)
             {
                 int x = i % Columns;
                 int y = i / Columns;
 
-                itemCards[i].Location = new Point2D(
-                    spacingX * (x + 1) + itemCards[i].Size.Width * x,
-                    spacingY * (y + 1) + itemCards[i].Size.Height * y);
+                slots[i].Location = new Point2D(
+                    spacingX * (x + 1) + slots[i].Size.Width * x,
+                    spacingY * (y + 1) + slots[i].Size.Height * y);
+            }
+        }
+
+        protected override void RegisterEvents()
+        {
+            base.RegisterEvents();
+
+            foreach (GuiInventorySlot slot in slots)
+            {
+                slot.Clicked += Slot_Clicked;
+            }
+        }
+
+        protected override void UnregisterEvents()
+        {
+            base.UnregisterEvents();
+
+            foreach (GuiInventorySlot slot in slots)
+            {
+                slot.Clicked -= Slot_Clicked;
             }
         }
 
@@ -76,14 +106,40 @@ namespace Craftico.Gui.GuiElements
 
                 if (slot == null || slot.IsEmpty)
                 {
+                    slots[itemSlot].ItemIcon = GuiInventorySlot.BlankIcon;
+                    slots[itemSlot].Quantity = 0;
+
                     continue;
                 }
 
                 Item item = entities.GetItem(slot.ItemId);
 
-                itemCards[itemSlot].ItemIcon = item.SpriteSheet;
-                itemCards[itemSlot].Quantity = slot.Quantity;
+                slots[itemSlot].ItemIcon = item.SpriteSheet;
+                slots[itemSlot].Quantity = slot.Quantity;
             }
+        }
+
+        void Slot_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            GuiInventorySlot clickedSlot = null;
+
+            // TODO: Don't search for it every time - fix the sender object in NuciXNA
+            foreach (GuiInventorySlot slot in slots)
+            {
+                if (slot.DisplayRectangle.Contains(e.Location))
+                {
+                    clickedSlot = slot;
+                    break;
+                }
+            }
+
+            if (clickedSlot == null)
+            {
+                // TODO: Handle this exception properly
+                throw new Exception();
+            }
+
+            inventory.Equip(clickedSlot.SlotIndex);
         }
     }
 }

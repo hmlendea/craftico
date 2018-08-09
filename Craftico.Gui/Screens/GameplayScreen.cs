@@ -15,8 +15,9 @@ namespace Craftico.Gui.Screens
     public class GameplayScreen : Screen
     {
         IEntityManager entities;
-        IGameManager game;
+        IInventoryManager inventory;
         IWorldManager world;
+        IGameManager game;
 
         Camera camera;
         Mob player;
@@ -41,16 +42,18 @@ namespace Craftico.Gui.Screens
         public override void LoadContent()
         {
             entities = new EntityManager();
+            inventory = new InventoryManager(entities);
             world = new WorldManager();
-            game = new GameManager(entities, world);
+            game = new GameManager(entities, inventory, world);
 
             entities.LoadContent();
+            inventory.LoadContent();
             world.LoadContent();
             game.LoadContent();
 
             camera = new Camera();
 
-            player = game.GetPlayer();
+            player = entities.GetPlayer();
 
             worldView = new GuiWorld(entities, world, game);
             worldView.AssociateGameManager(game);
@@ -60,7 +63,7 @@ namespace Craftico.Gui.Screens
             {
                 Size = new Size2D(224, 176)
             };
-            SideBar = new GuiSideBar(entities, game)
+            SideBar = new GuiSideBar(entities, inventory, game)
             {
                 Size = new Size2D(240, 326)
             };
