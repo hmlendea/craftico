@@ -16,14 +16,14 @@ namespace Craftico.Gui.GuiElements
 
         readonly Mob player;
 
-        GuiInventorySlot helmetSlot;
-        GuiInventorySlot cuirassSlot;
-        GuiInventorySlot greavesSlot;
-        GuiInventorySlot glovesSlot;
-        GuiInventorySlot bootsSlot;
-        GuiInventorySlot leftHandSlot;
-        GuiInventorySlot rightHandSlot;
-        GuiInventorySlot ammoSlot;
+        GuiItemSlot helmetSlot;
+        GuiItemSlot cuirassSlot;
+        GuiItemSlot greavesSlot;
+        GuiItemSlot glovesSlot;
+        GuiItemSlot bootsSlot;
+        GuiItemSlot leftHandSlot;
+        GuiItemSlot rightHandSlot;
+        GuiItemSlot ammoSlot;
 
         const int Rows = 4;
         const int Columns = 3;
@@ -42,14 +42,38 @@ namespace Craftico.Gui.GuiElements
 
         public override void LoadContent()
         {
-            helmetSlot = new GuiInventorySlot { PlaceholderIcon = "placeholder-helmet" };
-            cuirassSlot = new GuiInventorySlot { PlaceholderIcon = "placeholder-cuirass" };
-            greavesSlot = new GuiInventorySlot { PlaceholderIcon = "placeholder-greaves" };
-            glovesSlot = new GuiInventorySlot { PlaceholderIcon = "placeholder-gloves" };
-            bootsSlot = new GuiInventorySlot { PlaceholderIcon = "placeholder-boots" };
-            leftHandSlot = new GuiInventorySlot { PlaceholderIcon = "placeholder-weapon" };
-            rightHandSlot = new GuiInventorySlot { PlaceholderIcon = "placeholder-shield" };
-            ammoSlot = new GuiInventorySlot { PlaceholderIcon = "placeholder-ammo" };
+            helmetSlot = new GuiItemSlot(entities)
+            {
+                PlaceholderIcon = "placeholder-helmet"
+            };
+            cuirassSlot = new GuiItemSlot(entities)
+            {
+                PlaceholderIcon = "placeholder-cuirass"
+            };
+            greavesSlot = new GuiItemSlot(entities)
+            {
+                PlaceholderIcon = "placeholder-greaves"
+            };
+            glovesSlot = new GuiItemSlot(entities)
+            {
+                PlaceholderIcon = "placeholder-gloves"
+            };
+            bootsSlot = new GuiItemSlot(entities)
+            {
+                PlaceholderIcon = "placeholder-boots"
+            };
+            leftHandSlot = new GuiItemSlot(entities)
+            {
+                PlaceholderIcon = "placeholder-weapon"
+            };
+            rightHandSlot = new GuiItemSlot(entities)
+            {
+                PlaceholderIcon = "placeholder-shield"
+            };
+            ammoSlot = new GuiItemSlot(entities)
+            {
+                PlaceholderIcon = "placeholder-ammo"
+            };
 
             AddChild(helmetSlot);
             AddChild(cuirassSlot);
@@ -129,17 +153,17 @@ namespace Craftico.Gui.GuiElements
             SetItem(ammoSlot, player.Inventory.AmmoSlot);
         }
 
-        void SetItem(GuiInventorySlot guiSlot, InventorySlot slot)
+        void SetItem(GuiItemSlot guiSlot, InventorySlot slot)
         {
             if (slot == null || slot.IsEmpty)
             {
-                guiSlot.ItemIcon = GuiInventorySlot.BlankIcon;
+                guiSlot.ItemId = string.Empty;
                 return;
             }
 
             Item item = entities.GetItem(slot.ItemId);
 
-            guiSlot.ItemIcon = item.SpriteSheet;
+            guiSlot.ItemId = item.Id;
             guiSlot.Quantity = slot.Quantity;
         }
 

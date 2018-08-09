@@ -19,7 +19,7 @@ namespace Craftico.Gui.GuiElements
 
         readonly Mob player;
 
-        GuiInventorySlot[] slots;
+        GuiItemSlot[] slots;
 
         const int Rows = 7;
         const int Columns = 4;
@@ -38,14 +38,11 @@ namespace Craftico.Gui.GuiElements
 
         public override void LoadContent()
         {
-            slots = new GuiInventorySlot[Rows * Columns];
+            slots = new GuiItemSlot[Rows * Columns];
 
             for (int i = 0; i < Rows * Columns; i++)
             {
-                slots[i] = new GuiInventorySlot
-                {
-                    SlotIndex = i
-                };
+                slots[i] = new GuiItemSlot(entities);
 
                 AddChild(slots[i]);
             }
@@ -82,7 +79,7 @@ namespace Craftico.Gui.GuiElements
         {
             base.RegisterEvents();
 
-            foreach (GuiInventorySlot slot in slots)
+            foreach (GuiItemSlot slot in slots)
             {
                 slot.Clicked += Slot_Clicked;
             }
@@ -92,7 +89,7 @@ namespace Craftico.Gui.GuiElements
         {
             base.UnregisterEvents();
 
-            foreach (GuiInventorySlot slot in slots)
+            foreach (GuiItemSlot slot in slots)
             {
                 slot.Clicked -= Slot_Clicked;
             }
@@ -106,7 +103,7 @@ namespace Craftico.Gui.GuiElements
 
                 if (slot == null || slot.IsEmpty)
                 {
-                    slots[itemSlot].ItemIcon = GuiInventorySlot.BlankIcon;
+                    slots[itemSlot].ItemId = string.Empty;
                     slots[itemSlot].Quantity = 0;
 
                     continue;
@@ -114,32 +111,37 @@ namespace Craftico.Gui.GuiElements
 
                 Item item = entities.GetItem(slot.ItemId);
 
-                slots[itemSlot].ItemIcon = item.SpriteSheet;
+                slots[itemSlot].ItemId = item.Id;
                 slots[itemSlot].Quantity = slot.Quantity;
             }
         }
 
         void Slot_Clicked(object sender, MouseButtonEventArgs e)
         {
-            GuiInventorySlot clickedSlot = null;
+            int slotIndex = -1;
 
             // TODO: Don't search for it every time - fix the sender object in NuciXNA
-            foreach (GuiInventorySlot slot in slots)
+            for (int i = 0; i < player.Inventory.Size; i++)
             {
-                if (slot.DisplayRectangle.Contains(e.Location))
+                if (slots[i].DisplayRectangle.Contains(e.Location))
                 {
-                    clickedSlot = slot;
+                    slotIndex = i;
                     break;
                 }
             }
 
-            if (clickedSlot == null)
+            if (slotIndex == -1)
             {
                 // TODO: Handle this exception properly
                 throw new Exception();
             }
 
-            inventory.Equip(clickedSlot.SlotIndex);
+            Item item = entities.GetItem(slots[slotIndex].ItemId);
+
+            if (item.IsEquipable)
+            {
+                inventory.Equip(slotIndex);
+            }
         }
     }
 }

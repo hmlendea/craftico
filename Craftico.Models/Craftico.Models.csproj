@@ -31,7 +31,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="NuciXNA.Primitives">
-      <HintPath>..\packages\NuciXNA.Primitives.1.2.6764.30556\lib\net45\NuciXNA.Primitives.dll</HintPath>
+      <HintPath>..\packages\NuciXNA.Primitives.1.2.6767.23015\lib\net45\NuciXNA.Primitives.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

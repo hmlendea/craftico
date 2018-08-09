@@ -37,9 +37,6 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.XML" />
-    <Reference Include="NuciXNA.Primitives">
-      <HintPath>..\packages\NuciXNA.Primitives.1.2.6764.30556\lib\net45\NuciXNA.Primitives.dll</HintPath>
-    </Reference>
     <Reference Include="NuciXNA.DataAccess">
       <HintPath>..\packages\NuciXNA.DataAccess.1.1.6764.23276\lib\net45\NuciXNA.DataAccess.dll</HintPath>
     </Reference>
@@ -51,6 +48,9 @@
     </Reference>
     <Reference Include="NuciXNA.Gui">
       <HintPath>..\packages\NuciXNA.Gui.1.8.6766.32319\lib\net45\NuciXNA.Gui.dll</HintPath>
+    </Reference>
+    <Reference Include="NuciXNA.Primitives">
+      <HintPath>..\packages\NuciXNA.Primitives.1.2.6767.23015\lib\net45\NuciXNA.Primitives.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -74,8 +74,9 @@
     <Compile Include="GuiElements\GuiMinimapIndicator.cs" />
     <Compile Include="GuiElements\GuiWorldObject.cs" />
     <Compile Include="GuiElements\GuiSideBarInventoryPanel.cs" />
-    <Compile Include="GuiElements\GuiInventorySlot.cs" />
+    <Compile Include="GuiElements\GuiItemSlot.cs" />
     <Compile Include="GuiElements\GuiEquipmentPanel.cs" />
+    <Compile Include="AnimationEffects\ButtonSpriteSheetEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Craftico.GameLogic\Craftico.GameLogic.csproj">

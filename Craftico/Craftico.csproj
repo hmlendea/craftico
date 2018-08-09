@@ -39,9 +39,6 @@
     <Reference Include="TiledSharp">
       <HintPath>..\packages\TiledSharp.0.15\lib\TiledSharp.dll</HintPath>
     </Reference>
-    <Reference Include="NuciXNA.Primitives">
-      <HintPath>..\packages\NuciXNA.Primitives.1.2.6764.30556\lib\net45\NuciXNA.Primitives.dll</HintPath>
-    </Reference>
     <Reference Include="NuciXNA.DataAccess">
       <HintPath>..\packages\NuciXNA.DataAccess.1.1.6764.23276\lib\net45\NuciXNA.DataAccess.dll</HintPath>
     </Reference>
@@ -53,6 +50,9 @@
     </Reference>
     <Reference Include="NuciXNA.Gui">
       <HintPath>..\packages\NuciXNA.Gui.1.8.6766.32319\lib\net45\NuciXNA.Gui.dll</HintPath>
+    </Reference>
+    <Reference Include="NuciXNA.Primitives">
+      <HintPath>..\packages\NuciXNA.Primitives.1.2.6767.23015\lib\net45\NuciXNA.Primitives.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

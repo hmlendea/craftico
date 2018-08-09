@@ -36,14 +36,14 @@
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="NuciXNA.Primitives">
-      <HintPath>..\packages\NuciXNA.Primitives.1.2.6764.30556\lib\net45\NuciXNA.Primitives.dll</HintPath>
-    </Reference>
     <Reference Include="NuciXNA.DataAccess">
       <HintPath>..\packages\NuciXNA.DataAccess.1.1.6764.23276\lib\net45\NuciXNA.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="NuciXNA.Graphics">
       <HintPath>..\packages\NuciXNA.Graphics.1.4.6766.31710\lib\net45\NuciXNA.Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="NuciXNA.Primitives">
+      <HintPath>..\packages\NuciXNA.Primitives.1.2.6767.23015\lib\net45\NuciXNA.Primitives.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

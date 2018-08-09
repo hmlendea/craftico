@@ -2,35 +2,44 @@
 
 using NuciXNA.Graphics.Drawing;
 using NuciXNA.Gui.GuiElements;
+using NuciXNA.Input;
 using NuciXNA.Primitives;
+
+using Craftico.GameLogic.GameManagers;
+using Craftico.Gui.SpriteEffects;
+using Craftico.Models;
 
 namespace Craftico.Gui.GuiElements
 {
-    public class GuiInventorySlot : GuiElement
+    public class GuiItemSlot : GuiElement
     {
         const int SpriteRows = 32;
         const int SpriteColumns = 32;
 
-        // TODO: Find a way around these
-        public const string BlankIcon = "none";
+        // TODO: Find a way around this
         const string BlankPlaceholder = "placeholder-blank";
+
+        readonly IEntityManager entities;
 
         GuiImage background;
         GuiImage icon;
         GuiImage placeholderIcon;
         GuiText quantity;
 
-        public int SlotIndex { get; set; }
+        Colour highlightColour = new Colour(192, 180, 180);
 
         public string PlaceholderIcon { get; set; }
 
-        public string ItemIcon { get; set; }
+        public string ItemId { get; set; }
+
+        public bool IsEmpty => string.IsNullOrWhiteSpace(ItemId);
 
         public int Quantity { get; set; }
 
-        public GuiInventorySlot()
+        public GuiItemSlot(IEntityManager entities)
         {
-            ItemIcon = BlankIcon;
+            this.entities = entities;
+
             PlaceholderIcon = BlankPlaceholder;
 
             ForegroundColour = Colour.Gold;
@@ -41,7 +50,10 @@ namespace Craftico.Gui.GuiElements
         {
             background = new GuiImage
             {
-                ContentFile = "Interface/Inventory/slot"
+                SourceRectangle = new Rectangle2D(0, 0, 36, 36),
+                ContentFile = "Interface/Inventory/slot",
+                SpriteSheetEffect = new ButtonSpriteSheetEffect(),
+                EffectsActive = true
             };
             icon = new GuiImage
             {
@@ -67,6 +79,8 @@ namespace Craftico.Gui.GuiElements
             AddChild(quantity);
 
             base.LoadContent();
+
+            background.SpriteSheetEffect.Activate();
         }
 
         public override void Update(GameTime gameTime)
@@ -81,7 +95,16 @@ namespace Craftico.Gui.GuiElements
         {
             base.SetChildrenProperties();
 
-            icon.ContentFile = $"Icons/Items/{ItemIcon}";
+            if (IsEmpty)
+            {
+                icon.ContentFile = $"Icons/Items/none";
+            }
+            else
+            {
+                Item item = entities.GetItem(ItemId);
+                icon.ContentFile = $"Icons/Items/{item.SpriteSheet}";
+            }
+
             icon.Location = new Point2D(
                 (Size.Width - icon.Size.Width) / 2,
                 (Size.Height - icon.Size.Height) / 2);
@@ -91,12 +114,12 @@ namespace Craftico.Gui.GuiElements
 
             quantity.Text = Quantity.ToString();
 
-            if (ItemIcon != BlankIcon)
+            if (!IsEmpty)
             {
                 icon.Show();
                 placeholderIcon.Hide();
             }
-            else if (ItemIcon != PlaceholderIcon)
+            else if (PlaceholderIcon != BlankPlaceholder)
             {
                 icon.Hide();
                 placeholderIcon.Show();
@@ -105,6 +128,17 @@ namespace Craftico.Gui.GuiElements
             {
                 icon.Hide();
                 placeholderIcon.Hide();
+            }
+
+            if (IsEmpty)
+            {
+                background.SpriteSheetEffect.Deactivate();
+                background.EffectsActive = false;
+            }
+            else
+            {
+                background.SpriteSheetEffect.Activate();
+                background.EffectsActive = true;
             }
         }
     }
