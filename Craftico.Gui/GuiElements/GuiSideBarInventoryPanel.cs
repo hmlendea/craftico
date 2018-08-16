@@ -17,7 +17,7 @@ namespace Craftico.Gui.GuiElements
         readonly IInventoryManager inventory;
         readonly IGameManager game;
 
-        readonly Mob player;
+        Mob player;
 
         GuiItemSlot[] slots;
 
@@ -32,12 +32,12 @@ namespace Craftico.Gui.GuiElements
             this.entities = entities;
             this.inventory = inventory;
             this.game = game;
-
-            player = entities.GetPlayer();
         }
 
         public override void LoadContent()
         {
+            player = entities.GetPlayer();
+
             slots = new GuiItemSlot[Rows * Columns];
 
             for (int i = 0; i < Rows * Columns; i++)

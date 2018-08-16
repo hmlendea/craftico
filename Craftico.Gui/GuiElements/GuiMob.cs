@@ -4,6 +4,7 @@ using NuciXNA.Graphics.Drawing;
 using NuciXNA.Gui.GuiElements;
 using NuciXNA.Primitives;
 
+using Craftico.GameLogic.GameManagers;
 using Craftico.Gui.MobAnimationEffects;
 using Craftico.Models;
 using Craftico.Settings;
@@ -12,6 +13,8 @@ namespace Craftico.Gui.GuiElements
 {
     public class GuiMob : GuiElement
     {
+        readonly IEntityManager entities;
+
         Mob mob;
 
         TextureSprite body;
@@ -32,13 +35,20 @@ namespace Craftico.Gui.GuiElements
         HumanSpriteSheetEffect leftHandEffect;
         HumanSpriteSheetEffect rightHandEffect;
 
-        public GuiMob()
+        public string MobId { get; }
+
+        public GuiMob(IEntityManager entities, string mobId)
         {
+            this.entities = entities;
+
+            MobId = mobId;
             Size = new Size2D(64, 64);
         }
 
         public override void LoadContent()
         {
+            mob = entities.GetMob(MobId);
+
             bodyEffect = new HumanSpriteSheetEffect();
             helmetEffect = new HumanSpriteSheetEffect();
             cuirassEffect = new HumanSpriteSheetEffect();
@@ -194,11 +204,6 @@ namespace Craftico.Gui.GuiElements
             {
                 helmet.Draw(spriteBatch);
             }
-        }
-
-        public void AssociateMob(Mob mob)
-        {
-            this.mob = mob;
         }
 
         protected override void SetChildrenProperties()

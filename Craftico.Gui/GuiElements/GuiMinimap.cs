@@ -14,9 +14,11 @@ namespace Craftico.Gui.GuiElements
 {
     public class GuiMinimap : GuiElement
     {
-        IEntityManager entities;
-        IWorldManager world;
-        IGameManager game;
+        readonly IEntityManager entities;
+        readonly IWorldManager world;
+        readonly IGameManager game;
+
+        Mob player;
 
         GuiMinimapIndicator healthIndicator;
         GuiMinimapIndicator staminaIndiator;
@@ -102,6 +104,8 @@ namespace Craftico.Gui.GuiElements
             AddChild(staminaIndiator);
             AddChild(manaIndicator);
 
+            player = entities.GetPlayer();
+
             base.LoadContent();
         }
 
@@ -116,8 +120,6 @@ namespace Craftico.Gui.GuiElements
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Mob player = entities.GetPlayer();
-
             Point2D startLocation = new Point2D(
                 (int)player.Location.X - Size.Width / (2 * ZoomLevel),
                 (int)player.Location.Y - Size.Height / (2 * ZoomLevel));
@@ -132,8 +134,6 @@ namespace Craftico.Gui.GuiElements
         protected override void SetChildrenProperties()
         {
             base.SetChildrenProperties();
-
-            Mob player = entities.GetPlayer();
 
             frame.Location = Location;
 

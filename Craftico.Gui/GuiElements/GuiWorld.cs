@@ -17,16 +17,16 @@ namespace Craftico.Gui.GuiElements
 {
     public class GuiWorld : GuiElement
     {
-        IEntityManager entities;
-        IWorldManager world;
-        IGameManager game;
+        readonly IEntityManager entities;
+        readonly IWorldManager world;
+        readonly IGameManager game;
+
         Camera camera;
         Mob player;
 
         Dictionary<string, Sprite> tileSprites;
         Dictionary<string, GuiWorldObject> worldObjects;
-
-        GuiMob playerImage;
+        Dictionary<string, GuiMob> mobs;
 
         public int Rows { get; private set; }
 
@@ -45,16 +45,18 @@ namespace Craftico.Gui.GuiElements
         public override void LoadContent()
         {
             player = entities.GetPlayer();
-            playerImage = new GuiMob();
-            playerImage.AssociateMob(player);
 
             Rows = Size.Height / GameDefines.MAP_TILE_SIZE + 2;
             Columns = Size.Width / GameDefines.MAP_TILE_SIZE + 2;
 
             LoadTileSprites();
             LoadWorldObjects();
+            LoadMobs();
 
-            AddChild(playerImage);
+            foreach (GuiMob mob in mobs.Values)
+            {
+                AddChild(mob);
+            }
 
             base.LoadContent();
         }
@@ -71,8 +73,18 @@ namespace Craftico.Gui.GuiElements
                 worldObjectImage.UnloadContent();
             }
 
+            foreach (GuiMob mob in mobs.Values)
+            {
+                mob.UnloadContent();
+            }
+
             tileSprites.Clear();
+            worldObjects.Clear();
+            mobs.Clear();
+
             tileSprites = null;
+            worldObjects = null;
+            mobs = null;
 
             base.UnloadContent();
         }
@@ -89,6 +101,11 @@ namespace Craftico.Gui.GuiElements
                 worldObjectImage.Update(gameTime);
             }
 
+            foreach (GuiMob mob in mobs.Values)
+            {
+                mob.Update(gameTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -100,11 +117,6 @@ namespace Craftico.Gui.GuiElements
             base.Draw(spriteBatch);
         }
 
-        public void AssociateGameManager(IGameManager game)
-        {
-            this.game = game;
-        }
-
         public void AssociateCamera(Camera camera)
         {
             this.camera = camera;
@@ -114,7 +126,14 @@ namespace Craftico.Gui.GuiElements
         {
             base.SetChildrenProperties();
 
-            playerImage.Location = new Point2D(Size / 2);
+            foreach (GuiMob mobImage in mobs.Values)
+            {
+                Mob mob = entities.GetMob(mobImage.MobId);
+                mobImage.Location = new Point2D(
+                    (int)(mob.Location.X * GameDefines.MAP_TILE_SIZE - camera.Location.X * GameDefines.MAP_TILE_SIZE) - GameDefines.MAP_TILE_SIZE,
+                    (int)(mob.Location.Y * GameDefines.MAP_TILE_SIZE - camera.Location.Y * GameDefines.MAP_TILE_SIZE) - GameDefines.MAP_TILE_SIZE
+                );
+            }
         }
 
         protected override void RegisterEvents()
@@ -188,6 +207,19 @@ namespace Craftico.Gui.GuiElements
                 worldObjectImage.LoadContent();
 
                 worldObjects.Add(worldObject.Id, worldObjectImage);
+            }
+        }
+
+        void LoadMobs()
+        {
+            mobs = new Dictionary<string, GuiMob>();
+
+            foreach (Mob mob in entities.GetMobs())
+            {
+                GuiMob mobImage = new GuiMob(entities, mob.Id);
+                mobImage.LoadContent();
+
+                mobs.Add(mob.Id, mobImage);
             }
         }
 

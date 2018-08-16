@@ -11,6 +11,8 @@ namespace Craftico.Gui.GuiElements
         readonly IEntityManager entities;
         readonly IGameManager game;
 
+        Mob player;
+
         GuiSkillCard hitpointsCard;
         GuiSkillCard faithCard;
 
@@ -30,6 +32,8 @@ namespace Craftico.Gui.GuiElements
             AddChild(hitpointsCard);
             AddChild(faithCard);
 
+            player = entities.GetPlayer();
+
             base.LoadContent();
         }
 
@@ -38,15 +42,12 @@ namespace Craftico.Gui.GuiElements
             base.SetChildrenProperties();
 
             int spacingX = 1;
-            int spacingY = 1;
 
             // TODO: Ugly fix
             if (game == null)
             {
                 return;
             }
-
-            Mob player = entities.GetPlayer();
 
             hitpointsCard.CurrentLevel = player.Vigour.CurrentLevel;
             hitpointsCard.BaseLevel = player.Vigour.BaseLevel;

@@ -14,10 +14,10 @@ namespace Craftico.Gui.Screens
     /// </summary>
     public class GameplayScreen : Screen
     {
-        IEntityManager entities;
-        IInventoryManager inventory;
-        IWorldManager world;
-        IGameManager game;
+        readonly IEntityManager entities;
+        readonly IInventoryManager inventory;
+        readonly IWorldManager world;
+        readonly IGameManager game;
 
         Camera camera;
         Mob player;
@@ -36,15 +36,19 @@ namespace Craftico.Gui.Screens
         /// <value>The minimap.</value>
         public GuiSideBar SideBar { get; set; }
 
-        /// <summary>
-        /// Loads the content.
-        /// </summary>
-        public override void LoadContent()
+        public GameplayScreen()
         {
             entities = new EntityManager();
             inventory = new InventoryManager(entities);
             world = new WorldManager();
             game = new GameManager(entities, inventory, world);
+        }
+
+        /// <summary>
+        /// Loads the content.
+        /// </summary>
+        public override void LoadContent()
+        {
 
             entities.LoadContent();
             inventory.LoadContent();
@@ -56,7 +60,6 @@ namespace Craftico.Gui.Screens
             player = entities.GetPlayer();
 
             worldView = new GuiWorld(entities, world, game);
-            worldView.AssociateGameManager(game);
             worldView.AssociateCamera(camera);
 
             Minimap = new GuiMinimap(entities, world, game)

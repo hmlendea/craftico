@@ -38,6 +38,12 @@ namespace Craftico.GameLogic.GameManagers
         /// <param name="id">Identifier.</param>
         Mob GetMob(string id);
 
+        MobDefinition GetMobDefinition(string id);
+
+        IEnumerable<Mob> GetMobs();
+
+        IEnumerable<MobDefinition> GetMobDefinitions();
+
         /// <summary>
         /// Gets the terrain.
         /// </summary>

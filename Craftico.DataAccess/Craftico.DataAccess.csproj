@@ -46,6 +46,8 @@
     <Compile Include="DataObjects\WorldObjectLayerEntity.cs" />
     <Compile Include="DataObjects\WorldObjectEntity.cs" />
     <Compile Include="Repositories\WorldObjectRepository.cs" />
+    <Compile Include="DataObjects\MobEntity.cs" />
+    <Compile Include="Repositories\MobRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

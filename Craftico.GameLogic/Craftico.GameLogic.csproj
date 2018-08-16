@@ -72,6 +72,8 @@
     <Compile Include="Mapping\WorldObjectMappingExtensions.cs" />
     <Compile Include="GameManagers\InventoryManager.cs" />
     <Compile Include="GameManagers\IInventoryManager.cs" />
+    <Compile Include="Entities\Mob.cs" />
+    <Compile Include="Mapping\MobDefinitionMappings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Craftico.DataAccess\Craftico.DataAccess.csproj">
@@ -90,6 +92,7 @@
   <ItemGroup>
     <Folder Include="Generators\" />
     <Folder Include="PathFinding\" />
+    <Folder Include="Entities\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 
 using Microsoft.Xna.Framework;
+using NuciXNA.Primitives;
 
 using Craftico.DataAccess.Repositories;
 using Craftico.GameLogic.Mapping;
@@ -13,12 +14,13 @@ namespace Craftico.GameLogic.GameManagers
 {
     public class EntityManager : IEntityManager
     {
-        Mob player;
+        string playerId = "player1";
 
         List<Item> items;
-        List<Mob> mobs;
-        List<Terrain> terrains;
-        List<WorldObject> worldObjects;
+        Dictionary<string, Mob> mobs;
+        List<MobDefinition> mobDefinitions;
+        List<Terrain> terrainDefinitions;
+        List<WorldObject> objectDefinitions;
 
         /// <summary>
         /// Loads the entities in memory.
@@ -33,16 +35,29 @@ namespace Craftico.GameLogic.GameManagers
             string worldObjectsPath = Path.Combine(ApplicationPaths.EntitiesDirectory, "worldObjects.xml");
 
             ItemRepository itemRepository = new ItemRepository(itemPath);
-            //MobRepository mobRepository = new MobRepository(mobPath);
+            MobRepository mobRepository = new MobRepository(mobPath);
             TerrainRepository terrainRepository = new TerrainRepository(terrainsPath);
             WorldObjectRepository worldObjectRepository = new WorldObjectRepository(worldObjectsPath);
 
             items = itemRepository.GetAll().ToDomainModels().ToList();
-            //mobs = mobRepository.GetAll().ToDomainModels().ToList();
-            terrains = terrainRepository.GetAll().ToDomainModels().ToList();
-            worldObjects = worldObjectRepository.GetAll().ToDomainModels().ToList();
+            mobDefinitions = mobRepository.GetAll().ToDomainModels().ToList();
+            terrainDefinitions = terrainRepository.GetAll().ToDomainModels().ToList();
+            objectDefinitions = worldObjectRepository.GetAll().ToDomainModels().ToList();
 
-            player = new Mob();
+            mobs = new Dictionary<string, Mob>();
+
+            Mob player = new Mob();
+            player.Id = playerId;
+            player.MobId = "player";
+
+            mobs.Add(player.Id, player);
+
+            mobs.Add("mobtest", new Mob
+            {
+                Id = "mobtest",
+                MobId = "player",
+                Location = new PointF2D(4, 6)
+            });
         }
 
         /// <summary>
@@ -52,8 +67,8 @@ namespace Craftico.GameLogic.GameManagers
         {
             items.Clear();
             mobs.Clear();
-            terrains.Clear();
-            worldObjects.Clear();
+            terrainDefinitions.Clear();
+            objectDefinitions.Clear();
         }
 
         /// <summary>
@@ -79,7 +94,22 @@ namespace Craftico.GameLogic.GameManagers
         /// <returns>The mob.</returns>
         /// <param name="id">Identifier.</param>
         public Mob GetMob(string id)
-        => mobs.FirstOrDefault(x => x.Id == id);
+        => mobs[id];
+
+        public MobDefinition GetMobDefinition(string id)
+        {
+            return mobDefinitions.FirstOrDefault(x => x.Id == id);
+        }
+
+        public IEnumerable<Mob> GetMobs()
+        {
+            return mobs.Values;
+        }
+
+        public IEnumerable<MobDefinition> GetMobDefinitions()
+        {
+            return mobDefinitions;
+        }
 
         /// <summary>
         /// Gets the terrain.
@@ -87,7 +117,7 @@ namespace Craftico.GameLogic.GameManagers
         /// <returns>The terrain.</returns>
         /// <param name="id">Identifier.</param>
         public Terrain GetTerrain(string id)
-        => terrains.FirstOrDefault(x => x.Id == id);
+        => terrainDefinitions.FirstOrDefault(x => x.Id == id);
 
         /// <summary>
         /// Gets the world object.
@@ -95,19 +125,21 @@ namespace Craftico.GameLogic.GameManagers
         /// <returns>The world object.</returns>
         /// <param name="id">Identifier.</param>
         public WorldObject GetWorldObject(string id)
-        => worldObjects.FirstOrDefault(x => x.Id == id);
+        => objectDefinitions.FirstOrDefault(x => x.Id == id);
 
         public IEnumerable<Terrain> GetTerrains()
-        => terrains;
+        => terrainDefinitions;
 
         public IEnumerable<WorldObject> GetWorldObjects()
-        => worldObjects;
+        => objectDefinitions;
 
         /// <summary>
         /// Gets the player.
         /// </summary>
         /// <returns>The player.</returns>
         public Mob GetPlayer()
-        => player;
+        {
+            return GetMob(playerId);
+        }
     }
 }
