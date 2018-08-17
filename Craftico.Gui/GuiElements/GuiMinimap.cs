@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -29,6 +32,31 @@ namespace Craftico.Gui.GuiElements
         TextureSprite mobDot;
         TextureSprite pixel;
         TextureSprite frame;
+
+        public Rectangle2D MinimapArea
+        {
+            get
+            {
+                int minimapSize = 135;
+
+                return new Rectangle2D(
+                    (Size.Width - minimapSize) / 2,
+                    (Size.Height - minimapSize) / 2,
+                    minimapSize,
+                    minimapSize);
+            }
+        }
+
+        public Rectangle2D DisplayedWorldView
+        {
+            get
+            {
+                return new Rectangle2D(
+                    (int)player.Location.X - MinimapArea.Width / 2 / ZoomLevel,
+                    (int)player.Location.Y - MinimapArea.Height / 2 / ZoomLevel,
+                    MinimapArea.Size / ZoomLevel);
+            }
+        }
 
         public bool IsClickable { get; set; }
 
@@ -120,11 +148,7 @@ namespace Craftico.Gui.GuiElements
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Point2D startLocation = new Point2D(
-                (int)player.Location.X - Size.Width / (2 * ZoomLevel),
-                (int)player.Location.Y - Size.Height / (2 * ZoomLevel));
-
-            DrawMinimapTerrain(spriteBatch, startLocation);
+            DrawMinimapTerrain(spriteBatch);
             DrawMinimapEntities(spriteBatch);
             frame.Draw(spriteBatch);
 
@@ -149,17 +173,15 @@ namespace Craftico.Gui.GuiElements
             manaIndicator.Location = new Point2D(Location.X + 10, Location.Y + 72);
         }
 
-        void DrawMinimapTerrain(SpriteBatch spriteBatch, Point2D startLocation)
+        void DrawMinimapTerrain(SpriteBatch spriteBatch)
         {
-            for (int y = 0; y < Size.Height / ZoomLevel; y++)
+            for (int y = 0; y < DisplayedWorldView.Height; y++)
             {
-                for (int x = 0; x < Size.Width / ZoomLevel; x++)
+                for (int x = 0; x < DisplayedWorldView.Width; x++)
                 {
-                    Point2D screenLocation = new Point2D(
-                        Location.X + x * ZoomLevel,
-                        Location.Y + y * ZoomLevel);
+                    Point2D location = new Point2D(x * ZoomLevel, y * ZoomLevel);
 
-                    WorldTile tile = world.GetTile(startLocation.X + x, startLocation.Y + y);
+                    WorldTile tile = world.GetTile(DisplayedWorldView.X + x + 1, DisplayedWorldView.Y + y + 1);
                     Terrain terrain = entities.GetTerrain(tile.TerrainId);
 
                     Colour terrainColour = Colour.Black;
@@ -174,63 +196,54 @@ namespace Craftico.Gui.GuiElements
                         terrainColour = terrain.Colour;
                     }
 
-                    DrawMinimapPixel(spriteBatch, terrainColour, screenLocation);
+                    DrawMinimapPixel(spriteBatch, terrainColour, location);
                 }
             }
         }
 
         void DrawMinimapEntities(SpriteBatch spriteBatch)
         {
-            Point2D location = new Point2D(
-                Location.X + Size.Width / 2,
-                Location.Y + Size.Height / 2);
-
-            DrawMinimapDot(spriteBatch, location, Colour.White);
-        }
-
-        void DrawMinimapTiles(SpriteBatch spriteBatch)
-        {
-            for (int y = 0; y < Size.Height; y++)
+            foreach (Mob mob in entities.GetMobs())
             {
-                for (int x = 0; x < Size.Width; x++)
+                Point2D mobLocation = new Point2D((int)mob.Location.X, (int)mob.Location.Y);
+
+                if (!DisplayedWorldView.Contains(mobLocation))
                 {
-                    Colour tileColour = Colour.Black;
-                    int alpha = tileColour.A - 255 + alphaMask[x, y];
-
-                    pixel.Location = new Point2D(Location.X + x, Location.Y + y);
-                    pixel.Tint = Color.FromNonPremultiplied(tileColour.R, tileColour.G, tileColour.B, alpha).ToColour();
-
-                    pixel.Draw(spriteBatch);
+                    continue;
                 }
+
+                Point2D location = (mobLocation - DisplayedWorldView.Location) * ZoomLevel;
+
+                DrawMinimapDot(spriteBatch, location, Colour.Yellow);
             }
         }
 
-        void DrawMinimapDot(SpriteBatch spriteBatch, Point2D dotLocation, Colour colour)
+        void DrawMinimapDot(SpriteBatch spriteBatch, Point2D location, Colour colour)
         {
-            if (dotLocation.X < ClientRectangle.Left ||
-                dotLocation.Y < ClientRectangle.Top ||
-                dotLocation.X >= ClientRectangle.Right ||
-                dotLocation.Y >= ClientRectangle.Bottom)
-            {
-                return;
-            }
+            Point2D screenLocation = Location + MinimapArea.Location + location + new Point2D(mobDot.SpriteSize / 2);
 
-            mobDot.Tint = colour;
-            mobDot.Location = new Point2D(
-                dotLocation.X - mobDot.SpriteSize.Width / 2,
-                dotLocation.Y - mobDot.SpriteSize.Height / 2);
-
-            mobDot.Draw(spriteBatch);
-        }
-
-        void DrawMinimapPixel(SpriteBatch spriteBatch, Colour colour, Point2D screenLocation)
-        {
             if (!ClientRectangle.Contains(screenLocation))
             {
                 return;
             }
 
-            int alpha = alphaMask[screenLocation.X - Location.X, screenLocation.Y - Location.Y];
+            mobDot.Tint = colour;
+            mobDot.Location = screenLocation;
+
+            mobDot.Draw(spriteBatch);
+        }
+
+        void DrawMinimapPixel(SpriteBatch spriteBatch, Colour colour, Point2D location)
+        {
+            Point2D elementLocation = MinimapArea.Location + location;
+            Point2D screenLocation = Location + elementLocation;
+
+            if (!ClientRectangle.Contains(screenLocation))
+            {
+                return;
+            }
+
+            int alpha = alphaMask[elementLocation.X, elementLocation.Y];
 
             if (alpha == 0)
             {
